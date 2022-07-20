@@ -14,7 +14,7 @@ Put your turn account on the .env file
 
 #### The folders
 
-Front-end files are inside `/src` and the server files are inside `/server` folder
+Front-end files are inside `/src` and the serverWebRtc files are inside `/serverWebRtc` folder
 
 #### Install the dependencies
 

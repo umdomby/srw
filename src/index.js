@@ -2,10 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-
+import './App.css';
+// import registerServiceWorker from './registerServiceWorker';
+import SR from "./SR";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <App/>
+    <div>
+        <App/>
+        <div className="Control">
+            <SR/>
+        </div>
+    </div>
+
 )
-registerServiceWorker();
+// registerServiceWorker();

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Video from './components/video'
-import './App.css';
 import './styles/video.css'
 import { BrowserRouter, Route } from 'react-router-dom';
 import { goToRoomInput } from './components/goToRoomInput';
+import SR from "./SR";
 class App extends Component {
   render() {
     return (
