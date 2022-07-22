@@ -228,7 +228,7 @@ const Index = observer(() => {
 
     return (
          // <div className="App Panel PanelButton">
-            <div >
+            <div >F
             {/*<Container>*/}
                 <Row>
                     {/*<Col className="col-sm-1">*/}
@@ -241,7 +241,7 @@ const Index = observer(() => {
                     {/*</Col>*/}
                     <Col className="col-3">
                         <div style={{transform: 'rotate(-90deg)'}}>
-                            <div style={{width: '55%'}}>
+                            <div>
                                 <input
                                     type="range"
                                     min={-speed}
@@ -267,7 +267,7 @@ const Index = observer(() => {
                     </Col>
                     <Col className="col-4">
                         <div>
-                            <div style={{marginLeft: '10px'}}>{ store.arduinoOnOff !== null ?
+                            <div>{ store.arduinoOnOff !== null ?
                                 store.arduinoOnOff ? 'OFF ' : 'ON '
                                 :
                                 '...'}</div>
@@ -284,12 +284,12 @@ const Index = observer(() => {
 
                         {/*<div className="Joy">*/}
                         {/*    <Demonstration/>*/}
-                        {/*<input style={{width:'20%', backgroundColor:'black'}} type="text" value="" onKeyPress={(e) => handler(e)} />*/}
+                        {/*<input type="text" value="" onKeyPress={(e) => handler(e)} />*/}
                         {/*</div>*/}
                     </Col>
-                    <Col className="col-3 PanelButton">
+                    <Col className="col-3">
                         <div style={{transform: 'rotate(-90deg)'}}>
-                            <div style={{width: '55%'}}>
+                            <div>
                                 <input
                                     type="range"
                                     min={-speed}
