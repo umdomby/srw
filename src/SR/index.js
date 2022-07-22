@@ -228,84 +228,88 @@ const Index = observer(() => {
 
     return (
          // <div className="App Panel PanelButton">
-            <div >F
+            <div>
             {/*<Container>*/}
-                <Row>
-                    {/*<Col className="col-sm-1">*/}
+                <div>
+                    <ConnectWebSocket/>
+                </div>
+                <div className="RSControl">
+                    <Row>
+                        {/*<Col className="col-sm-1">*/}
 
-                    {/*    /!*<div>ON: "Enter" </div>*!/*/}
-                    {/*    /!*<div>OFF: "Escape" </div>*!/*/}
-                    {/*    /!*<div>Тормоз: "Space"</div>*!/*/}
-                    {/*    /!*<div>Разворот или прямая: "Shift"</div>*!/*/}
-                    {/*    /!*<div>Управление: "w  s  a  d"</div>*!/*/}
-                    {/*</Col>*/}
-                    <Col className="col-3">
-                        <div style={{transform: 'rotate(-90deg)'}}>
-                            <div>
-                                <input
-                                    type="range"
-                                    min={-speed}
-                                    max={speed}
-                                    value={store.messageR}
-                                    className="form-range"
-                                    onChange={(event) => {
-                                        //localStorage.setItem('localSpeedStateUD', event.target.value)
-                                        handleChangeMessageR(event.target.value)
-                                    }}
-                                    id="customRange1">
-                                </ input>
+                        {/*    /!*<div>ON: "Enter" </div>*!/*/}
+                        {/*    /!*<div>OFF: "Escape" </div>*!/*/}
+                        {/*    /!*<div>Тормоз: "Space"</div>*!/*/}
+                        {/*    /!*<div>Разворот или прямая: "Shift"</div>*!/*/}
+                        {/*    /!*<div>Управление: "w  s  a  d"</div>*!/*/}
+                        {/*</Col>*/}
+                        <Col className="col-3">
+                            <div style={{transform: 'rotate(-90deg)'}}>
+                                <div>
+                                    <input
+                                        type="range"
+                                        min={-speed}
+                                        max={speed}
+                                        value={store.messageR}
+                                        className="form-range"
+                                        onChange={(event) => {
+                                            //localStorage.setItem('localSpeedStateUD', event.target.value)
+                                            handleChangeMessageR(event.target.value)
+                                        }}
+                                        id="customRange1">
+                                    </ input>
+                                </div>
                             </div>
-                        </div>
-                    </Col>
+                        </Col>
 
-                    <Col className="col-1">
-                        <div>{ store.arduinoFBR !== null ?
-                            store.arduinoFBR ? 'UP ' : 'DOWN '
-                            :
-                            '...'
-                        }{store.messageR}{store.reversal ? ' reverse' : ''}</div>
-                    </Col>
-                    <Col className="col-4">
-                        <div>
-                            <div>{ store.arduinoOnOff !== null ?
-                                store.arduinoOnOff ? 'OFF ' : 'ON '
-                                :
-                                '...'}</div>
-                            <ConnectWebSocket/>
-                        </div>
-                    </Col>
-                    <Col className="col-1">
-                        <div>
-                            { store.arduinoFBL !== null ?
-                                store.arduinoFBL ? 'UP ' : 'DOWN '
+                        <Col className="col-1">
+                            <div>{ store.arduinoFBR !== null ?
+                                store.arduinoFBR ? 'UP ' : 'DOWN '
                                 :
                                 '...'
-                            }{store.messageL} {store.reversal ? ' reverse' : ''}</div>
-
-                        {/*<div className="Joy">*/}
-                        {/*    <Demonstration/>*/}
-                        {/*<input type="text" value="" onKeyPress={(e) => handler(e)} />*/}
-                        {/*</div>*/}
-                    </Col>
-                    <Col className="col-3">
-                        <div style={{transform: 'rotate(-90deg)'}}>
+                            }{store.messageR}{store.reversal ? ' reverse' : ''}</div>
+                        </Col>
+                        <Col className="col-4">
                             <div>
-                                <input
-                                    type="range"
-                                    min={-speed}
-                                    max={speed}
-                                    value={store.messageL}
-                                    className="form-range"
-                                    onChange={(event) => {
-                                        //localStorage.setItem('localSpeedStateUD', event.target.value)
-                                        handleChangeMessageL(event.target.value)
-                                    }}
-                                    id="customRange1">
-                                </ input>
+                                <div>{ store.arduinoOnOff !== null ?
+                                    store.arduinoOnOff ? 'OFF ' : 'ON '
+                                    :
+                                    '...'}</div>
                             </div>
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+                        <Col className="col-1">
+                            <div>
+                                { store.arduinoFBL !== null ?
+                                    store.arduinoFBL ? 'UP ' : 'DOWN '
+                                    :
+                                    '...'
+                                }{store.messageL} {store.reversal ? ' reverse' : ''}</div>
+
+                            {/*<div className="Joy">*/}
+                            {/*    <Demonstration/>*/}
+                            {/*<input type="text" value="" onKeyPress={(e) => handler(e)} />*/}
+                            {/*</div>*/}
+                        </Col>
+                        <Col className="col-3">
+                            <div style={{transform: 'rotate(-90deg)'}}>
+                                <div>
+                                    <input
+                                        type="range"
+                                        min={-speed}
+                                        max={speed}
+                                        value={store.messageL}
+                                        className="form-range"
+                                        onChange={(event) => {
+                                            //localStorage.setItem('localSpeedStateUD', event.target.value)
+                                            handleChangeMessageL(event.target.value)
+                                        }}
+                                        id="customRange1">
+                                    </ input>
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
             {/*</Container>*/}
         </div>
     );

@@ -33,10 +33,11 @@ const ConnectWebSocket = observer(() => {
     }
 
     return (
-        <div>
-                <input type='text'
+        <div className="socketAdd">
+                <input
+                       type='text'
                        disabled={false}
-                       style={{backgroundColor: '#D3D3D3', textAlign: 'center', borderWidth: 1, width: '100%', fontSize: 16, marginTop: 4}}
+                       style={{backgroundColor: '#D3D3D3', textAlign: 'center', borderWidth: 1, fontSize: 10, width:'15em', height:'1.1em'}}
                        value={idSocket}
                        onChange={(event) => {
                            localStorage.setItem('localIdSocket', event.target.value)

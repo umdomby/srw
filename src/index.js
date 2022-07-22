@@ -10,9 +10,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <div>
         <App/>
-        <div className="Control">
-            {/*<SR/>*/}
-        </div>
+        {/*<div className="Control">*/}
+
+            <SR/>
+
     </div>
 
 )

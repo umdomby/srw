@@ -34,14 +34,11 @@
 }
 
 .controls{
+  z-index: 100;
   position:fixed;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  top:25%;
-  left:0px;
-  width:100vw;
-  height:100vh;
+
+  top:85%;
+  left:42%;
 }
 .control-btn{
   position: relative;
