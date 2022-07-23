@@ -14,8 +14,12 @@ class Index {
         this._arduinoFBR = null
         this._reversal = false
         this._arduinoOnOff = null
+        this._rulingControl = ''
         makeAutoObservable(this)
     }
+
+    get rulingControl() {return this._rulingControl;}
+    setRulingControl(value) {this._rulingControl = value;}
 
     get arduinoOnOff() {return this._arduinoOnOff;}
     setArduinoOnOff(value) {this._arduinoOnOff = value;}

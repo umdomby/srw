@@ -53,7 +53,7 @@ const RulingRange = observer(() => {
         <div>
             <div className="RSControl">
                 <Row>
-                    <Col className="col-3">
+                    <Col style={{width:'33%'}}>
                         <div style={{transform: 'rotate(-90deg)'}}>
                             <div>
                                 <input
@@ -70,31 +70,10 @@ const RulingRange = observer(() => {
                             </div>
                         </div>
                     </Col>
+                    <Col style={{width:'33%'}}>
 
-                    <Col className="col-1">
-                        <div>{ store.arduinoFBR !== null ?
-                            store.arduinoFBR ? 'UP ' : 'DOWN '
-                            :
-                            '...'
-                        }{store.messageR}{store.reversal ? ' reverse' : ''}</div>
                     </Col>
-                    <Col className="col-4">
-                        <div>
-                            <div>{ store.arduinoOnOff !== null ?
-                                store.arduinoOnOff ? 'OFF ' : 'ON '
-                                :
-                                '...'}</div>
-                        </div>
-                    </Col>
-                    <Col className="col-1">
-                        <div>
-                            { store.arduinoFBL !== null ?
-                                store.arduinoFBL ? 'UP ' : 'DOWN '
-                                :
-                                '...'
-                            }{store.messageL} {store.reversal ? ' reverse' : ''}</div>
-                    </Col>
-                    <Col className="col-3">
+                    <Col style={{width:'33%'}}>
                         <div style={{transform: 'rotate(-90deg)'}}>
                             <div>
                                 <input

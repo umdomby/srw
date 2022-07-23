@@ -5,16 +5,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RulingRange from "./Components/RulingRange";
 import ConnectWebSocket from "./Socket/ConnectWebSocket";
 import RulingButton from "./Components/RulingButton";
-import DropDownMenuRuling from "./Components/DropDownMenuRuling"
+import DropdownMenuRuling from "./Components/DropdownMenuRuling"
+import store from "./Store"
 
 const Index = observer(() => {
 
     return (
         <div>
             <ConnectWebSocket/>
-            <RulingButton/>
-            <RulingRange/>
-            <DropDownMenuRuling/>
+            { store.rulingControl === 'RulingButton' ? <RulingButton/> : "" }
+            { store.rulingControl === 'RulingRange' ? <RulingRange/> : "" }
+
+            <DropdownMenuRuling/>
         </div>
     );
 });

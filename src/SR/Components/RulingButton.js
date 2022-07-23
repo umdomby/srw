@@ -1,7 +1,6 @@
 import {observer} from "mobx-react-lite";
 import React from "react";
 import '../sr.css'
-import {Col, Row} from "react-bootstrap";
 import store from "../Store"
 import {messageL} from "../Control/messageL";
 import {messageR} from "../Control/messageR";
@@ -195,7 +194,11 @@ const RulingButton = observer(() => {
     useEventListener('keydown', handlerDOWN);
     useEventListener('keyup', handlerUP);
 
-    return ([]);
+    return (
+        <div className="RulingBottom">
+            W S A D {' '}  {'<--'} Q  R{'-->'}
+        </div>
+    );
 });
 
 export default RulingButton;

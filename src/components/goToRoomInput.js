@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import shortId from 'shortid'
-import store from "../SR/Store";
 
 const goToRoom = (history, roomId) => {
   history.push(`/${roomId}`)
