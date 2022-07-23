@@ -9,6 +9,14 @@
     top: 0;
     left: 45%;
 }
+.DropDownMenuRuling {
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 25px;
+    left: 45%;
+}
 .RSControl {
 
         margin: auto;
