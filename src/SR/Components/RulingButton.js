@@ -195,8 +195,26 @@ const RulingButton = observer(() => {
     useEventListener('keyup', handlerUP);
 
     return (
-        <div className="RulingBottom">
-            W S A D {' '}  {'<--'} Q  R{'-->'}
+        <div>
+            <div className="RulingInfo">
+                W S A D {' '}  {'<--'} Q  R{'-->'}
+            </div>
+            <div className="RulingBottomUp">
+                <button type="button" className="btnTransparent">UP</button>
+            </div>
+            <div className="RulingBottomDown">
+                <button type="button" className="btnTransparent">DOWN</button>
+            </div>
+            <div className="RulingBottomStop">
+                <button type="button" className="btnTransparent">STOP</button>
+            </div>
+            <div className="RulingBottomLeft">
+                <button type="button" className="btnTransparent">LEFT</button>
+
+            </div>
+            <div className="RulingBottomRight">
+                <button type="button" className="btnTransparent">RIGHT</button>
+            </div>
         </div>
     );
 });

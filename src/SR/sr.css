@@ -17,7 +17,8 @@
     top: 25px;
     left: 45%;
 }
-.RulingBottom {
+
+.RulingInfo {
     text-shadow: 1px 1px 1px #f1f1f1;
     z-index: 102;
     /*margin: 0 auto;*/
@@ -26,6 +27,70 @@
     top: 65px;
     left: 45.4%;
 }
+
+.btnTransparent {
+    background-color: transparent;
+    border-color: #ccc;
+    height:100px;
+    width:100px;
+    cursor:pointer;
+    text-shadow: 1px 1px 1px #f1f1f1;
+    user-select: none
+}
+
+/*.btnTransparent:hover {*/
+/*    background-color: blue;*/
+/*    color:white;*/
+/*}*/
+
+.RulingBottomUp {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 20%;
+    left: 4%;
+}
+.RulingBottomDown {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 55%;
+    left: 4%;
+}
+
+.RulingBottomLeft {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 55%;
+    left: 65%;
+}
+.RulingBottomRight {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 55%;
+    left: 83%;
+}
+
+.RulingBottomStop {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 20%;
+    left: 83%;
+}
+
 .RSControl {
     margin: auto;
     position: fixed;
@@ -119,7 +184,7 @@
 
 
 input[type=range]  {
-    width: 120%;
+    width: 105%;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
