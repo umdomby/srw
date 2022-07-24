@@ -200,17 +200,73 @@ const RulingButton = observer(() => {
                 W S A D {' '}  {'<--'} Q  R{'-->'}
             </div>
             <div className="RulingBottomUp">
-                <button type="button" className="btnTransparent">UP</button>
+                <button
+                    type="button"
+                    className="btnTransparent"
+                    onClick={()=>{
+                        if(store.messageL < 3){
+                            store.setMessageL(store.messageL + 1)
+                            console.log('UP ' + store.messageL)
+                        }
+                        if(store.messageR < 3){
+                            store.setMessageR(store.messageR + 1)
+                            console.log('UP ' + store.messageR)
+                        }
+                        messageL(store.messageL)
+                        messageR(store.messageR)
+                        if(store.messageL > 0){
+                            FBL(true)
+                        }else if(store.messageL < 0){
+                            FBL(false)
+                        }
+                        if(store.messageR > 0){
+                            FBR(true)
+                        }else if(store.messageR < 0){
+                            FBR(false)
+                        }
+                    }}
+                >UP</button>
             </div>
             <div className="RulingBottomDown">
-                <button type="button" className="btnTransparent">DOWN</button>
+                <button
+                    type="button"
+                    className="btnTransparent"
+                    onClick={()=>{
+                        if(store.messageL > -3){
+                            store.setMessageL(store.messageL - 1)
+                            console.log('DOWN ' + store.messageL)
+                        }
+                        if(store.messageR > -3){
+                            store.setMessageR(store.messageR - 1)
+                            console.log('DOWN ' + store.messageR)
+                        }
+                        messageL(store.messageL)
+                        messageR(store.messageR)
+                        if(store.messageL > 0){
+                            FBL(true)
+                        }else if(store.messageL < 0){
+                            FBL(false)
+                        }
+                        if(store.messageR > 0){
+                            FBR(true)
+                        }else if(store.messageR < 0){
+                            FBR(false)
+                        }
+                    }}
+                >DOWN</button>
             </div>
             <div className="RulingBottomStop">
-                <button type="button" className="btnTransparent">STOP</button>
+                <button
+                    type="button"
+                    className="btnTransparent"
+                    onClick={()=>{
+                        messageL(0)
+                        messageR(0)
+                    }}
+                >STOP</button>
             </div>
             <div className="RulingBottomLeft">
                 <button type="button" className="btnTransparent">LEFT</button>
-
             </div>
             <div className="RulingBottomRight">
                 <button type="button" className="btnTransparent">RIGHT</button>

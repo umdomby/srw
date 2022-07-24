@@ -1,6 +1,7 @@
 import store from "../Store"
 
 export const messageL = (L) => {
+    store.setMessageL(L)
     store.webSocket.send(JSON.stringify({
         id: store.idSocket,
         method: 'messagesL',
