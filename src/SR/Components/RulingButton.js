@@ -107,11 +107,9 @@ const RulingButton = observer(() => {
                 store.setMessageL(store.messageL + 1)
                 messageL(store.messageL)
             }
-
         }
 
         if(String(key) === 'd' || String(key) === 'D' || String(key) === 'в' || String(key) === 'В'){
-
             if(    (store.messageL === 3 && store.messageR === 3)
                 || (store.messageL === 2 && store.messageR === 3)
                 || (store.messageL === 1 && store.messageR === 3)){
@@ -162,7 +160,6 @@ const RulingButton = observer(() => {
             if (store.messageR < 0) {
                 FBR(false)
             }
-
         }
 
         if(String(key) === 'q' || String(key) === 'Q' || String(key) === 'й' || String(key) === 'Й') {
@@ -204,25 +201,19 @@ const RulingButton = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        if(store.messageL < 3){
+                        if (store.messageL < speed) {
                             store.setMessageL(store.messageL + 1)
-                            console.log('UP ' + store.messageL)
+                            messageL(store.messageL)
                         }
-                        if(store.messageR < 3){
+                        if (store.messageR < speed) {
                             store.setMessageR(store.messageR + 1)
-                            console.log('UP ' + store.messageR)
+                            messageR(store.messageR)
                         }
-                        messageL(store.messageL)
-                        messageR(store.messageR)
-                        if(store.messageL > 0){
+                        if (store.messageL > 0) {
                             FBL(true)
-                        }else if(store.messageL < 0){
-                            FBL(false)
                         }
-                        if(store.messageR > 0){
+                        if (store.messageR > 0) {
                             FBR(true)
-                        }else if(store.messageR < 0){
-                            FBR(false)
                         }
                     }}
                 >UP</button>
@@ -232,24 +223,16 @@ const RulingButton = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        if(store.messageL > -3){
+                        if (store.messageL > -speed) {
                             store.setMessageL(store.messageL - 1)
-                            console.log('DOWN ' + store.messageL)
-                        }
-                        if(store.messageR > -3){
                             store.setMessageR(store.messageR - 1)
-                            console.log('DOWN ' + store.messageR)
+                            messageL(store.messageL)
+                            messageR(store.messageR)
                         }
-                        messageL(store.messageL)
-                        messageR(store.messageR)
-                        if(store.messageL > 0){
-                            FBL(true)
-                        }else if(store.messageL < 0){
+                        if (store.messageL < 0) {
                             FBL(false)
                         }
-                        if(store.messageR > 0){
-                            FBR(true)
-                        }else if(store.messageR < 0){
+                        if (store.messageR < 0) {
                             FBR(false)
                         }
                     }}
@@ -266,10 +249,120 @@ const RulingButton = observer(() => {
                 >STOP</button>
             </div>
             <div className="RulingBottomLeft">
-                <button type="button" className="btnTransparent">LEFT</button>
+                <button
+                    type="button"
+                    className="btnTransparent"
+                    onClick={()=>{
+                        if(store.messageL < 0){
+                            FBL(true)
+                            FBR(true)
+                            messageL(1)
+                            messageR(0)
+                        }
+                        else if((store.messageL === 3 && store.messageR === 3)
+                            || (store.messageL === 3 && store.messageR === 2)
+                            || (store.messageL === 3 && store.messageR === 1)){
+                            FBR(true)
+                            store.setMessageR(store.messageR - 1)
+                            messageR(store.messageR)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                        else if (   store.messageL < 3 && store.messageR < 3
+                            && store.messageL >= 0 && store.messageR >= 0) {
+                            FBL(true)
+                            store.setMessageL(store.messageL + 1)
+                            messageL(store.messageL)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                        else if(store.messageR === 3 && store.messageL < 3){
+                            FBL(true)
+                            store.setMessageL(store.messageL + 1)
+                            messageL(store.messageL)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+
+                        //reverce
+                        else if (store.messageR === 0 && store.messageL === 3){
+                            messageR(- 1)
+                            FBL(true)
+                            FBR(false)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                        else if (store.messageR === -1 && store.messageL === 3){
+                            messageR(-2)
+                            FBL(true)
+                            FBR(false)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                        else if (store.messageR === -2 && store.messageL === 3){
+                            messageR(-3)
+                            FBL(true)
+                            FBR(false)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                    }}
+                >LEFT</button>
             </div>
             <div className="RulingBottomRight">
-                <button type="button" className="btnTransparent">RIGHT</button>
+                <button
+                    type="button"
+                    className="btnTransparent"
+                    onClick={()=>{
+                        if(store.messageR < 0){
+                            FBL(true)
+                            FBR(true)
+                            messageL(0)
+                            messageR(1)
+                        }
+                        else if(    (store.messageL === 3 && store.messageR === 3)
+                            || (store.messageL === 2 && store.messageR === 3)
+                            || (store.messageL === 1 && store.messageR === 3)){
+                            FBL(true)
+                            store.setMessageL(store.messageL - 1)
+                            messageL(store.messageL)
+                        }
+                        else if (   store.messageL < 3 && store.messageR < 3
+                            && store.messageL >= 0 && store.messageR >= 0){
+                            FBR(true)
+                            store.setMessageR(store.messageR + 1)
+                            messageR(store.messageR)
+                        }
+                        else if(store.messageL === 3 && store.messageR < 3){
+                            FBR(true)
+                            store.setMessageR(store.messageR + 1)
+                            messageR(store.messageR)
+                        }
+
+                        //reverce
+                        else if (store.messageR === 3 && store.messageL === 0){
+                            messageL(- 1)
+                            FBL(false)
+                            FBR(true)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                        else if (store.messageR === 3 && store.messageL === -1){
+                            messageL(-2)
+                            FBL(false)
+                            FBR(true)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                        else if (store.messageR === 3 && store.messageL === -2){
+                            messageL(-3)
+                            FBL(false)
+                            FBR(true)
+                            console.log('--------------L ' + store.messageL)
+                            console.log('--------------R ' + store.messageR)
+                        }
+                    }}
+                >RIGHT</button>
             </div>
         </div>
     );
