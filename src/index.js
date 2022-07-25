@@ -11,7 +11,6 @@ root.render(
 
     <div>
         <App/>
-        <SR/>
     </div>
 
 )

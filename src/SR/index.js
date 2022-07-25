@@ -21,7 +21,6 @@ const Index = observer(() => {
             {/*{ store.rulingControl === 'Little' ? <Little/> : "" }*/}
             {/*<InfoRuling/>*/}
             <DropdownMenuRuling/>
-            <DropdownMenuModel/>
         </div>
     );
 });

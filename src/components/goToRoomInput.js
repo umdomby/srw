@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import DropdownMenuModel from "../SR/Components/DropdownMenuModel";
 
 const goToRoom = (history, roomId) => {
   history.push(`/r/${roomId}`)
@@ -19,6 +20,7 @@ export function goToRoomInput({history}) {
 
   return (
       <div className="enter-room-container">
+          <DropdownMenuModel/>
             <form>
                   <input
                         type="text"
