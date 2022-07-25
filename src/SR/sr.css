@@ -1,6 +1,11 @@
 /*@media screen and (max-width: 8000px) {*/
 
 /*}*/
+.Page {
+    background: #252839;
+    margin-top:100px;
+    color:white;
+}
 .socketAdd {
     z-index: 102;
     /*margin: 0 auto;*/
@@ -24,7 +29,7 @@
     position: fixed;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
     top: 25px;
-    left: 55%;
+    left: 65%;
 }
 
 

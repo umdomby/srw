@@ -6,6 +6,7 @@ import { goToRoomInput } from './components/goToRoomInput';
 import Little from "./SR/Components/Little";
 import Big from "./SR/Components/Big";
 import DropdownMenuModel from "./SR/Components/DropdownMenuModel";
+import Start from "./SR/Components/Start";
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
           <Switch>
             <React.Fragment>
                <Route path="/" exact component={goToRoomInput}/>
+                <Route path="/start" exact component={Start}/>
                 <Route path="/little" exact component={Little}/>
                 <Route path="/big" exact component={Big}/>
                 <Route path="/r/:roomId" exact component={Video}/>
