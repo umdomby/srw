@@ -19,6 +19,10 @@ const DropdownMenuRuling = observer(() => {
         localStorage.setItem('localRulingControl', 'RulingRange')
         store.setRulingControl('RulingRange')
     }
+    const Scheme = () => {
+        localStorage.setItem('localRulingControl', 'Scheme')
+        store.setRulingControl('Scheme')
+    }
 
     return (
         <div className="DropDownMenuRuling">
@@ -30,6 +34,7 @@ const DropdownMenuRuling = observer(() => {
                 <Dropdown.Menu style={{background:'transparent', textShadow: '1px 1px 1px #f1f1f1'}}>
                     <Dropdown.Item onClick={RulingButton}>RulingButton</Dropdown.Item>
                     <Dropdown.Item onClick={RulingRange}>RulingRange</Dropdown.Item>
+                    <Dropdown.Item onClick={Scheme}>Scheme</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </div>

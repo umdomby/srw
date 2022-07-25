@@ -3,8 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@use-it/event-listener": "^0.1.7",
+    "bootstrap": "5.2.0-beta1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-subdomain": "^1.0.5",
+    "mobx": "^6.6.1",
+    "mobx-react-lite": "^3.4.0",
+    "nodemon": "^2.0.19",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "5.0.1",
@@ -12,16 +21,8 @@
     "simple-peer": "^9.5.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
-
+    "vhost": "^3.0.2",
     "web-vitals": "^1.1.1",
-    "@use-it/event-listener": "^0.1.7",
-    "react-bootstrap": "^2.4.0",
-    "bootstrap": "5.2.0-beta1",
-    "mobx": "^6.6.1",
-    "mobx-react-lite": "^3.4.0",
-
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
     "ws": "^8.8.1"
   },
   "alias": [
@@ -30,7 +31,8 @@
   "scripts": {
     "index": "node server-web-rtc.js & node server-sr.js & node client",
     "indexxx": "concurrently \"node server-web-rtc.js & node client\" \"cd client && node index\"",
-    "server": "node server-web-rtc.js & node server-sr.js",
+    "server": "nodemon server-web-rtc.js & nodemon server-sr.js",
+    "sub": "nodemon server-sub.js",
     "start": "react-scripts --openssl-legacy-provider start",
     "client": "node client.js",
     "https": "HTTPS=true SSL_CRT_FILE='./cert/servicerobotpro/cert.pem' SSL_KEY_FILE='./cert/servicerobotpro/privkey.pem' react-scripts --openssl-legacy-provider start",

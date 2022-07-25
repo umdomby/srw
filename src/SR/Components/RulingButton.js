@@ -89,7 +89,13 @@ const RulingButton = observer(() => {
         }
 
         if(String(key) === 'a' || String(key) === 'A' || String(key) === 'ф' || String(key) === 'Ф'){
-            if((store.messageL === 3 && store.messageR === 3)
+            if(store.messageL < 0){
+                FBL(true)
+                FBR(true)
+                messageL(1)
+                messageR(0)
+            }
+            else if((store.messageL === 3 && store.messageR === 3)
                 || (store.messageL === 3 && store.messageR === 2)
                 || (store.messageL === 3 && store.messageR === 1)){
                 FBR(true)
@@ -107,10 +113,37 @@ const RulingButton = observer(() => {
                 store.setMessageL(store.messageL + 1)
                 messageL(store.messageL)
             }
+            else if (store.messageR === 0 && store.messageL === 3){
+                messageR(- 1)
+                FBL(true)
+                FBR(false)
+                console.log('--------------L ' + store.messageL)
+                console.log('--------------R ' + store.messageR)
+            }
+            else if (store.messageR === -1 && store.messageL === 3){
+                messageR(-2)
+                FBL(true)
+                FBR(false)
+                console.log('--------------L ' + store.messageL)
+                console.log('--------------R ' + store.messageR)
+            }
+            else if (store.messageR === -2 && store.messageL === 3){
+                messageR(-3)
+                FBL(true)
+                FBR(false)
+                console.log('--------------L ' + store.messageL)
+                console.log('--------------R ' + store.messageR)
+            }
         }
 
         if(String(key) === 'd' || String(key) === 'D' || String(key) === 'в' || String(key) === 'В'){
-            if(    (store.messageL === 3 && store.messageR === 3)
+            if(store.messageR < 0){
+                FBL(true)
+                FBR(true)
+                messageL(0)
+                messageR(1)
+            }
+            else if(    (store.messageL === 3 && store.messageR === 3)
                 || (store.messageL === 2 && store.messageR === 3)
                 || (store.messageL === 1 && store.messageR === 3)){
                 FBL(true)
@@ -127,6 +160,28 @@ const RulingButton = observer(() => {
                 FBR(true)
                 store.setMessageR(store.messageR + 1)
                 messageR(store.messageR)
+            }
+            //reverce
+            else if (store.messageR === 3 && store.messageL === 0){
+                messageL(- 1)
+                FBL(false)
+                FBR(true)
+                console.log('--------------L ' + store.messageL)
+                console.log('--------------R ' + store.messageR)
+            }
+            else if (store.messageR === 3 && store.messageL === -1){
+                messageL(-2)
+                FBL(false)
+                FBR(true)
+                console.log('--------------L ' + store.messageL)
+                console.log('--------------R ' + store.messageR)
+            }
+            else if (store.messageR === 3 && store.messageL === -2){
+                messageL(-3)
+                FBL(false)
+                FBR(true)
+                console.log('--------------L ' + store.messageL)
+                console.log('--------------R ' + store.messageR)
             }
         }
 
@@ -193,9 +248,9 @@ const RulingButton = observer(() => {
 
     return (
         <div>
-            <div className="RulingInfo">
-                W S A D {' '}  {'<--'} Q  R{'-->'}
-            </div>
+            {/*<div className="RulingInfo">*/}
+            {/*    W S A D {' '}  {'<--'} Q  R{'-->'}*/}
+            {/*</div>*/}
             <div className="RulingBottomUp">
                 <button
                     type="button"
