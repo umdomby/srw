@@ -8,7 +8,8 @@ import RulingButton from "./Components/RulingButton";
 import DropdownMenuRuling from "./Components/DropdownMenuRuling"
 import InfoRuling from "./Components/InfoRuling";
 import store from "./Store"
-import Scheme from "./Components/Scheme";
+import Little from "./Components/Little";
+import DropdownMenuModel from "./Components/DropdownMenuModel";
 
 const Index = observer(() => {
 
@@ -17,9 +18,10 @@ const Index = observer(() => {
             <ConnectWebSocket/>
             { store.rulingControl === 'RulingButton' ? <RulingButton/> : "" }
             { store.rulingControl === 'RulingRange' ? <RulingRange/> : "" }
-            { store.rulingControl === 'Scheme' ? <Scheme/> : "" }
+            {/*{ store.rulingControl === 'Little' ? <Little/> : "" }*/}
             {/*<InfoRuling/>*/}
             <DropdownMenuRuling/>
+            <DropdownMenuModel/>
         </div>
     );
 });

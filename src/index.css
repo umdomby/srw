@@ -7,8 +7,8 @@ body, html {
 #root{
   height: 100%;
   display: flex;
-  /*justify-content: center;*/
-  /*align-content: center;*/
+  justify-content: center;
+  align-content: center;
   background: #252839;
 }
 .enter-room-container{

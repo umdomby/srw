@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 const goToRoom = (history, roomId) => {
-  history.push(`/${roomId}`)
+  history.push(`/r/${roomId}`)
 }
 
 

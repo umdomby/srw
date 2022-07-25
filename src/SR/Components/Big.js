@@ -3,15 +3,18 @@ import React from "react";
 import store from '../Store'
 import {Col, Row} from "react-bootstrap";
 
-const Scheme = observer(() => {
+const Big = observer(() => {
 
     return(
 
-        <div>
+        <div style={{color:'white'}}>
             12331231
+            dawda
+            adad11
+            313141
         </div>
     )
 
 })
 
-export default Scheme
+export default Big

@@ -15,8 +15,18 @@
     position: fixed;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
     top: 25px;
-    left: 45%;
+    left: 35%;
 }
+
+.DropDownMenuModel {
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 25px;
+    left: 55%;
+}
+
 
 .RulingInfo {
     text-shadow: 1px 1px 1px #f1f1f1;

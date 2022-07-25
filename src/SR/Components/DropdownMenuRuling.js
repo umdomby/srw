@@ -28,13 +28,13 @@ const DropdownMenuRuling = observer(() => {
         <div className="DropDownMenuRuling">
             <Dropdown>
                 <Dropdown.Toggle style={{background:'transparent', textShadow: '1px 1px 1px #f1f1f1'}} id="dropdown-basic">
-                    MENU
+                    RULING
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu style={{background:'transparent', textShadow: '1px 1px 1px #f1f1f1'}}>
-                    <Dropdown.Item onClick={RulingButton}>RulingButton</Dropdown.Item>
-                    <Dropdown.Item onClick={RulingRange}>RulingRange</Dropdown.Item>
-                    <Dropdown.Item onClick={Scheme}>Scheme</Dropdown.Item>
+                    <Dropdown.Item onClick={RulingButton}>Button</Dropdown.Item>
+                    <Dropdown.Item onClick={RulingRange}>Range</Dropdown.Item>
+                    {/*<Dropdown.Item onClick={Little}>Little</Dropdown.Item>*/}
                 </Dropdown.Menu>
             </Dropdown>
         </div>
