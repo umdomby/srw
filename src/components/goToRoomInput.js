@@ -20,7 +20,6 @@ export function goToRoomInput({history}) {
 
   return (
       <div className="enter-room-container">
-          <DropdownMenuModel/>
             <form>
                   <input
                         type="text"

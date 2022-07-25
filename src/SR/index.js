@@ -9,7 +9,6 @@ import DropdownMenuRuling from "./Components/DropdownMenuRuling"
 import InfoRuling from "./Components/InfoRuling";
 import store from "./Store"
 import Little from "./Components/Little";
-import DropdownMenuModel from "./Components/DropdownMenuModel";
 
 const Index = observer(() => {
 

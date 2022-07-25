@@ -5,12 +5,14 @@ import { BrowserRouter, Route, Switch  } from 'react-router-dom';
 import { goToRoomInput } from './components/goToRoomInput';
 import Little from "./SR/Components/Little";
 import Big from "./SR/Components/Big";
+import DropdownMenuModel from "./SR/Components/DropdownMenuModel";
 
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
+          <DropdownMenuModel/>
           <Switch>
             <React.Fragment>
                <Route path="/" exact component={goToRoomInput}/>
