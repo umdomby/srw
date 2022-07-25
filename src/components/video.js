@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import { getDisplayStream } from '../helpers/media-access';
 import {ShareScreenIcon,MicOnIcon,MicOffIcon,CamOnIcon,CamOffIcon} from './Icons';
 import SR from "../SR";
+import DropdownMenuModel from "../SR/Components/DropdownMenuModel";
 
 class Video extends React.Component {
   constructor() {
@@ -149,6 +150,7 @@ class Video extends React.Component {
   render() {
     return (
       <div className='video-wrapper'>
+        <DropdownMenuModel/>
         <SR/>
         <div className='local-video-wrapper'>
           <video
