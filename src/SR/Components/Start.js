@@ -2,6 +2,12 @@ import {observer} from "mobx-react-lite";
 import React from "react";
 import {Col, Image, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import firmware_1234567 from '../Start/firmware_1234567.bin';
+import firmware_2345678 from '../Start/firmware_2345678.bin';
+import firmware_3456789 from '../Start/firmware_3456789.bin';
+import firmware_4567890 from '../Start/firmware_4567890.bin';
+import NFP from '../Start/NFP.zip';
+
 
 const Start = observer(() => {
 
@@ -12,8 +18,10 @@ const Start = observer(() => {
                     <Image style={{ width: '30%', float:'right'}} src={require('../Start/firmware.png')}/>
                 </Col>
                 <Col style={{ width: '60%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
-                    <Link to="../Little/firmware.bin" target="_blank" download>Download firmware .bin</Link><br/>
-                    <Link to="../Little/firmware.zip" target="_blank" download>Download firmware .zip</Link><br/>
+                    <Link to={firmware_1234567}  target="_blank" download="firmware_1234567.bin">Download firmware bin id: 1234567</Link><br/>
+                    <Link to={firmware_2345678} target="_blank" download="firmware_2345678.bin">Download firmware bin id: 2345678</Link><br/>
+                    <Link to={firmware_3456789}  target="_blank" download="firmware_3456789.bin">Download firmware bin id: 3456789</Link><br/>
+                    <Link to={firmware_4567890} target="_blank" download="firmware_4567890.bin">Download firmware bin id: 4567890</Link><br/>
                 </Col>
             </Row>
             <Row style={{margin:'0', marginTop:'3%'}}>
@@ -23,7 +31,7 @@ const Start = observer(() => {
                 <Col style={{ width: '60%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
                     #INSTRUCTION FIRMWARE LINUX<br />
                     <br />
-                    https://nodemcu.readthedocs.io/en/release/flash/ <br />
+                    <a href="https://nodemcu.readthedocs.io/en/release/flash/" target="_blank" rel="noopener noreferrer">https://nodemcu.readthedocs.io/en/release/flash/</a><br />
                     <br />
                     #SEARCH PORT NODEMCUv3<br />
                     'sudo dmesg | grep tty' <br />
@@ -33,8 +41,7 @@ const Start = observer(() => {
                     'sudo apt install python3-pip' <br />
                     'sudo pip install pyserial' <br />
                     'sudo pip install esptool' <br />
-                    'sudo esptool.py --port /dev/ttyUSB1 write_flash -fm dio 0x00000 firmware.bin' <br />
-                    <br />
+                    'sudo esptool.py --port /dev/ttyUSB1 write_flash -fm dio 0x00000 firmware_1234567.bin' <br />
                     ttyUSB"0-1-2-3..." your port<br />
                 </Col>
             </Row>
@@ -47,15 +54,10 @@ const Start = observer(() => {
                 <Col style={{ width: '60%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
                     #INSTRUCTION FIRMWARE WINDOWS<br/>
                     <br />
-                    Nodemcu firmware programmer<br/>
-                    https://ciaobit.com/mcu/esp8266/come-installare-il-firmware-nodemcu-esp8266-con-windows/ <br/>
+                    NODEMCU FIRMWARE PROGRAMMER (NFP)<br/>
+                    <a href="https://github.com/nodemcu/nodemcu-flasher" target="_blank" rel="noopener noreferrer">https://github.com/nodemcu/nodemcu-flasher</a><br />
                     <br/>
-                    Now connect your ESP device to the computer after enabling flash mode<br/>
-                    The COM port number will be displayed in the log tab<br/>
-                    Go to "Config" tab and select the file you had created using cloud service,The address should be 0x00000<br/>
-                    Go to Operation tab and click on Flash button.The MAC address and COM port will be automatically filled and the progress bar starts moving<br/>
-                    If you check the log tab now it'll show you the status of flashing each block<br/>
-                    Once the flash is successfully completed you will get a green tick on bottom left corner<br/>
+                    <Link to={NFP}  target="_blank" download="NFP.zip">Download NODEMCU FIRMWARE PROGRAMMER</Link><br/>
                     <br/>
                 </Col>
             </Row>
