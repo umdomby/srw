@@ -85,7 +85,7 @@ const Start = observer(() => {
                     <br/>
                     <br/>
                     <div style={{width:'50%', margin: '0 auto'}}>
-                        <a href="https://servicerobot.pro">Go to servicerobot.pro Enter id control</a><br />
+                        <Link to="/">Go to servicerobot.pro Enter id control</Link><br />
                     </div>
                     <Image style={{ width: '70%', marginLeft:'15%'}} src={require('../Start/id.png')}/><br/>
                 </Col>
