@@ -5,19 +5,11 @@ import {Col, Image, Row} from "react-bootstrap";
 const Little = observer(() => {
 
     return(
-
         <div className='Page'>
-            <div>
-                Scheme
-            </div>
-            <Image src={require('../Little/little.png')} style={{ width: '100%'}}/>
-            <Row>
-                <Col>
-                </Col>
-                <Col>
-
-                </Col>
-            </Row>
+            <Image src={require('../Little/little.png')} style={{ width: '70%', marginLeft:'15%', marginTop:'100px'}}/>
+            <br/>
+            <br/>
+            <br/>
         </div>
     )
 

@@ -29,11 +29,10 @@ const Start = observer(() => {
                     <Image style={{ width: '30%', float:'right'}} src={require('../Start/nodemcu.png')}/>
                 </Col>
                 <Col style={{ width: '60%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
-                    #INSTRUCTION FIRMWARE LINUX<br />
-                    <br />
+                    #LINUX<br />
                     <a href="https://nodemcu.readthedocs.io/en/release/flash/" target="_blank" rel="noopener noreferrer">https://nodemcu.readthedocs.io/en/release/flash/</a><br />
                     <br />
-                    #SEARCH PORT NODEMCUv3<br />
+                    SEARCH PORT NODEMCUv3<br />
                     'sudo dmesg | grep tty' <br />
                     OR <br />
                     'sudo ls -l /dev/ttyUSB* && ls -l /dev/ttyS*' <br />
@@ -47,20 +46,35 @@ const Start = observer(() => {
             </Row>
             <Row style={{margin:'0', marginTop:'3%'}}>
                 <Col style={{ width: '40%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
-                    <div style={{marginTop:'3%'}}>
-                        <Image style={{ width: '30%', float:'right'}} src={require('../Start/firmware_programmer.png')}/>
+                    <div style={{float:'right'}}>
+                        <Image style={{ width: '50%', float:'right'}} src={require('../Start/windows_frimware_1.png')}/>
+                    </div>
+                    <div style={{marginTop:'1%', float:'right'}}>
+                        <Image style={{ width: '50%', float:'right'}} src={require('../Start/windows_frimware_2.png')}/>
+                    </div>
+                    <div style={{marginTop:'1%', float:'right'}}>
+                        <Image style={{ width: '50%', float:'right'}} src={require('../Start/windows_frimware_3.png')}/>
                     </div>
                 </Col>
                 <Col style={{ width: '60%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
-                    #INSTRUCTION FIRMWARE WINDOWS<br/>
+                    #WINDOWS<br/>
                     <br />
                     NODEMCU FIRMWARE PROGRAMMER (NFP)<br/>
                     <a href="https://github.com/nodemcu/nodemcu-flasher" target="_blank" rel="noopener noreferrer">https://github.com/nodemcu/nodemcu-flasher</a><br />
                     <br/>
-                    <Link to={NFP}  target="_blank" download="NFP.zip">Download NODEMCU FIRMWARE PROGRAMMER</Link><br/>
-                    <br/>
+                    1. <Link to={NFP}  target="_blank" download="NFP.zip">Download NODEMCU FIRMWARE PROGRAMMER</Link><br/>
+                    2. Set Baudrate: 115200, SPI Mode: DOUT<br/>
+                    3. Add BIN file<br/>
+                    4. Press Flash(F)<br/>
+                    5. Restart NODEMCUv3
                 </Col>
             </Row>
+            <Row style={{margin:'0', paddingTop:'3%'}}>
+                <Col style={{ width: '100%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
+                    <Image style={{ width: '70%', marginLeft:'15%'}} src={require('../Little/little.png')}/>
+                </Col>
+            </Row>
+        <br/>
         </div>
     )
 

@@ -28,10 +28,10 @@ const DropdownMenuModel = observer(() => {
                         as={Link} to="/little"
                         onClick={()=>setDropDown('Little')}
                     >Little</Dropdown.Item>
-                    <Dropdown.Item
-                        as={Link} to="/big"
-                        onClick={()=>setDropDown('Big')}
-                    >Big</Dropdown.Item>
+                    {/*<Dropdown.Item*/}
+                    {/*    as={Link} to="/big"*/}
+                    {/*    onClick={()=>setDropDown('Big')}*/}
+                    {/*>Big</Dropdown.Item>*/}
                 </Dropdown.Menu>
             </Dropdown>
         </div>
