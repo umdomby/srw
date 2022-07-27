@@ -149,7 +149,7 @@ class Video extends React.Component {
   render() {
     return (
       <div className='video-wrapper'>
-        <SR/>
+        {/*<SR/>*/}
         <div className='local-video-wrapper'>
           <video
             autoPlay

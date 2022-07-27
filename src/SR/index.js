@@ -17,6 +17,7 @@ const Index = observer(() => {
             <ConnectWebSocket/>
             { store.rulingControl === 'RulingButton' ? <RulingButton/> : "" }
             { store.rulingControl === 'RulingRange' ? <RulingRange/> : "" }
+            { store.rulingControl === 'RulingNull' ? "" : "" }
             {/*{ store.rulingControl === 'Little' ? <Little/> : "" }*/}
             {/*<InfoRuling/>*/}
             <DropdownMenuRuling/>

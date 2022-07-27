@@ -8,7 +8,7 @@ import Big from "./SR/Components/Big";
 import DropdownMenuModel from "./SR/Components/DropdownMenuModel";
 import Start from "./SR/Components/Start";
 import ScrollToTop from "./SR/Components/ScrollToTop";
-
+import SR from "./SR";
 
 class App extends Component {
   render() {
@@ -16,6 +16,7 @@ class App extends Component {
       <BrowserRouter>
           <DropdownMenuModel/>
           <ScrollToTop />
+          <SR/>
           <Switch>
             <React.Fragment>
                <Route path="/" exact component={goToRoomInput}/>

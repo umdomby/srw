@@ -1,9 +1,15 @@
 import {observer} from "mobx-react-lite";
-import React from "react";
+import React, {useEffect} from "react";
 import {Col, Image, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import store from "../Store";
 
 const Little = observer(() => {
+
+        useEffect(()=>{
+                localStorage.setItem('localRulingControl', 'RulingNull')
+                store.setRulingControl('RulingNull')
+        },[])
 
     return(
         <div className='Page'>

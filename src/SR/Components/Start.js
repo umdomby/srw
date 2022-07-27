@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import React from "react";
+import React, {useEffect} from "react";
 import {Col, Image, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import firmware_1234567 from '../Start/firmware_1234567.bin';
@@ -7,9 +7,16 @@ import firmware_2345678 from '../Start/firmware_2345678.bin';
 import firmware_3456789 from '../Start/firmware_3456789.bin';
 import firmware_4567890 from '../Start/firmware_4567890.bin';
 import NFP from '../Start/NFP.zip';
+import store from "../Store";
 
 
 const Start = observer(() => {
+
+
+    useEffect(()=>{
+        localStorage.setItem('localRulingControl', 'RulingNull')
+        store.setRulingControl('RulingNull')
+    },[])
 
     return(
         <div className='Page'>
@@ -74,7 +81,13 @@ const Start = observer(() => {
             </Row>
             <Row style={{margin:'0', paddingTop:'3%'}}>
                 <Col style={{ width: '100%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
-                    <Image style={{ width: '70%', marginLeft:'15%'}} src={require('../Start/scheme.png')}/>
+                    <Image style={{ width: '70%', marginLeft:'15%'}} src={require('../Start/scheme.png')}/><br/>
+                    <br/>
+                    <br/>
+                    <div style={{width:'50%', margin: '0 auto'}}>
+                        <a href="https://servicerobot.pro">Go to servicerobot.pro Enter id control</a><br />
+                    </div>
+                    <Image style={{ width: '70%', marginLeft:'15%'}} src={require('../Start/id.png')}/><br/>
                 </Col>
             </Row>
         <br/>
