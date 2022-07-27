@@ -6,8 +6,11 @@ const Little = observer(() => {
 
     return(
         <div className='Page'>
-            <Image src={require('../Little/little.png')} style={{ width: '70%', marginLeft:'15%', marginTop:'100px'}}/>
+            <Image src={require('../Little/little.png')} style={{ width: '50%', marginLeft:'25%', marginTop:'100px'}}/>
             <br/>
+            <Image src={require('../Little/nodemcu.png')} style={{ width: '50%', marginLeft:'25%', marginTop:'100px'}}/>
+            <br/>
+            <Image src={require('../Little/L298N.png')} style={{ width: '50%', marginLeft:'25%', marginTop:'100px'}}/>
             <br/>
             <br/>
         </div>

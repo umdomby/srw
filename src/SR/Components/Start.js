@@ -22,6 +22,9 @@ const Start = observer(() => {
                     <Link to={firmware_2345678} target="_blank" download="firmware_2345678.bin">Download firmware bin id: 2345678</Link><br/>
                     <Link to={firmware_3456789}  target="_blank" download="firmware_3456789.bin">Download firmware bin id: 3456789</Link><br/>
                     <Link to={firmware_4567890} target="_blank" download="firmware_4567890.bin">Download firmware bin id: 4567890</Link><br/>
+                    Connect WiFi <br/>
+                    SSID: Robolab <br/>
+                    Password: wifi123123123 <br/>
                 </Col>
             </Row>
             <Row style={{margin:'0', marginTop:'3%'}}>
@@ -71,7 +74,7 @@ const Start = observer(() => {
             </Row>
             <Row style={{margin:'0', paddingTop:'3%'}}>
                 <Col style={{ width: '100%', flexGrow: '0', flexShrink: '0',flexBasis: 'auto'}}>
-                    <Image style={{ width: '70%', marginLeft:'15%'}} src={require('../Little/little.png')}/>
+                    <Image style={{ width: '70%', marginLeft:'15%'}} src={require('../Start/scheme.png')}/>
                 </Col>
             </Row>
         <br/>
