@@ -2,10 +2,10 @@
   display: flex;
 }
 #localVideo {
-  position: absolute;
-  height: 80px;
-  left: 0;
-  top: 0;
+  position: fixed;
+  width: 25%;
+  margin-left: 7px;
+  margin-top: 5px;
   /*margin: 5px auto;*/
   /*display: inline-block;*/
   border-radius: 4px;
@@ -65,7 +65,9 @@
   /*  !*width: 100%;*!*/
   /*}*/
   #localVideo {
-    height: 80px;
+    width: 25%;
+    margin-left: 7px;
+    margin-top: 5px;
   }
   #remoteVideo {
     max-width: 100vw;
@@ -83,12 +85,13 @@
     position: absolute;
     left: 0;
     top: 0;
-    margin-left: 0px;
-    margin-top: 0px;
+    margin-left: 7px;
+    margin-top: 5px;
   }
 }
 @media screen and (min-width: 800px) {
   #localVideo {
+    width: 25%;
     margin-left: 7px;
     margin-top: 5px;
   }
