@@ -1,4 +1,7 @@
 import React from "react";
+import store from "../../Store"
+import {messageL} from "../../Control/messageL";
+import {messageR} from "../../Control/messageR";
 
 function GamepadInfo({ buttons, axes }) {
   const {
@@ -25,14 +28,91 @@ function GamepadInfo({ buttons, axes }) {
   const rjHoriz = axes[2];
   const rjVert = axes[3];
 
+  if(lt.pressed === true || rt.pressed === true) {
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesLTRT',
+      messageLT: lt.value,
+      messageRT: rt.value,
+    }))
+    console.log(lt.value)
+    console.log(rt.value)
+  }
+
+  if(b.pressed === true){
+    messageL(0)
+    messageR(0)
+  }
+
+  if(dDown.pressed=== true) {
+    store.setMessageFBL(false)
+    store.setMessageFBR(false)
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBL',
+      messageFBL: false
+    }))
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBR',
+      messageFBR: false
+    }))
+  }
+
+  if(dUp.pressed === true) {
+    store.setMessageFBL(true)
+    store.setMessageFBR(true)
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBL',
+      messageFBL: true
+    }))
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBR',
+      messageFBR: true
+    }))
+  }
+
+  if(dLeft.pressed === true) {
+    store.setMessageFBL(true)
+    store.setMessageFBR(false)
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBL',
+      messageFBL: true
+    }))
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBR',
+      messageFBR: false
+    }))
+  }
+
+  if(dRight.pressed === true) {
+    store.setMessageFBL(false)
+    store.setMessageFBR(true)
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBL',
+      messageFBL: false
+    }))
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBR',
+      messageFBR: true
+    }))
+  }
+
+
   return (
     <div style={{ fontFamily: "monospace", color:'white', paddingTop:'100px' ,width:'30%', margin: '0 auto'}}>
       {/*<p>X: {x && x.pressed && `pressed`}</p>*/}
       {/*<p>Y: {y && y.pressed && `pressed`}</p>*/}
       {/*<p>A: {a && a.pressed && `pressed`}</p>*/}
       {/*<p>B: {b && b.pressed && `pressed`}</p>*/}
-      {/*<p>DPad Up: {dUp && dUp.pressed && `pressed`}</p>*/}
-      {/*<p>DPad Down: {dDown && dDown.pressed && `pressed`}</p>*/}
+      <p>DPad Up: {dUp && dUp.pressed && `pressed`}</p>
+      <p>DPad Down: {dDown && dDown.pressed && `pressed`}</p>
       {/*<p>DPad Left: {dLeft && dLeft.pressed && `pressed`}</p>*/}
       {/*<p>DPad Right: {dRight && dRight.pressed && `pressed`}</p>*/}
       {/*<p>LB: {lb && lb.pressed && `pressed`}</p>*/}
@@ -40,6 +120,7 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>LS: {ls && ls.pressed && `pressed`}</p>*/}
       {/*<p>RS: {rs && rs.pressed && `pressed`}</p>*/}
       <p>LT: {lt && lt.pressed && `pressed, value: ${lt.value}`}</p>
+      {/*{console.log('1111 ' + lt.value)}*/}
       <p>RT: {rt && rt.pressed && `pressed, value: ${rt.value}`}</p>
       {/*<p>menu: {menu && menu.pressed && `pressed`}</p>*/}
       {/*<p>pause: {pause && pause.pressed && `pressed`}</p>*/}

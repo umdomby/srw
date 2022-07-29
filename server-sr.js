@@ -168,8 +168,8 @@ const start = async () => {
 
         const wss = new WebSocketServer({server: httpsServer});
         wss.on('connection', ws => {
-            ws.on('message', msg => {
-                msg = JSON.parse(msg)
+            ws.on('message', msgg => {
+                msg = JSON.parse(msgg)
                 switch (msg.method) {
                     case "connection":
                         console.log('Connected Chrome id ' + msg.id)
@@ -188,71 +188,27 @@ const start = async () => {
                         break;
 
                     case "messagesL":
-                        let mess2 = JSON.stringify({
-                            method: 'messagesL',
-                            messageL: msg.messageL,
-                            messageR: msg.messageR,
-                            accel: msg.accel,
-                            stop: msg.stop,
-                        })
-                        console.log('Chrome messagesL'+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
-                        wssSend(mess2, ws)
-                        wsaSend(mess2, ws)
+                        console.log('Chrome messagesL '+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
                         break;
                     case "messagesR":
-                        let mess3 = JSON.stringify({
-                            method: 'messagesR',
-                            messageR: msg.messageR,
-                            messageL: msg.messageL,
-                            accel: msg.accel,
-                            stop: msg.stop,
-                        })
-                        console.log('Chrome messagesR'+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
-                        wssSend(mess3, ws)
-                        wsaSend(mess3, ws)
+                        console.log('Chrome messagesR '+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
                         break;
                     case "messagesOnOff":
-                        let mess4 = JSON.stringify({
-                            method: 'messagesOnOff',
-                            messageOnOff: msg.messageOnOff,
-                        })
                         console.log('Chrome messageOnOff '+ msg.messageOnOff + ' id ' + msg.id)
-                        wssSend(mess4, ws)
-                        wsaSend(mess4, ws)
                         break;
                     case "messagesStop":
-                        let mess5 = JSON.stringify({
-                            method: 'messagesStop',
-                            messageStop: msg.messageStop,
-                        })
                         console.log('Chrome messageStop '+ 'id ' + msg.id)
-                        wssSend(mess5, ws)
-                        wsaSend(mess5, ws)
                         break;
-
                     case "messagesFBL":
-                        let mess6 = JSON.stringify({
-                            method: 'messagesFBL',
-                            messageFBL: msg.messageFBL,
-                        })
                         console.log('Chrome messageFBL '+ 'id ' + msg.id)
-                        //wssSend(mess6, ws)
-                        wsaSend(mess6, ws)
                         break;
-
                     case "messagesFBR":
-                        let mess7 = JSON.stringify({
-                            method: 'messagesFBR',
-                            messageFBR: msg.messageFBR,
-                        })
                         console.log('Chrome messageFBR '+ 'id ' + msg.id)
-                        //wssSend(mess7, ws)
-                        wsaSend(mess7, ws)
                         break;
-
                     default:
                         //console.log('default')
                 }
+                 wsaSend(msgg, ws)
             })
         })
 

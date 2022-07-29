@@ -28,8 +28,6 @@ const RulingButton = observer(() => {
     }
 
     function Stop(){
-        store.setMessageL(0)
-        store.setMessageR(0)
         messageL(0)
         messageR(0)
     }

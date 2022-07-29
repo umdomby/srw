@@ -15,8 +15,15 @@ class Index {
         this._reversal = false
         this._arduinoOnOff = null
         this._rulingControl = ''
+        // this._joyTriggerLeft = ''
+        // this._joyTriggerRight = ''
         makeAutoObservable(this)
     }
+    // get joyTriggerLeft() {return this._joyTriggerLeft;}
+    // setJoyTriggerLeft(value) {this._joyTriggerLeft = value;}
+    //
+    // get joyTriggerRight() {return this._joyTriggerRight;}
+    // setJoyTriggerRight(value) {this._joyTriggerRight = value;}
 
     get rulingControl() {return this._rulingControl;}
     setRulingControl(value) {this._rulingControl = value;}
