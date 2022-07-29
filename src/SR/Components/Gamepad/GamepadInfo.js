@@ -4,6 +4,7 @@ import {messageL} from "../../Control/messageL";
 import {messageR} from "../../Control/messageR";
 
 function GamepadInfo({ buttons, axes }) {
+
   const {
     x,
     y,
@@ -28,35 +29,48 @@ function GamepadInfo({ buttons, axes }) {
   const rjHoriz = axes[2];
   const rjVert = axes[3];
 
-  if(lt.pressed === true || rt.pressed === true) {
+
+  if(lt.pressed === false){
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesLTRT',
+      messageLT: 0,
+      messageRT: rt.value,
+    }))
+  }
+
+  if(rt.pressed === false){
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messagesLTRT',
       messageLT: lt.value,
-      messageRT: rt.value,
+      messageRT: 0,
     }))
-    console.log(lt.value)
-    console.log(rt.value)
   }
+
+  if(lt.pressed === true || rt.pressed === true) {
+    if (store.messageFBL === true && store.messageFBL === true) {
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messagesLTRT',
+        messageLT: lt.value,
+        messageRT: rt.value,
+      }))
+    }
+    if (store.messageFBL === false && store.messageFBL === false) {
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messagesLTRT',
+        messageLT: rt.value,
+        messageRT: lt.value,
+      }))
+    }
+  }
+
 
   if(b.pressed === true){
     messageL(0)
     messageR(0)
-  }
-
-  if(dDown.pressed=== true) {
-    store.setMessageFBL(false)
-    store.setMessageFBR(false)
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesFBL',
-      messageFBL: false
-    }))
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesFBR',
-      messageFBR: false
-    }))
   }
 
   if(dUp.pressed === true) {
@@ -71,6 +85,21 @@ function GamepadInfo({ buttons, axes }) {
       id: store.idSocket,
       method: 'messagesFBR',
       messageFBR: true
+    }))
+  }
+
+  if(dDown.pressed === true) {
+    store.setMessageFBL(false)
+    store.setMessageFBR(false)
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBL',
+      messageFBL: false
+    }))
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesFBR',
+      messageFBR: false
     }))
   }
 
@@ -111,8 +140,8 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>Y: {y && y.pressed && `pressed`}</p>*/}
       {/*<p>A: {a && a.pressed && `pressed`}</p>*/}
       {/*<p>B: {b && b.pressed && `pressed`}</p>*/}
-      <p>DPad Up: {dUp && dUp.pressed && `pressed`}</p>
-      <p>DPad Down: {dDown && dDown.pressed && `pressed`}</p>
+      {/*<p>DPad Up: {dUp && dUp.pressed && `pressed`}</p>*/}
+      {/*<p>DPad Down: {dDown && dDown.pressed && `pressed`}</p>*/}
       {/*<p>DPad Left: {dLeft && dLeft.pressed && `pressed`}</p>*/}
       {/*<p>DPad Right: {dRight && dRight.pressed && `pressed`}</p>*/}
       {/*<p>LB: {lb && lb.pressed && `pressed`}</p>*/}
@@ -120,7 +149,6 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>LS: {ls && ls.pressed && `pressed`}</p>*/}
       {/*<p>RS: {rs && rs.pressed && `pressed`}</p>*/}
       <p>LT: {lt && lt.pressed && `pressed, value: ${lt.value}`}</p>
-      {/*{console.log('1111 ' + lt.value)}*/}
       <p>RT: {rt && rt.pressed && `pressed, value: ${rt.value}`}</p>
       {/*<p>menu: {menu && menu.pressed && `pressed`}</p>*/}
       {/*<p>pause: {pause && pause.pressed && `pressed`}</p>*/}
