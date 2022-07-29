@@ -35,16 +35,16 @@ const RulingButton = observer(() => {
     }
 
     function handlerUP({ key }) {
-        if(String(key) === 'Shift') {
-            // Stop()
-            // store.setReversal(!store.reversal)
-            // FBL(!store.messageFBL)
-            // FBR(!store.messageFBR)
-            // console.log('messageFBL ' + store.messageFBL)
-            // console.log('messageFBR ' + store.messageFBR)
-        }
+        // if(String(key) === 'Shift') {
+        //     // Stop()
+        //     // store.setReversal(!store.reversal)
+        //     // FBL(!store.messageFBL)
+        //     // FBR(!store.messageFBR)
+        //     // console.log('messageFBL ' + store.messageFBL)
+        //     // console.log('messageFBR ' + store.messageFBR)
+        // }
 
-        if(String(key) === ' ') {
+        if(String(key) === 'Shift') {
             Stop()
             console.log('Space UP')
             store.webSocket.send(JSON.stringify({

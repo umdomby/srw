@@ -9,6 +9,7 @@ import DropdownMenuModel from "./SR/Components/DropdownMenuModel";
 import Start from "./SR/Components/Start";
 import ScrollToTop from "./SR/Components/ScrollToTop";
 import SR from "./SR";
+import Gamepad from "./SR/Components/Gamepad/Gamepad";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           <DropdownMenuModel/>
           <ScrollToTop />
           <SR/>
+          <Gamepad/>
           <Switch>
             <React.Fragment>
                <Route path="/" exact component={goToRoomInput}/>

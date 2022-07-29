@@ -6,7 +6,7 @@ const DropdownMenuRuling = observer(() => {
 
     useEffect(()=>{
         if( localStorage.getItem('localRulingControl') === null || localStorage.getItem('localIdRoom') === undefined) {
-            localStorage.setItem('localRulingControl', '')
+            localStorage.setItem('localRulingControl', 'RulingButton')
         }
         store.setRulingControl(localStorage.getItem('localRulingControl') || '')
     },[store.rulingControl])
