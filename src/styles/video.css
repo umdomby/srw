@@ -25,6 +25,11 @@
   height: 100vh;
   width: 100%;
 }
+.video-wrapper1 {
+  padding-top: 10%;
+  height: 100vh;
+  width: 100%;
+}
 #remoteVideo {
   background: transparent;
   margin: 0 auto;

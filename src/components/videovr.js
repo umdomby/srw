@@ -151,7 +151,7 @@ class Videovr extends React.Component {
   };
   render() {
     return (
-        <div className='video-wrapper'>
+        <div className='video-wrapper1'>
           <div className='local-video-wrapper'>
             <video
                 autoPlay
