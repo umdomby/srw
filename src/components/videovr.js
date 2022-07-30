@@ -6,7 +6,7 @@ import { getDisplayStream } from '../helpers/media-access';
 import {ShareScreenIcon,MicOnIcon,MicOffIcon,CamOnIcon,CamOffIcon} from './Icons';
 import SR from "../SR";
 
-class Video extends React.Component {
+class Videovr extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -56,9 +56,9 @@ class Video extends React.Component {
   getUserMedia(cb) {
     return new Promise((resolve, reject) => {
       navigator.getUserMedia = navigator.getUserMedia =
-        navigator.getUserMedia ||
-        navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia;
+          navigator.getUserMedia ||
+          navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia;
       const op = {
         video: {
           width: { min: 160, ideal: 640, max: 1280 },
@@ -67,13 +67,14 @@ class Video extends React.Component {
         audio: true
       };
       navigator.getUserMedia(
-        op,
-        stream => {
-          this.setState({ streamUrl: stream, localStream: stream });
-          this.localVideo.srcObject = stream;
-          resolve();
-        },
-        () => {}
+          op,
+          stream => {
+            this.setState({ streamUrl: stream, localStream: stream });
+            this.localVideo.srcObject = stream;
+            this.localVideo2.srcObject = stream;
+            resolve();
+          },
+          () => {}
       );
     });
   }
@@ -110,6 +111,7 @@ class Video extends React.Component {
       };
       this.setState({ streamUrl: stream, localStream: stream });
       this.localVideo.srcObject = stream;
+      this.localVideo2.srcObject = stream;
       this.state.peer.addStream(stream);
     });
   }
@@ -117,8 +119,8 @@ class Video extends React.Component {
   enter = roomId => {
     this.setState({ connecting: true });
     const peer = this.videoCall.init(
-      this.state.localStream,
-      this.state.initiator
+        this.state.localStream,
+        this.state.initiator
     );
     this.setState({ peer });
 
@@ -131,6 +133,7 @@ class Video extends React.Component {
     });
     peer.on('stream', stream => {
       this.remoteVideo.srcObject = stream;
+      this.remoteVideo2.srcObject = stream;
       this.setState({ connecting: false, waiting: false });
     });
     peer.on('error', function(err) {
@@ -148,82 +151,96 @@ class Video extends React.Component {
   };
   render() {
     return (
-      <div className='video-wrapper'>
-        <div className='local-video-wrapper'>
+        <div className='video-wrapper'>
+          <div className='local-video-wrapper'>
+            <video
+                autoPlay
+                id='localVideo'
+                muted
+                ref={video => (this.localVideo = video)}
+            />
+            <video
+                autoPlay
+                id='localVideo2'
+                muted
+                ref={video => (this.localVideo2 = video)}
+            />
+          </div>
           <video
-            autoPlay
-            id='localVideo'
-            muted
-            ref={video => (this.localVideo = video)}
+              autoPlay
+              className={`${
+                  this.state.connecting || this.state.waiting ? 'hide' : ''
+              }`}
+              id='remoteVideo1'
+              ref={video => (this.remoteVideo = video)}
           />
-        </div>
-        <video
-          autoPlay
-          className={`${
-            this.state.connecting || this.state.waiting ? 'hide' : ''
-          }`}
-          id='remoteVideo'
-          ref={video => (this.remoteVideo = video)}
-        />
+          <video
+              autoPlay
+              className={`${
+                  this.state.connecting || this.state.waiting ? 'hide' : ''
+              }`}
+              id='remoteVideo2'
+              ref={video => (this.remoteVideo2 = video)}
+          />
 
-        <div className='controls'>
-        <button
-          className='control-btn'
-          onClick={() => {
-            this.getDisplay();
-          }}
-        >
-          <ShareScreenIcon />
-        </button>
-
-
-        <button
-        className='control-btn'
-          onClick={() => {
-            this.setAudioLocal();
-          }}
-        >
-          {
-            this.state.micState?(
-              <MicOnIcon/>
-            ):(
-              <MicOffIcon/>
-            )
-          }
-        </button>
-
-        <button
-        className='control-btn'
-          onClick={() => {
-            this.setVideoLocal();
-          }}
-        >
-          {
-            this.state.camState?(
-              <CamOnIcon/>
-            ):(
-              <CamOffIcon/>
-            )
-          }
-        </button>
-        </div>
+          <div className='controls'>
+            <button
+                className='control-btn'
+                onClick={() => {
+                  this.getDisplay();
+                }}
+            >
+              <ShareScreenIcon />
+            </button>
 
 
+            <button
+                className='control-btn'
+                onClick={() => {
+                  this.setAudioLocal();
+                }}
+            >
+              {
+                this.state.micState?(
+                    <MicOnIcon/>
+                ):(
+                    <MicOffIcon/>
+                )
+              }
+            </button>
 
-        {this.state.connecting && (
-          <div className='status'>
-            <p>Establishing connection...</p>
+            <button
+                className='control-btn'
+                onClick={() => {
+                  this.setVideoLocal();
+                }}
+            >
+              {
+                this.state.camState?(
+                    <CamOnIcon/>
+                ):(
+                    <CamOffIcon/>
+                )
+              }
+            </button>
           </div>
-        )}
-        {this.state.waiting && (
-          <div className='status'>
-            <p>Waiting for someone...</p>
-          </div>
-        )}
-        {this.renderFull()}
-      </div>
+
+
+
+          {this.state.connecting && (
+              <div className='status'>
+                <p>Establishing connection...</p>
+              </div>
+          )}
+          {this.state.waiting && (
+              <div className='status'>
+                <p>Waiting for someone...</p>
+              </div>
+          )}
+          {this.renderFull()}
+        </div>
     );
   }
 }
 
-export default Video;
+export default Videovr;

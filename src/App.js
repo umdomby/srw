@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Video from './components/video'
+import Videovr from './components/videovr'
 import './styles/video.css'
 import { BrowserRouter, Route, Switch  } from 'react-router-dom';
 import { goToRoomInput } from './components/goToRoomInput';
@@ -26,6 +27,7 @@ class App extends Component {
                 <Route path="/little" exact component={Little}/>
                 <Route path="/big" exact component={Big}/>
                 <Route path="/r/:roomId" exact component={Video}/>
+                <Route path="/vr/:roomId" exact component={Videovr}/>
             </React.Fragment>
           </Switch>
       </BrowserRouter>

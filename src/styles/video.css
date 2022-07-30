@@ -3,13 +3,24 @@
 }
 #localVideo {
   position: fixed;
-  width: 25%;
-  margin-left: 7px;
-  margin-top: 5px;
+  width: 15%;
+  /*margin-left: 7px;*/
+  /*margin-top: 5px;*/
   /*margin: 5px auto;*/
   /*display: inline-block;*/
-  border-radius: 4px;
+  /*border-radius: 4px;*/
 }
+#localVideo2 {
+  position: fixed;
+  width: 15%;
+  margin-left: 50%;
+  /*margin-left: 7px;*/
+  /*margin-top: 5px;*/
+  /*margin: 5px auto;*/
+  /*display: inline-block;*/
+  /*border-radius: 4px;*/
+}
+
 .video-wrapper {
   height: 100vh;
   width: 100%;
@@ -19,6 +30,37 @@
   margin: 0 auto;
   display: block;
   max-width: 100vw;
+  height: 100%;
+}
+#remoteVideo1 {
+  width: 50%;
+  /*background: transparent;*/
+  /*margin: 0;*/
+  /*display: flex;*/
+  /*max-width: 50vw;*/
+  /*height: 50%;*/
+}
+#remoteVideo2 {
+  width: 50%;
+  margin: 0 auto;
+  /*background: transparent;*/
+  /*margin: 0 auto;*/
+  /*display: flex;*/
+  /*max-width: 50vw;*/
+  /*height: 50%;*/
+}
+#remoteVideo-vr-1 {
+  background: transparent;
+  margin: 0 auto;
+  display: block;
+  max-width: 50vw;
+  height: 100%;
+}
+#remoteVideo-vr-2 {
+  background: transparent;
+  margin: 50% auto;
+  display: block;
+  max-width: 50vw;
   height: 100%;
 }
 #remoteVideo.hide {
@@ -65,13 +107,14 @@
   /*  !*width: 100%;*!*/
   /*}*/
   #localVideo {
-    width: 25%;
-    margin-left: 7px;
-    margin-top: 5px;
+    width: 15%;
+    /*margin-left: 7px;*/
+    /*margin-top: 5px;*/
   }
   #remoteVideo {
     max-width: 100vw;
     height: 100%;
+
     /*max-height: 100vh;*/
     /*max-width: 100vw;*/
     /*height: 100%;*/
@@ -82,17 +125,17 @@
 }
 @media screen and (orientation: landscape) {
   #localVideo {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin-left: 7px;
-    margin-top: 5px;
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    /*margin-left: 7px;*/
+    /*margin-top: 5px;*/
   }
 }
 @media screen and (min-width: 800px) {
   #localVideo {
-    width: 25%;
-    margin-left: 7px;
-    margin-top: 5px;
+    width: 15%;
+    /*margin-left: 7px;*/
+    /*margin-top: 5px;*/
   }
 }
