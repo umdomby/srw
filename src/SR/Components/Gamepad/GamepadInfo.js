@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useRef} from "react";
 import store from "../../Store"
 import {messageL} from "../../Control/messageL";
 import {messageR} from "../../Control/messageR";
 
 function GamepadInfo({ buttons, axes }) {
+
+  const refLT = useRef(false);
+  const refRT = useRef(false);
 
   const {
     x,
@@ -30,22 +33,24 @@ function GamepadInfo({ buttons, axes }) {
   const rjVert = axes[3];
 
 
-  if(lt.pressed === false){
+  if(lt.pressed === false && refLT.current === true){
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messagesLTRT',
       messageLT: 0,
       messageRT: rt.value,
     }))
+    refLT.current = false
   }
 
-  if(rt.pressed === false){
+  if(rt.pressed === false && refRT.current === true){
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messagesLTRT',
       messageLT: lt.value,
       messageRT: 0,
     }))
+    refRT.current = false
   }
 
   if(lt.pressed === true || rt.pressed === true) {
@@ -65,6 +70,13 @@ function GamepadInfo({ buttons, axes }) {
         messageRT: lt.value,
       }))
     }
+  }
+  if(lt.pressed === true){
+    refLT.current = true
+  }
+
+  if(rt.pressed === true){
+    refRT.current = true
   }
 
 
@@ -148,8 +160,8 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>RB: {rb && rb.pressed && `pressed`}</p>*/}
       {/*<p>LS: {ls && ls.pressed && `pressed`}</p>*/}
       {/*<p>RS: {rs && rs.pressed && `pressed`}</p>*/}
-      <p>LT: {lt && lt.pressed && `pressed, value: ${lt.value}`}</p>
-      <p>RT: {rt && rt.pressed && `pressed, value: ${rt.value}`}</p>
+      {/*<p>LT: {lt && lt.pressed && `pressed, value: ${lt.value}`}</p>*/}
+      {/*<p>RT: {rt && rt.pressed && `pressed, value: ${rt.value}`}</p>*/}
       {/*<p>menu: {menu && menu.pressed && `pressed`}</p>*/}
       {/*<p>pause: {pause && pause.pressed && `pressed`}</p>*/}
       {/*<p>pwr: {pwr && pwr.pressed && `pressed`}</p>*/}

@@ -77,7 +77,7 @@ const Gamepad = () => {
 
     return (
         <div>
-            <p>{gamepadStatusText}</p>
+            {/*<p>{gamepadStatusText}</p>*/}
             {gamepadStatus === CONNECTED && (
                 <GamepadInfo buttons={buttons} axes={axes} />
             )}
