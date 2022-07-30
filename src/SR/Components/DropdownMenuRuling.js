@@ -36,10 +36,10 @@ const DropdownMenuRuling = observer(() => {
         store.setRulingControl('Clean')
         setDropDown('Clean')
     }
-    const Joy = () => {
-        localStorage.setItem('localRulingControl', 'Joy')
-        store.setRulingControl('Joy')
-        setDropDown('Joy')
+    const Gamepad = () => {
+        localStorage.setItem('localRulingControl', 'Gamepad')
+        store.setRulingControl('Gamepad')
+        setDropDown('Gamepad')
     }
 
     return (
@@ -53,7 +53,7 @@ const DropdownMenuRuling = observer(() => {
                     <Dropdown.Item onClick={Clean}>Clean</Dropdown.Item>
                     <Dropdown.Item onClick={RulingButton}>Button</Dropdown.Item>
                     <Dropdown.Item onClick={RulingButtonSmart}>ButtonSmart</Dropdown.Item>
-                    <Dropdown.Item onClick={Joy}>Joy</Dropdown.Item>
+                    <Dropdown.Item onClick={Gamepad}>Gamepad</Dropdown.Item>
                     <Dropdown.Item onClick={RulingRange}>Range</Dropdown.Item>
                     {/*<Dropdown.Item onClick={Little}>Little</Dropdown.Item>*/}
                 </Dropdown.Menu>

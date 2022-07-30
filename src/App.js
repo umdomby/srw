@@ -18,7 +18,7 @@ class App extends Component {
           <DropdownMenuModel/>
           <ScrollToTop />
           <SR/>
-          {/*<Gamepad/>*/}
+          <Gamepad/>
           <Switch>
             <React.Fragment>
                <Route path="/" exact component={goToRoomInput}/>

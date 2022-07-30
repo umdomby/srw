@@ -29,7 +29,7 @@ const Index = observer(() => {
             { store.rulingControl === 'Button' ? <RulingButtonPS/> : "" }
             { store.rulingControl === 'ButtonSmart' ? <RulingButtonSmart/> : "" }
             { store.rulingControl === 'Range' ? <RulingRange/> : "" }
-            { store.rulingControl === 'Joy' ? <Gamepad/> : "" }
+            { store.rulingControl === 'Gamepad' ? <Gamepad/> : "" }
             { store.rulingControl === 'Clean' ? "" : "" }
             {/*{ store.rulingControl === 'Little' ? <Little/> : "" }*/}
             {/*<InfoRuling/>*/}
