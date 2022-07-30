@@ -5,15 +5,18 @@ import store from '../Store'
 const DropdownMenuRuling = observer(() => {
 
     useEffect(()=>{
-        if( localStorage.getItem('localRulingControl') === null || localStorage.getItem('localIdRoom') === undefined) {
-            localStorage.setItem('localRulingControl', 'RulingButton')
+        if( localStorage.getItem('localRulingControl') === null || localStorage.getItem('localRulingControl') === undefined) {
+            localStorage.setItem('localRulingControl', 'RulingButtonPS')
         }
+        // if( localStorage.getItem('localIdRoom') === null || localStorage.getItem('localIdRoom') === undefined) {
+        //     localStorage.setItem('localRulingControl', 'Home')
+        // }
         store.setRulingControl(localStorage.getItem('localRulingControl') || '')
     },[store.rulingControl])
 
     const RulingButton = () => {
-        localStorage.setItem('localRulingControl', 'RulingButton')
-        store.setRulingControl('RulingButton')
+        localStorage.setItem('localRulingControl', 'RulingButtonPS')
+        store.setRulingControl('RulingButtonPS')
     }
     const RulingRange = () => {
         localStorage.setItem('localRulingControl', 'RulingRange')

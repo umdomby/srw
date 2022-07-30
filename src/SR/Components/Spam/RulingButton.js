@@ -78,14 +78,6 @@ const RulingButton = observer(() => {
     function handlerDOWN({ key }) {
         console.log(String(key));
 
-        if(String(key) === ' ') {
-            store.webSocket.send(JSON.stringify({
-                id: store.idSocket,
-                method: 'messagesStop',
-                messageStop: false
-            }))
-        }
-
         if(String(key) === 'a' || String(key) === 'A' || String(key) === 'ф' || String(key) === 'Ф'){
             if(store.messageL < 0){
                 FBL(true)
@@ -241,6 +233,7 @@ const RulingButton = observer(() => {
             }
         }
     }
+    //keypress
     useEventListener('keydown', handlerDOWN);
     useEventListener('keyup', handlerUP);
 

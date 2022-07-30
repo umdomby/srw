@@ -15,17 +15,18 @@ const DropdownMenuModel = observer(() => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu style={{background:'transparent', textShadow: '1px 1px 1px #f1f1f1'}}>
                     <Dropdown.Item
-                        as={Link}
-                        to="/"
+                        // as={Link} to="/"
+                        href="/"
                         onClick={()=>setDropDown('Home')}
                     >Home</Dropdown.Item>
                     <Dropdown.Item
-                        as={Link}
-                        to="/start"
+                        // as={Link} to="/start"
+                        href="/start"
                         onClick={()=>setDropDown('Start')}
                     >Start</Dropdown.Item>
                     <Dropdown.Item
-                        as={Link} to="/little"
+                        href="/start"
+                        // as={Link} to="/little"
                         onClick={()=>setDropDown('Little')}
                     >Little</Dropdown.Item>
                     {/*<Dropdown.Item*/}
