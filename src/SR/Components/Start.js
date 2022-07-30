@@ -14,8 +14,8 @@ const Start = observer(() => {
 
 
     useEffect(()=>{
-        localStorage.setItem('localRulingControl', 'RulingNull')
-        store.setRulingControl('RulingNull')
+        localStorage.setItem('localRulingControl', 'Clean')
+        store.setRulingControl('Clean')
     },[])
 
     return(

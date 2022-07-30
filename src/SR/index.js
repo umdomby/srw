@@ -9,15 +9,17 @@ import DropdownMenuRuling from "./Components/DropdownMenuRuling"
 import InfoRuling from "./Components/InfoRuling";
 import store from "./Store"
 import Little from "./Components/Little";
+import Gamepad from "./Components/Gamepad/Gamepad";
 
 const Index = observer(() => {
 
     return (
         <div>
             <ConnectWebSocket/>
-            { store.rulingControl === 'RulingButtonPS' ? <RulingButtonPS/> : "" }
-            { store.rulingControl === 'RulingRange' ? <RulingRange/> : "" }
-            { store.rulingControl === 'RulingNull' ? "" : "" }
+            { store.rulingControl === 'Button' ? <RulingButtonPS/> : "" }
+            { store.rulingControl === 'Range' ? <RulingRange/> : "" }
+            { store.rulingControl === 'Joy' ? <Gamepad/> : "" }
+            { store.rulingControl === 'Clean' ? "" : "" }
             {/*{ store.rulingControl === 'Little' ? <Little/> : "" }*/}
             {/*<InfoRuling/>*/}
             <DropdownMenuRuling/>

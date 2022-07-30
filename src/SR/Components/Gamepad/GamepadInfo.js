@@ -147,7 +147,8 @@ function GamepadInfo({ buttons, axes }) {
 
 
   return (
-    <div style={{ fontFamily: "monospace", color:'white', paddingTop:'100px' ,width:'30%', margin: '0 auto'}}>
+    <div>
+      {/*<div style={{ fontFamily: "monospace", color:'white', paddingTop:'100px' ,width:'30%', margin: '0 auto'}}>*/}
       {/*<p>X: {x && x.pressed && `pressed`}</p>*/}
       {/*<p>Y: {y && y.pressed && `pressed`}</p>*/}
       {/*<p>A: {a && a.pressed && `pressed`}</p>*/}
