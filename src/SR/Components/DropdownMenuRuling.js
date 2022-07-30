@@ -21,6 +21,11 @@ const DropdownMenuRuling = observer(() => {
         store.setRulingControl('Button')
         setDropDown('Button')
     }
+    const RulingButtonSmart = () => {
+        localStorage.setItem('localRulingControl', 'ButtonSmart')
+        store.setRulingControl('ButtonSmart')
+        setDropDown('ButtonSmart')
+    }
     const RulingRange = () => {
         localStorage.setItem('localRulingControl', 'Range')
         store.setRulingControl('Range')
@@ -47,6 +52,7 @@ const DropdownMenuRuling = observer(() => {
                 <Dropdown.Menu style={{background:'transparent', textShadow: '1px 1px 1px #f1f1f1'}}>
                     <Dropdown.Item onClick={Clean}>Clean</Dropdown.Item>
                     <Dropdown.Item onClick={RulingButton}>Button</Dropdown.Item>
+                    <Dropdown.Item onClick={RulingButtonSmart}>ButtonSmart</Dropdown.Item>
                     <Dropdown.Item onClick={Joy}>Joy</Dropdown.Item>
                     <Dropdown.Item onClick={RulingRange}>Range</Dropdown.Item>
                     {/*<Dropdown.Item onClick={Little}>Little</Dropdown.Item>*/}

@@ -10,13 +10,24 @@ import InfoRuling from "./Components/InfoRuling";
 import store from "./Store"
 import Little from "./Components/Little";
 import Gamepad from "./Components/Gamepad/Gamepad";
+import RulingButtonSmart from "./Components/RulingButtonSmart";
 
 const Index = observer(() => {
+
+    setInterval(() => connectByte(), 1000)
+    const connectByte = () => {
+        store.webSocket.send(JSON.stringify({
+            id: store.idSocket,
+            method: 'messages',
+            connectByte: true
+        }))
+    }
 
     return (
         <div>
             <ConnectWebSocket/>
             { store.rulingControl === 'Button' ? <RulingButtonPS/> : "" }
+            { store.rulingControl === 'ButtonSmart' ? <RulingButtonSmart/> : "" }
             { store.rulingControl === 'Range' ? <RulingRange/> : "" }
             { store.rulingControl === 'Joy' ? <Gamepad/> : "" }
             { store.rulingControl === 'Clean' ? "" : "" }
