@@ -189,26 +189,42 @@ const start = async () => {
 
                     case "messagesL":
                         console.log('Chrome messagesL '+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
+                        wsaSend(msgg, ws)
                         break;
                     case "messagesR":
                         console.log('Chrome messagesR '+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
+                        wsaSend(msgg, ws)
                         break;
                     case "messagesOnOff":
                         console.log('Chrome messageOnOff '+ msg.messageOnOff + ' id ' + msg.id)
+                        wsaSend(msgg, ws)
                         break;
                     case "messagesStop":
                         console.log('Chrome messageStop '+ 'id ' + msg.id)
+                        wsaSend(msgg, ws)
                         break;
                     case "messagesFBL":
                         console.log('Chrome messageFBL '+ 'id ' + msg.id)
+                        wsaSend(msgg, ws)
                         break;
                     case "messagesFBR":
                         console.log('Chrome messageFBR '+ 'id ' + msg.id)
+                        wsaSend(msgg, ws)
+                        break;
+                    case "textSpeak":
+                        console.log('Chrome textSpeak '+ 'text ' + msg.text)
+                        let mess1 = JSON.stringify({
+                            method: 'textSpeak',
+                            text: msg.text,
+                        })
+                        wssSend(mess1 , ws)
                         break;
                     default:
+                        wsaSend(msgg, ws)
+                        break;
                         //console.log('default')
                 }
-                 wsaSend(msgg, ws)
+                 //wsaSend(msgg, ws)
             })
         })
 

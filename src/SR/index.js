@@ -12,6 +12,7 @@ import Little from "./Components/Little";
 import Gamepad from "./Components/Gamepad/Gamepad";
 import RulingButtonSmart from "./Components/RulingButtonSmart";
 import Dictaphone from "./Components/Dictaphone/Dictaphone"
+import TextSpeak from "./Components/TextSpeak";
 
 const Index = observer(() => {
 
@@ -24,6 +25,7 @@ const Index = observer(() => {
             { store.rulingControl === 'Gamepad' ? <Gamepad/> : "" }
             { store.rulingControl === 'Clean' ? "" : "" }
             { store.rulingControl === 'Voice' ? <Dictaphone/> : "" }
+            { store.rulingControl === 'TextSpeak' ? <TextSpeak/> : "" }
 
             {/*<InfoRuling/>*/}
             <DropdownMenuRuling/>

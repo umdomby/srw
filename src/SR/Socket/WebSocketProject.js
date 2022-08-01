@@ -6,9 +6,9 @@ const WebSocketProject = (id) => {
         //     store.webSocket.close()
         // }
 
-        //store.setWebSocket(new WebSocket('wss://servicerobot.pro:4433'))
+        store.setWebSocket(new WebSocket('wss://servicerobot.pro:4433'))
         //store.setWebSocket(new WebSocket('wss://umdom.by:4433'))
-        store.setWebSocket(new WebSocket('wss://localhost:4433'))
+        //store.setWebSocket(new WebSocket('wss://localhost:4433'))
 
 
             store.webSocket.onopen = () => {
@@ -45,9 +45,10 @@ const WebSocketProject = (id) => {
                             console.log('From arduino messageFBL ' + msg.messageFBL)
                             store.setArduinoFBL(msg.messageFBL)
                             break
-                        case "messagesFBR":
-                            console.log('From arduino messageFBR ' + msg.messageFBR)
-                            store.setArduinoFBR(msg.messageFBR)
+                        case "textSpeak":
+                            console.log('From react textSpeak ' + msg.text)
+                            store.setTextSpeak(msg.text)
+                            //store.setArduinoFBR(msg.messageFBR)
                             break
 
                         default:

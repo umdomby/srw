@@ -46,6 +46,11 @@ const DropdownMenuRuling = observer(() => {
         store.setRulingControl('Voice')
         setDropDown('Voice')
     }
+    const TextSpeak = () => {
+        localStorage.setItem('localRulingControl', 'TextSpeak')
+        store.setRulingControl('TextSpeak')
+        setDropDown('TextSpeak')
+    }
 
 
     return (
@@ -54,7 +59,6 @@ const DropdownMenuRuling = observer(() => {
                 <Dropdown.Toggle style={{background:'transparent', textShadow: '1px 1px 1px #f1f1f1'}} id="dropdown-basic">
                     {dropDown}
                 </Dropdown.Toggle>
-
                 <Dropdown.Menu style={{background:'transparent', textShadow: '1px 1px 1px #f1f1f1'}}>
                     <Dropdown.Item onClick={Clean}>Clean</Dropdown.Item>
                     <Dropdown.Item onClick={RulingButton}>Button</Dropdown.Item>
@@ -62,6 +66,7 @@ const DropdownMenuRuling = observer(() => {
                     <Dropdown.Item onClick={Gamepad}>Gamepad</Dropdown.Item>
                     <Dropdown.Item onClick={RulingRange}>Range</Dropdown.Item>
                     <Dropdown.Item onClick={Voice}>Voice</Dropdown.Item>
+                    <Dropdown.Item onClick={TextSpeak}>TextSpeak</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </div>
