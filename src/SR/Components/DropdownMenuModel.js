@@ -25,7 +25,7 @@ const DropdownMenuModel = observer(() => {
                         onClick={()=>setDropDown('Start')}
                     >Start</Dropdown.Item>
                     <Dropdown.Item
-                        href="/start"
+                        href="/little"
                         // as={Link} to="/little"
                         onClick={()=>setDropDown('Little')}
                     >Little</Dropdown.Item>

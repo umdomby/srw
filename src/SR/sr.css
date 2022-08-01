@@ -7,6 +7,12 @@
     flexShrink: 0;
     flexBasis: auto;
 }
+.Dictaphone {
+    position:absolute;
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-left: 45%;
+}
 .Page {
     /*margin-top:100px;*/
     color:white;

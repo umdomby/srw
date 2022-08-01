@@ -11,17 +11,9 @@ import store from "./Store"
 import Little from "./Components/Little";
 import Gamepad from "./Components/Gamepad/Gamepad";
 import RulingButtonSmart from "./Components/RulingButtonSmart";
+import Dictaphone from "./Components/Dictaphone/Dictaphone"
 
 const Index = observer(() => {
-
-    setInterval(() => connectByte(), 1000)
-    const connectByte = () => {
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'messages',
-            connectByte: true
-        }))
-    }
 
     return (
         <div>
@@ -31,7 +23,8 @@ const Index = observer(() => {
             { store.rulingControl === 'Range' ? <RulingRange/> : "" }
             { store.rulingControl === 'Gamepad' ? <Gamepad/> : "" }
             { store.rulingControl === 'Clean' ? "" : "" }
-            {/*{ store.rulingControl === 'Little' ? <Little/> : "" }*/}
+            { store.rulingControl === 'Voice' ? <Dictaphone/> : "" }
+
             {/*<InfoRuling/>*/}
             <DropdownMenuRuling/>
         </div>

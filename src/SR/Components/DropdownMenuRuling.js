@@ -41,6 +41,12 @@ const DropdownMenuRuling = observer(() => {
         store.setRulingControl('Gamepad')
         setDropDown('Gamepad')
     }
+    const Voice = () => {
+        localStorage.setItem('localRulingControl', 'Voice')
+        store.setRulingControl('Voice')
+        setDropDown('Voice')
+    }
+
 
     return (
         <div className="DropDownMenuRuling">
@@ -55,7 +61,7 @@ const DropdownMenuRuling = observer(() => {
                     <Dropdown.Item onClick={RulingButtonSmart}>ButtonSmart</Dropdown.Item>
                     <Dropdown.Item onClick={Gamepad}>Gamepad</Dropdown.Item>
                     <Dropdown.Item onClick={RulingRange}>Range</Dropdown.Item>
-                    {/*<Dropdown.Item onClick={Little}>Little</Dropdown.Item>*/}
+                    <Dropdown.Item onClick={Voice}>Voice</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </div>
