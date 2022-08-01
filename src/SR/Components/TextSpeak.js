@@ -24,7 +24,7 @@ const TextSpeak = observer(() => {
     return (
         <div className="Dictaphone">
           <textarea
-              style={{height:'150px'}}
+              style={{height:'50px'}}
               value={value}
               onChange={(event) => setValue(event.target.value)}
               onKeyPress={(event) => event.key === "Enter" && handleSubmit(event)}
