@@ -6,18 +6,19 @@ import {messageL} from "../../Control/messageL";
 import {messageR} from "../../Control/messageR";
 
 
-
 const Dictaphone = () => {
 
     const [languages, setLanguages] = useState('ru-RU')
 
     useEffect(() => {
-        SpeechRecognition.startListening({continuous: true, language: languages});
+        //SpeechRecognition.startListening({continuous: true, language: languages});
+        setTimeout(()=> SpeechRecognition.startListening({continuous: true, language: languages}), 2000)
+        return ()=> SpeechRecognition.stopListening();
     }, []);
 
-    useEffect(() => {
-        SpeechRecognition.startListening({continuous: true, language: languages});
-    }, [languages]);
+    // useEffect(() => {
+    //     SpeechRecognition.startListening({continuous: true, language: languages});
+    // }, [languages]);
 
     const {
         transcript,
@@ -110,7 +111,7 @@ const Dictaphone = () => {
             <div>
                 <button onClick={startListening}>Start</button>
                 <button onClick={stopListening}>Stop</button>
-            <br/>
+                <br/>
                 <div style={{color:'white'}}>
                     {transcript}
                 </div>

@@ -27,19 +27,21 @@ export const russian = (text, language) => {
         // if (text.includes("вики") || text.includes("микки") || text.includes("витя")) {
         //     return "да, Сергей."
         // }
-        if (text.includes("перед") || text.includes("перёд")) {
+        if (text.includes("перед") || text.includes("перёд") || text.includes("вперёд")) {
             return "вперёд"
         }
         else if (text.includes("назад")) {
             return "назад"
         }
-        else if (text.includes("лево") || text.includes("лева") || text.includes("лего") || text.includes("лёва")) {
+        else if (text.includes("лево") || text.includes("влево") || text.includes("лева") || text.includes("лего")
+            || text.includes("лёва")) {
             return "влево"
         }
-        else if (text.includes("права") || text.includes("право") || text.includes("справо") || text.includes("справа") || text.includes("трава")) {
+        else if (text.includes("права") || text.includes("вправо") || text.includes("право") || text.includes("справо")
+            || text.includes("справа") || text.includes("трава")) {
             return "вправа"
         }
-        else if (text.includes("стоп") || text.includes("стоп")) {
+        else if (text.includes("стоп") || text.includes("стоп") || text.includes("топ")) {
             return "стоп"
         }
         else return ''
