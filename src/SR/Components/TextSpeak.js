@@ -249,14 +249,11 @@ const TextSpeak = observer(() => {
                                 </option>
                             ))}
                         </select>
-                        <div style={styleContainerRatePitch}>
-                            <div style={styleFlexRow}>
-                                <label htmlFor="rate">Rate: </label>
+                        <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
                                 <div className="rate-value">{rate}</div>
-                            </div>
                             <input
                                 type="range"
-                                min="0.5"
+                                min="0"
                                 max="2"
                                 defaultValue="1"
                                 step="0.1"
@@ -266,11 +263,8 @@ const TextSpeak = observer(() => {
                                 }}
                             />
                         </div>
-                        <div style={styleContainerRatePitch}>
-                            <div style={styleFlexRow}>
-                                <label htmlFor="pitch">Pitch: </label>
+                        <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
                                 <div className="pitch-value">{pitch}</div>
-                            </div>
                             <input
                                 type="range"
                                 min="0"
@@ -306,7 +300,7 @@ const TextSpeak = observer(() => {
                         {/*    </button>*/}
                         {/*)}*/}
                     {/*</React.Fragment>*/}
-                )}
+                {/*)}*/}
             {/*</form>*/}
 
         </div>
