@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import DropdownMenuModel from "../SR/Components/DropdownMenuModel";
+//import shortId from 'shortid'
+
 
 const goToRoom = (history, roomId) => {
   history.push(`/r/${roomId}`)
@@ -9,7 +10,7 @@ const goToRoomVR = (history, roomId) => {
 }
 
 export function goToRoomInput({history}) {
-  // let [roomId, setRoomId] = useState(shortId.generate());
+    //let [roomId, setRoomId] = useState(shortId.generate());
     let [roomId, setRoomId] = useState((localStorage.getItem('localIdRoom') || ''));
 
     useEffect(()=>{

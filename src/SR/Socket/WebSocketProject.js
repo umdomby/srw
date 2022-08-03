@@ -1,5 +1,8 @@
 import store from "../Store"
-const WebSocketProject = (id) => {
+
+const WebSocketProject = (id, persId) => {
+
+
 
     try {
         // if (store.webSocket.readyState !== store.webSocket.CLOSED && store.webSocket.readyState !== store.webSocket.CLOSING){
@@ -17,6 +20,7 @@ const WebSocketProject = (id) => {
                         id: id,
                         username: 'user',
                         method: "connection",
+                        persId: persId
                     }))
                 }
             }
@@ -26,7 +30,7 @@ const WebSocketProject = (id) => {
                 if (store.webSocket.readyState !== store.webSocket.CLOSED && store.webSocket.readyState !== store.webSocket.CLOSING) {
                     switch (msg.method) {
                         case "connection":
-                            console.log(`пользователь ${msg.id} присоединился`)
+                            console.log(`пользователь ${msg.id} присоединился ${msg.persId}`)
                             break
                         case "messagesL":
                             console.log("from server messageL " + msg.messageL)

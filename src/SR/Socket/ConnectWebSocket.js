@@ -1,10 +1,11 @@
 import {observer} from "mobx-react-lite";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import WebSocketProject from "./WebSocketProject";
 import store from "../Store"
+import shortId from "shortid";
 
 const ConnectWebSocket = observer(() => {
-
+    const persId = useRef(shortId.generate())
     const [idSocket, setIdSocket] = useState(localStorage.getItem('localIdSocket') || '')
     setInterval(() => socketTest(), 5000)
 
@@ -20,7 +21,8 @@ const ConnectWebSocket = observer(() => {
     },[idSocket])
 
     const connectID = (idSocket) => {
-        WebSocketProject(idSocket)
+        WebSocketProject(idSocket, persId.current)
+        //console.log('persId ' + persId.current)
     }
 
     const socketTest = () => {

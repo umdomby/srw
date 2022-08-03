@@ -173,7 +173,9 @@ const start = async () => {
                 switch (msg.method) {
                     case "connection":
                         console.log('Connected Chrome id ' + msg.id)
+                        console.log('persId ' + msg.persId)
                         ws.id = msg.id
+                        ws.persId = msg.persId
                         wss.clients.forEach(function each(client) {
                             console.log('client.id connection Chrome ' + client.id)
                         });
@@ -183,6 +185,7 @@ const start = async () => {
                         const mess = JSON.stringify({
                             method: 'connection',
                             id: msg.id,
+                            persId: msg.persId
                         })
                         wssSend(mess, ws)
                         break;
@@ -217,7 +220,7 @@ const start = async () => {
                             method: 'textSpeak',
                             text: msg.text,
                         })
-                        wssSend(mess1 , ws)
+                        wssSendPersId(mess1 , ws)
                         break;
                     default:
                         wsaSend(msgg, ws)
@@ -235,6 +238,16 @@ const start = async () => {
                 }
             });
         }
+
+        const wssSendPersId = (mess, ws)=> {
+            wss.clients.forEach(function each(client) {
+                if (client.id === ws.id  && client.persId != ws.persId && client.readyState === client.OPEN) {
+                //if (client.id === ws.id && client.readyState === client.OPEN) {
+                    client.send(mess)
+                }
+            });
+        }
+
         const wssSend = (mess, ws)=> {
             wss.clients.forEach(function each(client) {
                 if (client.id === ws.id && client.readyState === client.OPEN) {

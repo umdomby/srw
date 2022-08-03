@@ -16,10 +16,14 @@ class Index {
         this._arduinoOnOff = null
         this._rulingControl = ''
         this._textSpeak = ''
+        this._textSpeakFrom = ''
         // this._joyTriggerLeft = ''
         // this._joyTriggerRight = ''
         makeAutoObservable(this)
     }
+    get textSpeakFrom() {return this._textSpeakFrom;}
+    setTextSpeakFrom(value) {this._textSpeakFrom = value;}
+
     get textSpeak() {return this._textSpeak;}
     setTextSpeak(value) {this._textSpeak = value;}
 
