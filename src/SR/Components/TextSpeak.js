@@ -4,6 +4,7 @@ import {observer} from "mobx-react-lite";
 import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
 const axios = require('axios').default;
 
+
 const TextSpeak = observer(() => {
 
     const [showResults, setShowResults] = useState(true)
@@ -135,7 +136,7 @@ const TextSpeak = observer(() => {
     console.log('render')
 
     useEffect(()=>{
-        setTimeout(()=> listen({ lang, interimResults: false}), 2000)
+        setTimeout(()=> listen({ lang, interimResults: false}), 1000)
         return ()=> stop()
     }, [lang])
 
@@ -229,12 +230,12 @@ const TextSpeak = observer(() => {
                 ))}
             </select>
             <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                <div className="rate-value">{rate}</div>
+                <div>{rate}</div>
                 <input
                     type="range"
+                    value={rate}
                     min="0"
                     max="2"
-                    defaultValue="1"
                     step="0.1"
                     id="rate"
                     onChange={(event) => {
@@ -243,12 +244,12 @@ const TextSpeak = observer(() => {
                 />
             </div>
             <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                <div className="pitch-value">{pitch}</div>
+                <div>{pitch}</div>
                 <input
+                    value={pitch}
                     type="range"
                     min="0"
                     max="2"
-                    defaultValue="1"
                     step="0.1"
                     id="pitch"
                     onChange={(event) => {

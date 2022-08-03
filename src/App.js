@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Video from './components/video'
 import Videovr from './components/videovr'
+import VideoNoMic from './components/videoNoMic'
 import './styles/video.css'
 import { BrowserRouter, Route, Switch  } from 'react-router-dom';
 import { goToRoomInput } from './components/goToRoomInput';
@@ -28,6 +29,7 @@ class App extends Component {
                 <Route path="/big" exact component={Big}/>
                 <Route path="/r/:roomId" exact component={Video}/>
                 <Route path="/vr/:roomId" exact component={Videovr}/>
+                <Route path="/mr/:roomId" exact component={VideoNoMic}/>
             </React.Fragment>
           </Switch>
       </BrowserRouter>

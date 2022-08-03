@@ -11,8 +11,8 @@ const Dictaphone = () => {
     const [languages, setLanguages] = useState('ru-RU')
 
     useEffect(() => {
-        //SpeechRecognition.startListening({continuous: true, language: languages});
-        setTimeout(()=> SpeechRecognition.startListening({continuous: true, language: languages}), 2000)
+        SpeechRecognition.startListening({continuous: true, language: languages});
+        //setTimeout(()=> SpeechRecognition.startListening({continuous: true, language: languages}), 2000)
         return ()=> SpeechRecognition.stopListening();
     }, []);
 

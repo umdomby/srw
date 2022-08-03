@@ -8,6 +8,9 @@ const goToRoom = (history, roomId) => {
 const goToRoomVR = (history, roomId) => {
     history.push(`/vr/${roomId}`)
 }
+const goToRoomNoMic = (history, roomId) => {
+    history.push(`/mr/${roomId}`)
+}
 
 export function goToRoomInput({history}) {
     //let [roomId, setRoomId] = useState(shortId.generate());
@@ -32,12 +35,15 @@ export function goToRoomInput({history}) {
                             setRoomId(event.target.value)
                         }}
                   />
-                  <button onClick={() => {
-                    goToRoom(history, roomId)
-                  }}>Enter</button>
-                <button onClick={() => {
-                    goToRoomVR(history, roomId)
-                }}>Enter VR</button>
+            <button onClick={() => {
+            goToRoom(history, roomId)
+            }}>Enter</button>
+            <button onClick={() => {
+                goToRoomVR(history, roomId)
+            }}>Enter VR</button>
+            <button onClick={() => {
+                goToRoomNoMic(history, roomId)
+            }}>No Mic</button>
           </form>
       </div>)
 }

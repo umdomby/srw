@@ -11,6 +11,7 @@
 }
 .Dictaphone {
     position:absolute;
+    z-index: 9200;
     margin: 0 auto;
     padding-top: 70px;
     padding-left: 45%;
