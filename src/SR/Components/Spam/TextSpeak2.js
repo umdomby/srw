@@ -6,9 +6,6 @@ const axios = require('axios').default;
 
 const TextSpeak = observer(() => {
 
-    const [showResults, setShowResults] = useState(true)
-    const onClick = () => setShowResults(!showResults)
-
     //translate
     const [options, setOptions] = useState([]);
     const [to, setTo] = useState('en');
@@ -66,7 +63,6 @@ const TextSpeak = observer(() => {
     //END SPEAK
 
     const [value, setValue] = useState('');
-    const [valueTxt, setValueTxt] = useState('');
     const [lang, setLang] = useState('ru-RU'); //распозование
 
     const languageOptions = [
@@ -93,15 +89,15 @@ const TextSpeak = observer(() => {
         },
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'textSpeak',
-            text: valueTxt,
-        }))
-        setValueTxt('')
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     store.webSocket.send(JSON.stringify({
+    //         id: store.idSocket,
+    //         method: 'textSpeak',
+    //         text: writeText,
+    //     }))
+    //     setWriteText('')
+    // }
 
     // useEffect(()=> {
     //     //speak({ text: store.textSpeak })
@@ -124,14 +120,6 @@ const TextSpeak = observer(() => {
         }
     }, [text])
 
-    useEffect(()=>{
-        if(speaking === true){
-            stop()
-        }else{
-            listen({ lang, interimResults: false})
-        }
-    },[speaking])
-
     console.log('render')
 
     useEffect(()=>{
@@ -150,16 +138,15 @@ const TextSpeak = observer(() => {
         }
     },[value])
 
-
-    const Results = () => (
-        <div>
-            <div>
+    return (
+        <div className="Dictaphone">
+            <div style={{color:'white'}}>
                 {value}
             </div>
             <textarea
                 style={{height:'50px'}}
-                value={valueTxt}
-                onChange={(event) => setValueTxt(event.target.value)}
+                value={writeText}
+                onChange={(event) => setWriteText(event.target.value)}
                 onKeyPress={(event) => event.key === "Enter" && handleSubmit(event)}
             />
             <select
@@ -180,6 +167,7 @@ const TextSpeak = observer(() => {
             <button onClick={stop}>
                 stop
             </button>
+            {listening && <div style={{color:'white'}}>Go ahead I'm listening</div>}
             <div style={{color: 'white'}}>
                 {store.textSpeak}
             </div>
@@ -256,18 +244,10 @@ const TextSpeak = observer(() => {
                     }}
                 />
             </div>
-            {listening && <div>Go ahead I'm listening</div>}
-            {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
+
+            <button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>
 
         </div>
-    )
-    return (
-        <div className="Dictaphone" style={{color:'white'}}>
-            <input type="submit" value="HIDE" onClick={onClick} />
-            { showResults ? <Results /> : null }
-        </div>
-    )
-
-
+    );
 });
 export default TextSpeak;

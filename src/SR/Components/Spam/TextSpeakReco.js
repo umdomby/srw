@@ -1,13 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import store from "../Store";
 import {observer} from "mobx-react-lite";
-import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
+import { useSpeechSynthesis} from 'react-speech-kit';
 const axios = require('axios').default;
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 
 const TextSpeak = observer(() => {
-
-    const [showResults, setShowResults] = useState(true)
-    const onClick = () => setShowResults(!showResults)
 
     //translate
     const [options, setOptions] = useState([]);
@@ -66,7 +65,6 @@ const TextSpeak = observer(() => {
     //END SPEAK
 
     const [value, setValue] = useState('');
-    const [valueTxt, setValueTxt] = useState('');
     const [lang, setLang] = useState('ru-RU'); //распозование
 
     const languageOptions = [
@@ -87,20 +85,52 @@ const TextSpeak = observer(() => {
         setLang(event.target.value);
     };
 
-    const { listen, listening, stop} = useSpeechRecognition({
-        onResult: (result) => {
-            setValue(result);
-        },
-    });
+    // const { listen, listening, stop} = useSpeechRecognition({
+    //     onResult: (result) => {
+    //         setValue(result);
+    //     },
+    // });
+
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+
+    useEffect(()=>{
+        setValue(transcript)
+        setTimeout(()=> speakSend, 4000)
+        // if (transcript.toString().length > 100) {
+        //     resetTranscript()
+        // }
+    },[transcript])
+
+    const speakSend = () => {
+        console.log('-------------------')
+        if(text != '') {
+            speak({ text, voice, rate, pitch })
+            resetTranscript()
+            setValue('')
+        }
+    }
+
+    const startListening = () => {
+        SpeechRecognition.startListening({continuous: true, language: lang});
+    }
+
+    const stopListening = () => {
+        SpeechRecognition.stopListening();
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
             method: 'textSpeak',
-            text: valueTxt,
+            text: writeText,
         }))
-        setValueTxt('')
+        setWriteText('')
     }
 
     // useEffect(()=> {
@@ -124,19 +154,18 @@ const TextSpeak = observer(() => {
         }
     }, [text])
 
-    useEffect(()=>{
-        if(speaking === true){
-            stop()
-        }else{
-            listen({ lang, interimResults: false})
-        }
-    },[speaking])
-
     console.log('render')
 
+    useEffect(() => {
+        //SpeechRecognition.startListening({continuous: true, language: languages});
+        setTimeout(()=> SpeechRecognition.startListening({continuous: true, language: lang}), 2000)
+        return ()=> SpeechRecognition.stopListening();
+    }, []);
+
     useEffect(()=>{
-        setTimeout(()=> listen({ lang, interimResults: false}), 2000)
-        return ()=> stop()
+        SpeechRecognition.stopListening()
+        setTimeout(()=> SpeechRecognition.startListening({continuous: true, language: lang}), 2000)
+        return ()=> SpeechRecognition.stopListening();
     }, [lang])
 
 
@@ -150,16 +179,19 @@ const TextSpeak = observer(() => {
         }
     },[value])
 
+    if (!browserSupportsSpeechRecognition) {
+        return <span>Browser doesn't support speech recognition.</span>;
+    }
 
-    const Results = () => (
-        <div>
-            <div>
+    return (
+        <div className="Dictaphone">
+            <div style={{color:'white'}}>
                 {value}
             </div>
             <textarea
                 style={{height:'50px'}}
-                value={valueTxt}
-                onChange={(event) => setValueTxt(event.target.value)}
+                value={writeText}
+                onChange={(event) => setWriteText(event.target.value)}
                 onKeyPress={(event) => event.key === "Enter" && handleSubmit(event)}
             />
             <select
@@ -174,12 +206,14 @@ const TextSpeak = observer(() => {
                     </option>
                 ))}
             </select>
-            <button onClick={listen}>
+            <p>Microphone: {listening ? 'on' : 'off'}</p>
+            <button onClick={startListening}>
                 🎤
             </button>
-            <button onClick={stop}>
+            <button onClick={stopListening}>
                 stop
             </button>
+            {listening && <div style={{color:'white'}}>Go ahead I'm listening</div>}
             <div style={{color: 'white'}}>
                 {store.textSpeak}
             </div>
@@ -256,18 +290,10 @@ const TextSpeak = observer(() => {
                     }}
                 />
             </div>
-            {listening && <div>Go ahead I'm listening</div>}
-            {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
+
+            <button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>
 
         </div>
-    )
-    return (
-        <div className="Dictaphone" style={{color:'white'}}>
-            <input type="submit" value="HIDE" onClick={onClick} />
-            { showResults ? <Results /> : null }
-        </div>
-    )
-
-
+    );
 });
 export default TextSpeak;
