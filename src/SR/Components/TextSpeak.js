@@ -10,22 +10,13 @@ const TextSpeak = observer(() => {
     const [options, setOptions] = useState([]);
     const [to, setTo] = useState('en');
     const [from, setFrom] = useState('en');
-    const [input, setInput] = useState('');
-    const [output, setOutput] = useState('');
-
-    // useEffect(()=>{
-    //     translate()
-    // }, [output])
-
+    const [writeText, setWriteText] = useState('');
     const translate = () => {
-        // curl -X POST "https://libretranslate.de/translate" -H  "accept: application/json" -H  "Content-Type: application/x-www-form-urlencoded" -d "q=hello&source=en&target=es&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-
         const params = new URLSearchParams();
         params.append('q', store.textSpeak);
         params.append('source', from);
         params.append('target', to);
         params.append('api_key', 'AIzaSyBvBuyaUdGGyDiT90vGvdWvUebwfztZ1Jg');
-
         axios.post('https://libretranslate.de/translate',params, {
             headers: {
                 'accept': 'application/json',
@@ -34,11 +25,10 @@ const TextSpeak = observer(() => {
         }).then(res=>{
             console.log(res.data)
             //setOutput(res.data.translatedText)
-            setOutput(res.data.translatedText)
-
+            //setOutput(res.data.translatedText)
+            setText(res.data.translatedText)
         })
     };
-
     useEffect(() => {
         axios
             .get('https://libretranslate.de/languages', {
@@ -51,12 +41,47 @@ const TextSpeak = observer(() => {
     }, []);
     //End translate
 
-
-    const { speak } = useSpeechSynthesis();
+    //Speak
+    const [text, setText] = useState('');
+    const [pitch, setPitch] = useState(1);
+    const [rate, setRate] = useState(1);
+    const [voiceIndex, setVoiceIndex] = useState(null);
+    const onEnd = () => {
+        // You could do something here after speaking has finished
+    };
+    // const { speak } = useSpeechSynthesis({
+    // });
+    const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis({
+        onEnd,
+    });
+    const voice = voices[voiceIndex] || null;
+    const styleFlexRow = { display: 'flex', flexDirection: 'row' };
+    const styleContainerRatePitch = {
+        display: 'flex',
+        flexDirection: 'column',
+        marginBottom: 12,
+    };
+    //END SPEAK
     const [value, setValue] = useState('');
-    //const [replyValue, setReplyValue] = useState('');
     const [lang, setLang] = useState('ru-RU'); //распозование
-    //const [lang, setLang] = useState('en-AU');
+
+    const languageOptions = [
+        { label: 'Russian', value: 'ru-RU' },
+        { label: 'Cambodian', value: 'km-KH' },
+        { label: 'Deutsch', value: 'de-DE' },
+        { label: 'English', value: 'en-AU' },
+        { label: 'Farsi', value: 'fa-IR' },
+        { label: 'Français', value: 'fr-FR' },
+        { label: 'Italiano', value: 'it-IT' },
+        { label: '普通话 (中国大陆) - Mandarin', value: 'zh' },
+        { label: 'Portuguese', value: 'pt-BR' },
+        { label: 'Español', value: 'es-MX' },
+        { label: 'Svenska - Swedish', value: 'sv-SE' },
+    ];
+
+    const changeLang = (event) => {
+        setLang(event.target.value);
+    };
 
     const { listen, listening, stop} = useSpeechRecognition({
         onResult: (result) => {
@@ -69,9 +94,9 @@ const TextSpeak = observer(() => {
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
             method: 'textSpeak',
-            text: value,
+            text: writeText,
         }))
-        //setValue('')
+        setWriteText('')
     }
 
     // useEffect(()=> {
@@ -87,20 +112,21 @@ const TextSpeak = observer(() => {
     },[store.textSpeak])
 
     useEffect(()=> {
-        speak({ text: output, lang:'en-AU' })
-    }, [output])
+        //speak({ text: output, lang:'en-AU' })
+        ///setText(output)
+        if(text != '') {
+            //setText(output)
+            speak({ text, voice, rate, pitch })
+        }
+    }, [text])
 
     console.log('render')
 
     useEffect(()=>{
         setTimeout(()=> listen({ lang, interimResults: false}), 2000)
         return ()=> stop()
-    }, [])
+    }, [lang])
 
-
-    // const ListenF = () => {
-    //     listen({ lang });
-    // };
 
     useEffect(()=> {
         if(value != '') {
@@ -115,12 +141,28 @@ const TextSpeak = observer(() => {
     return (
         <div className="Dictaphone">
             <div>
+                <div style={{color:'white'}}>
+                    {value}
+                </div>
+
                 <textarea
                     style={{height:'50px'}}
-                    value={value}
-                    onChange={(event) => setValue(event.target.value)}
+                    value={writeText}
+                    onChange={(event) => setWriteText(event.target.value)}
                     onKeyPress={(event) => event.key === "Enter" && handleSubmit(event)}
                 />
+                <select
+                    form="speech-recognition-form"
+                    id="language"
+                    value={lang}
+                    onChange={changeLang}
+                >
+                    {languageOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
+                </select>
                 <button onClick={listen}>
                     🎤
                 </button>
@@ -149,6 +191,7 @@ const TextSpeak = observer(() => {
                     {options.map((opt) => (
                         <option key={opt.code} value={opt.code}>
                             {opt.name}
+                            {/*{console.log( '222222 ' + opt.code + ' ' + opt.name)}*/}
                         </option>
                     ))}
                 </select>
@@ -172,12 +215,99 @@ const TextSpeak = observer(() => {
             {/*    <textarea cols="50" rows="8" value={output}></textarea>*/}
             {/*</div>*/}
             <div style={{color: 'white'}}>
-                {output}
+                {text}
             </div>
 
-            <div>
-                <button onClick={e=>translate()}>Translate</button>
-            </div>
+            {/*<div>*/}
+            {/*    <button onClick={e=>translate()}>Translate</button>*/}
+            {/*</div>*/}
+
+
+            {/*<form>*/}
+                {/*<h2>Speech Synthesis</h2>*/}
+                {!supported && (
+                    <p>
+                        Oh no, it looks like your browser doesn&#39;t support Speech
+                        Synthesis.
+                    </p>
+                )}
+                {/*{supported && (*/}
+                {/*    // <React.Fragment>*/}
+                         <label htmlFor="voice">Voice</label>
+                        <select
+                            id="voice"
+                            name="voice"
+                            value={voiceIndex || ''}
+                            onChange={(event) => {
+                                setVoiceIndex(event.target.value);
+                            }}
+                        >
+                            <option value="">Default</option>
+                            {voices.map((option, index) => (
+                                <option key={option.voiceURI} value={index}>
+                                    {`${option.lang} - ${option.name}`}
+                                </option>
+                            ))}
+                        </select>
+                        <div style={styleContainerRatePitch}>
+                            <div style={styleFlexRow}>
+                                <label htmlFor="rate">Rate: </label>
+                                <div className="rate-value">{rate}</div>
+                            </div>
+                            <input
+                                type="range"
+                                min="0.5"
+                                max="2"
+                                defaultValue="1"
+                                step="0.1"
+                                id="rate"
+                                onChange={(event) => {
+                                    setRate(event.target.value);
+                                }}
+                            />
+                        </div>
+                        <div style={styleContainerRatePitch}>
+                            <div style={styleFlexRow}>
+                                <label htmlFor="pitch">Pitch: </label>
+                                <div className="pitch-value">{pitch}</div>
+                            </div>
+                            <input
+                                type="range"
+                                min="0"
+                                max="2"
+                                defaultValue="1"
+                                step="0.1"
+                                id="pitch"
+                                onChange={(event) => {
+                                    setPitch(event.target.value);
+                                }}
+                            />
+                        </div>
+                        {/*<label htmlFor="message">Message</label>*/}
+                        {/*<textarea*/}
+                        {/*    id="message"*/}
+                        {/*    name="message"*/}
+                        {/*    rows={3}*/}
+                        {/*    value={text}*/}
+                        {/*    onChange={(event) => {*/}
+                        {/*        setText(event.target.value);*/}
+                        {/*    }}*/}
+                        {/*/>*/}
+                        {/*{speaking ? (*/}
+                        {/*    <button type="button" onClick={cancel}>*/}
+                        {/*        Stop*/}
+                        {/*    </button>*/}
+                        {/*) : (*/}
+                        {/*    <button*/}
+                        {/*        type="button"*/}
+                        {/*        onClick={() => speak({ text, voice, rate, pitch })}*/}
+                        {/*    >{console.log('1111 ' + text)}*/}
+                        {/*        Speak*/}
+                        {/*    </button>*/}
+                        {/*)}*/}
+                    {/*</React.Fragment>*/}
+                )}
+            {/*</form>*/}
 
         </div>
     );
