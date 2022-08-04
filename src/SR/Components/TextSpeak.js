@@ -113,13 +113,14 @@ const TextSpeak = observer(() => {
     useEffect(()=>{
         if(store.textSpeak != '' ) {
             translate()
+            //setText(store.textSpeak) //no translate
         }
     },[store.textSpeak])
 
     useEffect(()=> {
         //speak({ text: output, lang:'en-AU' })
         ///setText(output)
-        if(text != '') {
+        if(text != '' && text != null && text != undefined) {
             //setText(output)
             speak({ text, voice, rate, pitch })
         }

@@ -13,8 +13,8 @@
     position:absolute;
     z-index: 9200;
     margin: 0 auto;
-    padding-top: 70px;
-    padding-left: 45%;
+    top: 70px;
+    left: 45%;
 }
 .Page {
     /*margin-top:100px;*/
