@@ -34,26 +34,6 @@ const Gamepad = () => {
             setButtons({ ...buttons });
             setAxes({ ...axes });
             request = requestAnimationFrame(probe);
-            // const {
-            //     x,
-            //     y,
-            //     a,
-            //     b,
-            //     dUp,
-            //     dDown,
-            //     dLeft,
-            //     dRight,
-            //     lb,
-            //     rb,
-            //     ls,
-            //     rs,
-            //     lt,
-            //     rt,
-            //     menu,
-            //     pwr,
-            //     pause,
-            // } = buttons;
-            // console.log(lt);
         };
 
         const stopProbe = () => {

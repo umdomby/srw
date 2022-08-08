@@ -7,6 +7,10 @@ function GamepadInfo({ buttons, axes }) {
 
   const refLT = useRef(false);
   const refRT = useRef(false);
+  const refLB = useRef(true);
+  const refRB = useRef(true);
+  const refSpeed = useRef(50);
+  const refInterval = useRef(2000);
 
   const {
     x,
@@ -32,23 +36,20 @@ function GamepadInfo({ buttons, axes }) {
   const rjHoriz = axes[2];
   const rjVert = axes[3];
 
-
   store.webSocket.send(JSON.stringify({
     id: store.idSocket,
     method: 'messagesLTRT',
-    messageL: rt.value*255,
-    messageR: lt.value*255,
+    messageL: rt.value*refSpeed.current,
+    messageR: lt.value*refSpeed.current,
   }))
 
-
-  if(lt.pressed === true){
-    refLT.current = true
-  }
-
-  if(rt.pressed === true){
-    refRT.current = true
-  }
-
+  // if(lt.pressed === true){
+  //   refLT.current = true
+  // }
+  //
+  // if(rt.pressed === true){
+  //   refRT.current = true
+  // }
 
   if(b.pressed === true){
     messageL(0)
@@ -99,6 +100,35 @@ function GamepadInfo({ buttons, axes }) {
     }))
   }
 
+  if(lb.pressed === true && refLB.current === true) {
+    refLB.current = false
+    if(refSpeed.current > 51) {
+      refSpeed.current = refSpeed.current - 50
+    }
+    console.log(refSpeed.current)
+  }
+
+  if(lb.pressed === false){
+    refLB.current = true
+  }
+
+  if(rb.pressed === true && refRB.current === true) {
+    refRB.current = false
+    if(refSpeed.current < 151) {
+      refSpeed.current = refSpeed.current + 50
+    } else if(refSpeed.current === 200){
+      refSpeed.current = refSpeed.current + 55
+    }else if(refSpeed.current === 255){
+      refSpeed.current = 50
+    }
+    console.log(refSpeed.current)
+  }
+
+  if(rb.pressed === false){
+    refRB.current = true
+  }
+
+
 
   return (
     <div>
@@ -111,8 +141,8 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>DPad Down: {dDown && dDown.pressed && `pressed`}</p>*/}
       {/*<p>DPad Left: {dLeft && dLeft.pressed && `pressed`}</p>*/}
       {/*<p>DPad Right: {dRight && dRight.pressed && `pressed`}</p>*/}
-      {/*<p>LB: {lb && lb.pressed && `pressed`}</p>*/}
-      {/*<p>RB: {rb && rb.pressed && `pressed`}</p>*/}
+      <p>LB: {lb && lb.pressed && `pressed`}</p>
+      <p>RB: {rb && rb.pressed && `pressed`}</p>
       {/*<p>LS: {ls && ls.pressed && `pressed`}</p>*/}
       {/*<p>RS: {rs && rs.pressed && `pressed`}</p>*/}
       {/*<p>LT: {lt && lt.pressed && `pressed, value: ${lt.value}`}</p>*/}
