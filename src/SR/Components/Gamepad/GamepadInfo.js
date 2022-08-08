@@ -102,7 +102,9 @@ function GamepadInfo({ buttons, axes }) {
 
   if(lb.pressed === true && refLB.current === true) {
     refLB.current = false
-    if(refSpeed.current > 51) {
+    if(refSpeed.current === 255) {
+      refSpeed.current = refSpeed.current - 55
+    }else if(refSpeed.current > 51){
       refSpeed.current = refSpeed.current - 50
     }
     console.log(refSpeed.current)
@@ -118,8 +120,6 @@ function GamepadInfo({ buttons, axes }) {
       refSpeed.current = refSpeed.current + 50
     } else if(refSpeed.current === 200){
       refSpeed.current = refSpeed.current + 55
-    }else if(refSpeed.current === 255){
-      refSpeed.current = 50
     }
     console.log(refSpeed.current)
   }
