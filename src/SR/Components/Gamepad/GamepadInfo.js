@@ -11,6 +11,7 @@ function GamepadInfo({ buttons, axes }) {
   const refRB = useRef(true);
   const refSpeed = useRef(50);
   const refInterval = useRef(2000);
+  const refRTLTNull = useRef(true);
 
   const {
     x,
@@ -36,20 +37,42 @@ function GamepadInfo({ buttons, axes }) {
   const rjHoriz = axes[2];
   const rjVert = axes[3];
 
-  store.webSocket.send(JSON.stringify({
-    id: store.idSocket,
-    method: 'messagesLTRT',
-    messageL: rt.value*refSpeed.current,
-    messageR: lt.value*refSpeed.current,
-  }))
 
-  // if(lt.pressed === true){
-  //   refLT.current = true
-  // }
-  //
-  // if(rt.pressed === true){
-  //   refRT.current = true
-  // }
+  if(lt.pressed === true){
+    refLT.current = true
+  }
+  if(rt.pressed === true){
+    refRT.current = true
+  }
+
+  if(refLT.current === true || refRT.current === true) {
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesLTRT',
+      messageL: rt.value * refSpeed.current,
+      messageR: lt.value * refSpeed.current,
+    }))
+  }
+
+  if(lt.pressed === false && refLT.current === true){
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesLTRT',
+      messageLT: 0,
+      messageRT: rt.value,
+    }))
+    refLT.current = false
+  }
+
+  if(rt.pressed === false && refRT.current === true){
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesLTRT',
+      messageLT: lt.value,
+      messageRT: 0,
+    }))
+    refRT.current = false
+  }
 
   if(b.pressed === true){
     messageL(0)
@@ -128,6 +151,20 @@ function GamepadInfo({ buttons, axes }) {
     refRB.current = true
   }
 
+  if(menu.pressed === true) {
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesOnOff',
+      messageOnOff: true
+    }))
+  }
+  if(pause.pressed === true) {
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messagesOnOff',
+      messageOnOff: false
+    }))
+  }
 
 
   return (
@@ -141,8 +178,8 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>DPad Down: {dDown && dDown.pressed && `pressed`}</p>*/}
       {/*<p>DPad Left: {dLeft && dLeft.pressed && `pressed`}</p>*/}
       {/*<p>DPad Right: {dRight && dRight.pressed && `pressed`}</p>*/}
-      <p>LB: {lb && lb.pressed && `pressed`}</p>
-      <p>RB: {rb && rb.pressed && `pressed`}</p>
+      {/*<p>LB: {lb && lb.pressed && `pressed`}</p>*/}
+      {/*<p>RB: {rb && rb.pressed && `pressed`}</p>*/}
       {/*<p>LS: {ls && ls.pressed && `pressed`}</p>*/}
       {/*<p>RS: {rs && rs.pressed && `pressed`}</p>*/}
       {/*<p>LT: {lt && lt.pressed && `pressed, value: ${lt.value}`}</p>*/}
