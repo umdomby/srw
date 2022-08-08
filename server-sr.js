@@ -88,7 +88,6 @@ const start = async () => {
         //     .then(() => console.log("Successfully connect to MongoDB."))
         //     .catch(err => console.error("Connection error", err));
 
-
         const wsa = new WebSocketServer({server: httpServer});
         wsa.on('connection', ws => {
             ws.isAlive = true;
@@ -108,22 +107,15 @@ const start = async () => {
                         console.log('Arduino '+ msg.id + '|' + msg.messageL + '|' + msg.messageR)
                         break;
 
-                    case "messagesFBL":
+                    case "messagesFBLR":
                         let mess6 = JSON.stringify({
-                            method: 'messagesFBL',
+                            method: 'messagesFBLR',
                             messageFBL: msg.messageFBL,
-                        })
-                        console.log('From arduino messageFBL '+ 'id ' + msg.id + ' messageFBL ' + msg.messageFBL)
-                        wssSend(mess6, ws)
-                        break;
-
-                    case "messagesFBR":
-                        let mess7 = JSON.stringify({
-                            method: 'messagesFBR',
                             messageFBR: msg.messageFBR,
                         })
+                        console.log('From arduino messageFBL '+ 'id ' + msg.id + ' messageFBL ' + msg.messageFBL)
                         console.log('From arduino messageFBR '+ 'id ' + msg.id + ' messageFBR ' + msg.messageFBR)
-                        wssSend(mess7, ws)
+                        wssSend(mess6, ws)
                         break;
 
                     case "messagesOnOff":
@@ -134,12 +126,6 @@ const start = async () => {
                         console.log('From arduino messageOnOff '+ 'id ' + msg.id + ' messageOnOff ' + msg.messageOnOff)
                         wssSend(mess8, ws)
                         break;
-
-                    // case "messagesFBL":
-                    //     console.log('Arduino FBL '+ msg.id + ' | ' + msg.messageFBL)
-                    //     break;
-                    // case "messagesFBR":
-                    //     console.log('Arduino FBR '+ msg.id + ' | ' + msg.messageFBR)
 
                     //    break;
                     default:
@@ -206,12 +192,8 @@ const start = async () => {
                         console.log('Chrome messageStop '+ 'id ' + msg.id)
                         wsaSend(msgg, ws)
                         break;
-                    case "messagesFBL":
-                        console.log('Chrome messageFBL '+ 'id ' + msg.id)
-                        wsaSend(msgg, ws)
-                        break;
-                    case "messagesFBR":
-                        console.log('Chrome messageFBR '+ 'id ' + msg.id)
+                    case "messagesFBLR":
+                        console.log('Chrome messageFBLR '+ 'id ' + msg.id)
                         wsaSend(msgg, ws)
                         break;
                     case "textSpeak":

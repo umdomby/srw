@@ -4,7 +4,7 @@ import './sr.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RulingRange from "./Components/RulingRange";
 import ConnectWebSocket from "./Socket/ConnectWebSocket";
-import RulingButtonPS from "./Components/RulingButtonPS";
+import RulingButtonPC from "./Components/RulingButtonPC";
 import DropdownMenuRuling from "./Components/DropdownMenuRuling"
 import InfoRuling from "./Components/InfoRuling";
 import store from "./Store"
@@ -19,7 +19,7 @@ const Index = observer(() => {
     return (
         <div>
             <ConnectWebSocket/>
-            { store.rulingControl === 'Button' ? <RulingButtonPS/> : "" }
+            { store.rulingControl === 'Button' ? <RulingButtonPC/> : "" }
             { store.rulingControl === 'ButtonSmart' ? <RulingButtonSmart/> : "" }
             { store.rulingControl === 'Range' ? <RulingRange/> : "" }
             { store.rulingControl === 'Gamepad' ? <Gamepad/> : "" }

@@ -112,8 +112,8 @@ const TextSpeak = observer(() => {
 
     useEffect(()=>{
         if(store.textSpeak != '' ) {
-            translate()
-            //setText(store.textSpeak) //no translate
+            //translate()
+            setText(store.textSpeak) //no translate
         }
     },[store.textSpeak])
 

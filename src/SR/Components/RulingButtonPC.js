@@ -7,7 +7,7 @@ import {messageR} from "../Control/messageR";
 import useEventListener from '@use-it/event-listener'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const RulingButtonPS = observer(() => {
+const RulingButtonPC = observer(() => {
 
     const speed = 3
     const FBL = (FBL) => {
@@ -243,4 +243,4 @@ const RulingButtonPS = observer(() => {
     );
 });
 
-export default RulingButtonPS;
+export default RulingButtonPC;

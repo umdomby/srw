@@ -33,44 +33,14 @@ function GamepadInfo({ buttons, axes }) {
   const rjVert = axes[3];
 
 
-  if(lt.pressed === false && refLT.current === true){
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesLTRT',
-      messageLT: 0,
-      messageRT: rt.value,
-    }))
-    refLT.current = false
-  }
+  store.webSocket.send(JSON.stringify({
+    id: store.idSocket,
+    method: 'messagesLTRT',
+    messageL: rt.value*255,
+    messageR: lt.value*255,
+  }))
 
-  if(rt.pressed === false && refRT.current === true){
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesLTRT',
-      messageLT: lt.value,
-      messageRT: 0,
-    }))
-    refRT.current = false
-  }
 
-  if(lt.pressed === true || rt.pressed === true) {
-    if (store.messageFBL === true && store.messageFBL === true) {
-      store.webSocket.send(JSON.stringify({
-        id: store.idSocket,
-        method: 'messagesLTRT',
-        messageLT: lt.value,
-        messageRT: rt.value,
-      }))
-    }
-    if (store.messageFBL === false && store.messageFBL === false) {
-      store.webSocket.send(JSON.stringify({
-        id: store.idSocket,
-        method: 'messagesLTRT',
-        messageLT: rt.value,
-        messageRT: lt.value,
-      }))
-    }
-  }
   if(lt.pressed === true){
     refLT.current = true
   }
@@ -90,12 +60,8 @@ function GamepadInfo({ buttons, axes }) {
     store.setMessageFBR(true)
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
-      method: 'messagesFBL',
-      messageFBL: true
-    }))
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesFBR',
+      method: 'messagesFBLR',
+      messageFBL: true,
       messageFBR: true
     }))
   }
@@ -105,12 +71,8 @@ function GamepadInfo({ buttons, axes }) {
     store.setMessageFBR(false)
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
-      method: 'messagesFBL',
-      messageFBL: false
-    }))
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesFBR',
+      method: 'messagesFBLR',
+      messageFBL: false,
       messageFBR: false
     }))
   }
@@ -120,12 +82,8 @@ function GamepadInfo({ buttons, axes }) {
     store.setMessageFBR(false)
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
-      method: 'messagesFBL',
-      messageFBL: true
-    }))
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesFBR',
+      method: 'messagesFBLR',
+      messageFBL: true,
       messageFBR: false
     }))
   }
@@ -135,12 +93,8 @@ function GamepadInfo({ buttons, axes }) {
     store.setMessageFBR(true)
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
-      method: 'messagesFBL',
-      messageFBL: false
-    }))
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesFBR',
+      method: 'messagesFBLR',
+      messageFBL: false,
       messageFBR: true
     }))
   }

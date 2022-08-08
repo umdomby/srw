@@ -45,9 +45,11 @@ const WebSocketProject = (id, persId) => {
                         case "messagesStop":
                             console.log("from server messageStop")
                             break
-                        case "messagesFBL":
+                        case "messagesFBLR":
                             console.log('From arduino messageFBL ' + msg.messageFBL)
-                            store.setArduinoFBL(msg.messageFBL)
+                            console.log('From arduino messageFBR ' + msg.messageFBR)
+                            //store.setArduinoFBL(msg.messageFBL)
+
                             break
                         case "textSpeak":
                             console.log('From react textSpeak ' + msg.text)
@@ -56,7 +58,7 @@ const WebSocketProject = (id, persId) => {
                             break
 
                         default:
-                            console.log('default')
+                            console.log('default arduino')
                     }
                 }
             }
