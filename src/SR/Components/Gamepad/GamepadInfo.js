@@ -12,6 +12,12 @@ function GamepadInfo({ buttons, axes }) {
   const refSpeed = useRef(50);
   const refInterval = useRef(2000);
   const refRTLTNull = useRef(true);
+  const refRjVert = useRef(0);
+  const refLjHoriz = useRef(0);
+  const refTimeout = useRef(1000);
+  const refTimeoutBool = useRef(false);
+  const refTimeoutBool2 = useRef(true);
+
 
   const {
     x,
@@ -37,14 +43,64 @@ function GamepadInfo({ buttons, axes }) {
   const rjHoriz = axes[2];
   const rjVert = axes[3];
 
+  //const refLjVert = useRef(axes[1]);
+  //refLjVert.current = ljVert
+  //console.log("6666 " + ljVert)
+  //console.log("7777 " + refLjVert.current)
 
-  if(lt.pressed === true){
-    refLT.current = true
-  }
-  if(rt.pressed === true){
-    refRT.current = true
+
+  if(rjVert > 0.11 || ljHoriz > 0.11 || rjVert < -0.11 || ljHoriz < -0.11) {
+    refTimeout.current = 1000
+    refTimeoutBool.current = true
+    const map = (x, in_min, in_max,out_min, out_max)=> {
+      return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    refRjVert.current = map(rjVert, 0, 1, 50, 100);
+    refLjHoriz.current = map(ljHoriz, 0, 1, 90, 180);
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messageFBLLRR',
+      messageLL: Math.round(refLjHoriz.current),
+      messageRR: Math.round(refRjVert.current)
+    }))
+    console.log('refRjHoriz.current ' + refRjVert.current)
+    console.log('refRjVert.current ' + refLjHoriz.current )
+  }else if(refTimeoutBool.current === true){
+    refTimeoutBool.current = false
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messageFBLLRR',
+      messageLL: 90,
+      messageRR: 50
+    }))
   }
 
+  if(ls.pressed === true || rs.pressed === true){
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messageFBLLRR',
+      messageLL: 90,
+      messageRR: 50
+    }))
+  }
+
+  //
+  // if (refTimeoutBool.current === true && refTimeoutBool2.current === true) {
+  //   refTimeoutBool2.current = false
+  //   refTimeoutBool.current = false
+  //   setTimeout(() => {
+  //     store.webSocket.send(JSON.stringify({
+  //       id: store.idSocket,
+  //       method: 'messageFBLLRR',
+  //       messageLL: 90,
+  //       messageRR: 90
+  //     }))
+  //     refTimeoutBool2.current = true
+  //   }, refTimeout.current)
+  // }
+
+  if(lt.pressed === true){refLT.current = true}
+  if(rt.pressed === true){refRT.current = true}
   if(refLT.current === true || refRT.current === true) {
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
@@ -63,7 +119,6 @@ function GamepadInfo({ buttons, axes }) {
     }))
     refLT.current = false
   }
-
   if(rt.pressed === false && refRT.current === true){
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
@@ -73,6 +128,7 @@ function GamepadInfo({ buttons, axes }) {
     }))
     refRT.current = false
   }
+
 
   if(b.pressed === true){
     messageL(0)
@@ -168,7 +224,7 @@ function GamepadInfo({ buttons, axes }) {
 
 
   return (
-    <div>
+    <div style={{color:'white'}}>
       {/*<div style={{ fontFamily: "monospace", color:'white', paddingTop:'100px' ,width:'30%', margin: '0 auto'}}>*/}
       {/*<p>X: {x && x.pressed && `pressed`}</p>*/}
       {/*<p>Y: {y && y.pressed && `pressed`}</p>*/}
@@ -187,10 +243,10 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>menu: {menu && menu.pressed && `pressed`}</p>*/}
       {/*<p>pause: {pause && pause.pressed && `pressed`}</p>*/}
       {/*<p>pwr: {pwr && pwr.pressed && `pressed`}</p>*/}
-      {/*<p>LJ horiz: {ljHoriz}</p>*/}
+      <p>LJ horiz: {ljHoriz}</p>
       {/*<p>LJ vert: {ljVert}</p>*/}
       {/*<p>RJ horiz: {rjHoriz}</p>*/}
-      {/*<p>RJ vert: {rjVert}</p>*/}
+      <p>RJ vert: {rjVert}</p>
     </div>
   );
 }
