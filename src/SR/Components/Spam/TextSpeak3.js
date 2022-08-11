@@ -28,8 +28,7 @@ const TextSpeak = observer(() => {
             },
         }).then(res=>{
             console.log(res.data)
-                //return res.data.translatedText
-            //setText(res.data.translatedText)
+            setText(res.data.translatedText)
         })
     };
     useEffect(() => {
@@ -45,13 +44,12 @@ const TextSpeak = observer(() => {
     //End translate
 
     //Speak
-    //const [text, setText] = useState('');
+    const [text, setText] = useState('');
     const [pitch, setPitch] = useState(1);
     const [rate, setRate] = useState(1);
     const [voiceIndex, setVoiceIndex] = useState(null);
-    const [noVoiceSpeak, setNoVoiceSpeak] = useState(false)
     const onEnd = () => {
-        //setText('')
+        setText('')
         // You could do something here after speaking has finished
     };
     // const { speak } = useSpeechSynthesis({
@@ -90,7 +88,7 @@ const TextSpeak = observer(() => {
         setLang(event.target.value);
     };
 
-    const {listen, listening, stop} = useSpeechRecognition({
+    const { listen, listening, stop} = useSpeechRecognition({
         onResult: (result) => {
             setValue(result);
         },
@@ -106,38 +104,44 @@ const TextSpeak = observer(() => {
         setValueTxt('')
     }
 
+    // useEffect(()=> {
+    //     //speak({ text: store.textSpeak })
+    //     console.log('from react server', store.textSpeak)
+    //     setReplyValue(store.textSpeak)
+    // },[store.textSpeak])
+
+    useEffect(()=>{
+        console.log('store.textSpeak ' + store.textSpeak)
+        if(store.textSpeak != '' ) {
+            //translate()
+            setText(store.textSpeak) //no translate
+        }
+    },[store.textSpeak])
+
     useEffect(()=> {
         //speak({ text: output, lang:'en-AU' })
         ///setText(output)
-
-        if(store.textSpeak != '' && store.textSpeak != null && store.textSpeak != undefined) {
-            console.log('store.textSpeak ' + store.textSpeak)
-            speak({text: store.textSpeak, voice, rate, pitch})
-            // translate().then(data =>
-            // {
-            // if(data != null & data !=undefined) {
-            //speak({text: data, voice, rate, pitch})
-            //     }
-            //     console.log('data ' + data)
-            // })
+        if(text != '' || text != null || text != undefined) {
+            //setText(output)
+            console.log('text ' + text)
+            speak({ text, voice, rate, pitch })
         }
-    }, [store.textSpeak])
+    }, [text])
 
     useEffect(()=>{
         if(speaking === true){
             stop()
-        }
-        else if(speaking === false && noVoiceSpeak === true){
+        }else{
             listen({ lang, interimResults: false})
         }
     },[speaking])
 
     console.log('render')
 
-    // useEffect(()=>{
-    //     setTimeout(()=> listen({ lang, interimResults: false}), 1000)
-    //     return ()=> stop()
-    // }, [lang])
+    useEffect(()=>{
+        setTimeout(()=> listen({ lang, interimResults: false}), 1000)
+        return ()=> stop()
+    }, [lang])
 
 
     useEffect(()=> {
@@ -151,19 +155,9 @@ const TextSpeak = observer(() => {
         }
     },[value])
 
-    const noSpeak = () => {
-        stop()
-        setNoVoiceSpeak(false)
-    }
 
     const Results = () => (
         <div>
-        </div>
-    )
-    return (
-        <div className="Dictaphone" style={{color:'white'}}>
-            {/*<input type="submit" value="HIDE" onClick={onClick} />*/}
-            {/*{ showResults ? <Results /> : null }*/}
             <div>
                 {value}
             </div>
@@ -185,24 +179,12 @@ const TextSpeak = observer(() => {
                     </option>
                 ))}
             </select>
-            <button
-                onClick={()=>{
-                    listen({ lang, interimResults: false})
-                    setNoVoiceSpeak(true)
-                }}
-            >
+            <button onClick={listen}>
                 🎤
             </button>
-            <button
-                onClick={()=>noSpeak()}
-            >
+            <button onClick={stop}>
                 stop
             </button>
-            {/*<button onClick={()=>*/}
-            {/*    setNoVoiceSpeak(!noVoiceSpeak)*/}
-            {/*}>*/}
-            {/*    {noVoiceSpeak ? 'no Speech' : 'Speech'}*/}
-            {/*</button>*/}
             <div style={{color: 'white'}}>
                 {store.textSpeak}
             </div>
@@ -225,9 +207,9 @@ const TextSpeak = observer(() => {
                     ))}
                 </select>
             </div>
-            {/*<div style={{color: 'white'}}>*/}
-            {/*    {text}*/}
-            {/*</div>*/}
+            <div style={{color: 'white'}}>
+                {text}
+            </div>
             {/*    <button onClick={e=>translate()}>Translate</button>*/}
             {!supported && (
                 <p>
@@ -281,6 +263,13 @@ const TextSpeak = observer(() => {
             </div>
             {listening && <div>Go ahead I'm listening</div>}
             {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
+
+        </div>
+    )
+    return (
+        <div className="Dictaphone" style={{color:'white'}}>
+            <input type="submit" value="HIDE" onClick={onClick} />
+            { showResults ? <Results /> : null }
         </div>
     )
 

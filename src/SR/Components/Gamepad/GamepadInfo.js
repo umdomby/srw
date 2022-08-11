@@ -8,6 +8,10 @@ function GamepadInfo({ buttons, axes }) {
   const refLT = useRef(false);
   const refRT = useRef(false);
   const refLB = useRef(true);
+  const refA = useRef(true);
+  const refX = useRef(true);
+  const refB = useRef(true);
+  const refY = useRef(true);
   const refRB = useRef(true);
   const refSpeed = useRef(50);
   const refInterval = useRef(2000);
@@ -15,7 +19,8 @@ function GamepadInfo({ buttons, axes }) {
   const refRjVert = useRef(0);
   const refLjHoriz = useRef(0);
   const refTimeout = useRef(1000);
-  const refTimeoutBool = useRef(false);
+  const refBoolLL = useRef(false);
+  const refBoolRR = useRef(false);
   const refTimeoutBool2 = useRef(true);
 
 
@@ -49,55 +54,78 @@ function GamepadInfo({ buttons, axes }) {
   //console.log("7777 " + refLjVert.current)
 
 
-  if(rjVert > 0.11 || ljHoriz > 0.11 || rjVert < -0.11 || ljHoriz < -0.11) {
-    refTimeout.current = 1000
-    refTimeoutBool.current = true
+  if(ljHoriz > 0.11 || ljHoriz < -0.11) {
+    refBoolLL.current = true
+    const map = (x, in_min, in_max,out_min, out_max)=> {
+      return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    //refRjVert.current = map(rjVert, 0, 1, 50, 100);
+    refLjHoriz.current = map(ljHoriz, 0, 1, 90, 180);
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messageFBLL',
+      messageLL: Math.round(refLjHoriz.current),
+      //messageRR: Math.round(refRjVert.current)
+    }))
+    //console.log('refRjHoriz.current ' + refRjVert.current)
+    console.log('refRjVert.current ' + refLjHoriz.current )
+  }else if(refBoolLL.current === true){
+    refBoolLL.current = false
+    //refRjVert.current = 40
+    refLjHoriz.current = 90
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messageFBLL',
+      messageLL: 90,
+      //messageRR: 40
+    }))
+  }
+
+
+  if(rjVert > 0.11 || rjVert < -0.11) {
+    refBoolRR.current = true
     const map = (x, in_min, in_max,out_min, out_max)=> {
       return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
     refRjVert.current = map(rjVert, 0, 1, 50, 100);
-    refLjHoriz.current = map(ljHoriz, 0, 1, 90, 180);
+    //refLjHoriz.current = map(ljHoriz, 0, 1, 90, 180);
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
-      method: 'messageFBLLRR',
-      messageLL: Math.round(refLjHoriz.current),
+      method: 'messageFBRR',
+      //messageLL: Math.round(refLjHoriz.current),
       messageRR: Math.round(refRjVert.current)
     }))
     console.log('refRjHoriz.current ' + refRjVert.current)
-    console.log('refRjVert.current ' + refLjHoriz.current )
-  }else if(refTimeoutBool.current === true){
-    refTimeoutBool.current = false
+    //console.log('refRjVert.current ' + refLjHoriz.current )
+  }else if(refBoolRR.current === true){
+    refBoolRR.current = false
+    refRjVert.current = 40
+    //refLjHoriz.current = 90
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messageFBRR',
+      //messageLL: 90,
+      messageRR: 40
+    }))
+  }
+
+  if(ls.pressed === true){
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messageFBLLRR',
       messageLL: 90,
-      messageRR: 50
+      messageRR: 20
     }))
   }
 
-  if(ls.pressed === true || rs.pressed === true){
+  if(rs.pressed === true){
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messageFBLLRR',
       messageLL: 90,
-      messageRR: 50
+      messageRR: 30
     }))
   }
-
-  //
-  // if (refTimeoutBool.current === true && refTimeoutBool2.current === true) {
-  //   refTimeoutBool2.current = false
-  //   refTimeoutBool.current = false
-  //   setTimeout(() => {
-  //     store.webSocket.send(JSON.stringify({
-  //       id: store.idSocket,
-  //       method: 'messageFBLLRR',
-  //       messageLL: 90,
-  //       messageRR: 90
-  //     }))
-  //     refTimeoutBool2.current = true
-  //   }, refTimeout.current)
-  // }
 
   if(lt.pressed === true){refLT.current = true}
   if(rt.pressed === true){refRT.current = true}
@@ -130,10 +158,10 @@ function GamepadInfo({ buttons, axes }) {
   }
 
 
-  if(b.pressed === true){
-    messageL(0)
-    messageR(0)
-  }
+  // if(b.pressed === true){
+  //   messageL(0)
+  //   messageR(0)
+  // }
 
   if(dUp.pressed === true) {
     store.setMessageFBL(true)
@@ -188,10 +216,76 @@ function GamepadInfo({ buttons, axes }) {
     }
     console.log(refSpeed.current)
   }
-
   if(lb.pressed === false){
     refLB.current = true
   }
+
+  if(a.pressed === true && refA.current === true) {
+    refA.current = false
+    //refRjVert.current = 30
+    if(refRjVert.current > 4){
+      refRjVert.current = refRjVert.current - 5
+    }
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'messageFBRR',
+      messageRR: refRjVert.current
+    }))
+  }
+  if(a.pressed === false){
+    refA.current = true
+  }
+
+  if(x.pressed === true && refX.current === true) {
+    refX.current = false
+    if(refLjHoriz.current < 176) {
+      refLjHoriz.current = refLjHoriz.current + 5
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messageFBLL',
+        messageLL: refLjHoriz.current
+      }))
+    }
+  }
+
+  if(x.pressed === false){
+    refX.current = true
+  }
+
+
+
+  if(b.pressed === true && refB.current === true) {
+    refB.current = false
+    if(refLjHoriz.current > 4) {
+      refLjHoriz.current = refLjHoriz.current - 5
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messageFBLL',
+        messageLL: refLjHoriz.current
+      }))
+    }
+  }
+  if(b.pressed === false){
+    refB.current = true
+  }
+
+  if(y.pressed === true && refY.current === true) {
+    refY.current = false
+    if(refRjVert.current < 96) {
+      refRjVert.current = refRjVert.current + 5
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messageFBRR',
+        messageRR: refRjVert.current
+      }))
+    }
+  }
+
+  if(y.pressed === false){
+    refY.current = true
+  }
+
+
 
   if(rb.pressed === true && refRB.current === true) {
     refRB.current = false
