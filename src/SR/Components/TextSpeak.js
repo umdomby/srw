@@ -9,6 +9,7 @@ const TextSpeak = observer(() => {
 
     const [showResults, setShowResults] = useState(true)
     const onClick = () => setShowResults(!showResults)
+    const [hidden, setHidden] = useState(false)
 
     //translate
     const [options, setOptions] = useState([]);
@@ -46,8 +47,8 @@ const TextSpeak = observer(() => {
 
     //Speak
     //const [text, setText] = useState('');
-    const [pitch, setPitch] = useState(1);
-    const [rate, setRate] = useState(1);
+    const [pitch, setPitch] = useState(0);
+    const [rate, setRate] = useState(0.5);
     const [voiceIndex, setVoiceIndex] = useState(null);
     const [noVoiceSpeak, setNoVoiceSpeak] = useState(false)
     const onEnd = () => {
@@ -162,6 +163,13 @@ const TextSpeak = observer(() => {
     )
     return (
         <div className="Dictaphone" style={{color:'white'}}>
+            <button
+                onClick={()=>setHidden(!hidden)}
+            >
+                Set
+            </button>
+
+            {hidden && <div>
             {/*<input type="submit" value="HIDE" onClick={onClick} />*/}
             {/*{ showResults ? <Results /> : null }*/}
             <div>
@@ -279,8 +287,10 @@ const TextSpeak = observer(() => {
                     }}
                 />
             </div>
+            <br/>
             {listening && <div>Go ahead I'm listening</div>}
             {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
+        </div>}
         </div>
     )
 

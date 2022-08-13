@@ -191,8 +191,8 @@ function GamepadInfo({ buttons, axes }) {
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messagesFBLR',
-      messageFBL: true,
-      messageFBR: false
+      messageFBL: false,
+      messageFBR: true
     }))
   }
 
@@ -202,8 +202,8 @@ function GamepadInfo({ buttons, axes }) {
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messagesFBLR',
-      messageFBL: false,
-      messageFBR: true
+      messageFBL: true,
+      messageFBR: false
     }))
   }
 
@@ -337,10 +337,10 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>menu: {menu && menu.pressed && `pressed`}</p>*/}
       {/*<p>pause: {pause && pause.pressed && `pressed`}</p>*/}
       {/*<p>pwr: {pwr && pwr.pressed && `pressed`}</p>*/}
-      <p>LJ horiz: {ljHoriz}</p>
+      {/*<p>LJ horiz: {ljHoriz}</p>*/}
       {/*<p>LJ vert: {ljVert}</p>*/}
       {/*<p>RJ horiz: {rjHoriz}</p>*/}
-      <p>RJ vert: {rjVert}</p>
+      {/*<p>RJ vert: {rjVert}</p>*/}
     </div>
   );
 }

@@ -13,7 +13,7 @@
     position:absolute;
     z-index: 9200;
     margin: 0 auto;
-    top: 70px;
+    top: 35px;
     left: 45%;
 }
 .Page {
@@ -35,8 +35,8 @@
     /*margin: 0 auto;*/
     position: absolute;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
-    top: 25px;
-    left: 35%;
+    top: 4px;
+    left: 25%;
 }
 
 .DropDownMenuModel {
@@ -44,8 +44,8 @@
     /*margin: 0 auto;*/
     position: absolute;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
-    top: 25px;
-    left: 65%;
+    top: 4px;
+    left: 75%;
 }
 
 
