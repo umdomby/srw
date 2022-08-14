@@ -47,8 +47,8 @@ const TextSpeak = observer(() => {
 
     //Speak
     //const [text, setText] = useState('');
-    const [pitch, setPitch] = useState(0);
-    const [rate, setRate] = useState(0.5);
+    const [pitch, setPitch] = useState(1.2);
+    const [rate, setRate] = useState(1.4);
     const [voiceIndex, setVoiceIndex] = useState(null);
     const [noVoiceSpeak, setNoVoiceSpeak] = useState(false)
     const onEnd = () => {
