@@ -223,8 +223,8 @@ const start = async () => {
 
         const wssSendPersId = (mess, ws)=> {
             wss.clients.forEach(function each(client) {
-                if (client.id === ws.id  && client.persId != ws.persId && client.readyState === client.OPEN) {
-                //if (client.id === ws.id && client.readyState === client.OPEN) {
+                //if (client.id === ws.id  && client.persId != ws.persId && client.readyState === client.OPEN) {
+                if (client.id === ws.id && client.readyState === client.OPEN) {
                     client.send(mess)
                 }
             });

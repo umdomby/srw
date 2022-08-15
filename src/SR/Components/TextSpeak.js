@@ -2,6 +2,9 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import store from "../Store";
 import {observer} from "mobx-react-lite";
 import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
+import {messageL} from "../Control/messageL";
+import {messageR} from "../Control/messageR";
+import useEventListener from "@use-it/event-listener";
 const axios = require('axios').default;
 
 
@@ -10,6 +13,8 @@ const TextSpeak = observer(() => {
     const [showResults, setShowResults] = useState(true)
     const onClick = () => setShowResults(!showResults)
     const [hidden, setHidden] = useState(false)
+    const refSaddleUP = useRef(true)
+    const refSaddleDOWN = useRef(true)
 
     //translate
     const [options, setOptions] = useState([]);
@@ -47,8 +52,8 @@ const TextSpeak = observer(() => {
 
     //Speak
     //const [text, setText] = useState('');
-    const [pitch, setPitch] = useState(1.2);
-    const [rate, setRate] = useState(1.4);
+    const [pitch, setPitch] = useState(0.6);
+    const [rate, setRate] = useState(1);
     const [voiceIndex, setVoiceIndex] = useState(null);
     const [noVoiceSpeak, setNoVoiceSpeak] = useState(false)
     const onEnd = () => {
@@ -157,6 +162,46 @@ const TextSpeak = observer(() => {
         setNoVoiceSpeak(false)
     }
 
+
+    const socketSend = (method, value) => {
+        store.webSocket.send(JSON.stringify({
+            id: store.idSocket,
+            method: method,
+            message: value
+        }))
+    }
+
+    function handlerUP({ key }) {
+        // console.log(refSaddleUP.current);
+        // console.log(refSaddleDOWN.current);
+        if(String(key) === 'ArrowUp'){
+            refSaddleUP.current = true
+            socketSend('saddleUP', true)
+        }
+        else if(String(key) === 'ArrowDown'){
+            refSaddleDOWN.current = true
+            socketSend('saddleDOWN', true)
+        }
+    }
+
+    function handlerDOWN({ key }) {
+        console.log(String(key));
+        if(String(key) === 'ArrowUp' && refSaddleDOWN.current === true){
+            socketSend('saddleUP', false)
+            refSaddleUP.current = false
+        }
+
+        else if(String(key) === 'ArrowDown' && refSaddleUP.current === true){
+            socketSend('saddleDOWN', false)
+            refSaddleDOWN.current = false
+        }
+        console.log('refSaddleUP ' + refSaddleUP.current);
+        console.log('refSaddleDOWN ' + refSaddleDOWN.current);
+    }
+
+    useEventListener('keydown', handlerDOWN);
+    useEventListener('keyup', handlerUP);
+
     const Results = () => (
         <div>
         </div>
@@ -214,29 +259,26 @@ const TextSpeak = observer(() => {
             <div style={{color: 'white'}}>
                 {store.textSpeak}
             </div>
-            <div>
-                From ({from}) :
-                <select onChange={(e) => setFrom(e.target.value)}>
-                    {options.map((opt) => (
-                        <option key={opt.code} value={opt.code}>
-                            {opt.name}
-                            {/*{console.log( '222222 ' + opt.code + ' ' + opt.name)}*/}
-                        </option>
-                    ))}
-                </select>
-                To ({to}) :
-                <select onChange={(e) => setTo(e.target.value)}>
-                    {options.map((opt) => (
-                        <option key={opt.code} value={opt.code}>
-                            {opt.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
-            {/*<div style={{color: 'white'}}>*/}
-            {/*    {text}*/}
+            {/*<div>*/}
+            {/*    From ({from}) :*/}
+            {/*    <select onChange={(e) => setFrom(e.target.value)}>*/}
+            {/*        {options.map((opt) => (*/}
+            {/*            <option key={opt.code} value={opt.code}>*/}
+            {/*                {opt.name}*/}
+            {/*                /!*{console.log( '222222 ' + opt.code + ' ' + opt.name)}*!/*/}
+            {/*            </option>*/}
+            {/*        ))}*/}
+            {/*    </select>*/}
+            {/*    To ({to}) :*/}
+            {/*    <select onChange={(e) => setTo(e.target.value)}>*/}
+            {/*        {options.map((opt) => (*/}
+            {/*            <option key={opt.code} value={opt.code}>*/}
+            {/*                {opt.name}*/}
+            {/*            </option>*/}
+            {/*        ))}*/}
+            {/*    </select>*/}
             {/*</div>*/}
-            {/*    <button onClick={e=>translate()}>Translate</button>*/}
+
             {!supported && (
                 <p>
                     Oh no, it looks like your browser doesn&#39;t support Speech
