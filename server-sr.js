@@ -197,12 +197,16 @@ const start = async () => {
                         wsaSend(msgg, ws)
                         break;
                     case "textSpeak":
-                        console.log('Chrome textSpeak '+ 'text ' + msg.text)
+                        console.log('Chrome textSpeak '+ 'text ' + msg.text + ' : ' + msg.me)
                         let mess1 = JSON.stringify({
                             method: 'textSpeak',
                             text: msg.text,
                         })
-                        wssSendPersId(mess1 , ws)
+                        if(msg.me === false) {
+                            wssSendPersId(mess1, ws)
+                        }else{
+                            wssSend(mess1, ws)
+                        }
                         break;
                     default:
                         wsaSend(msgg, ws)
@@ -223,8 +227,8 @@ const start = async () => {
 
         const wssSendPersId = (mess, ws)=> {
             wss.clients.forEach(function each(client) {
-                //if (client.id === ws.id  && client.persId != ws.persId && client.readyState === client.OPEN) {
-                if (client.id === ws.id && client.readyState === client.OPEN) {
+                if (client.id === ws.id  && client.persId != ws.persId && client.readyState === client.OPEN) {
+                //if (client.id === ws.id && client.readyState === client.OPEN) {
                     client.send(mess)
                 }
             });

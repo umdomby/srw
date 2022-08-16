@@ -15,6 +15,7 @@ const TextSpeak = observer(() => {
     const [hidden, setHidden] = useState(false)
     const refSaddleUP = useRef(true)
     const refSaddleDOWN = useRef(true)
+    const [meSendSocket, setMeSendSocket] = useState(false)
 
     //translate
     const [options, setOptions] = useState([]);
@@ -108,6 +109,7 @@ const TextSpeak = observer(() => {
             id: store.idSocket,
             method: 'textSpeak',
             text: valueTxt,
+            me: meSendSocket
         }))
         setValueTxt('')
     }
@@ -153,6 +155,7 @@ const TextSpeak = observer(() => {
                 id: store.idSocket,
                 method: 'textSpeak',
                 text: value,
+                me: meSendSocket
             }))
         }
     },[value])
@@ -189,14 +192,19 @@ const TextSpeak = observer(() => {
         if(String(key) === 'ArrowUp' && refSaddleDOWN.current === true){
             socketSend('saddleUP', false)
             refSaddleUP.current = false
+            console.log('refSaddleUP ' + refSaddleUP.current);
         }
-
         else if(String(key) === 'ArrowDown' && refSaddleUP.current === true){
             socketSend('saddleDOWN', false)
             refSaddleDOWN.current = false
+            console.log('refSaddleDOWN ' + refSaddleDOWN.current);
         }
-        console.log('refSaddleUP ' + refSaddleUP.current);
-        console.log('refSaddleDOWN ' + refSaddleDOWN.current);
+        else if(String(key) === 'ArrowLeft'){
+            socketSend('light', true)
+        }
+        else if(String(key) === 'ArrowRight'){
+            socketSend('light', false)
+        }
     }
 
     useEventListener('keydown', handlerDOWN);
@@ -251,6 +259,11 @@ const TextSpeak = observer(() => {
             >
                 stop
             </button>
+            <input
+                type="checkbox"
+                checked={meSendSocket}
+                onChange={()=>setMeSendSocket(!meSendSocket)}
+            />
             {/*<button onClick={()=>*/}
             {/*    setNoVoiceSpeak(!noVoiceSpeak)*/}
             {/*}>*/}
