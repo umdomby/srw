@@ -208,6 +208,13 @@ const start = async () => {
                             wssSend(mess1, ws)
                         }
                         break;
+                    case "noSpeech":
+                        let mess2 = JSON.stringify({
+                            method: 'noSpeech',
+                            message: msg.message,
+                        })
+                        wssSendPersId(mess2, ws)
+                        break;
                     default:
                         wsaSend(msgg, ws)
                         break;

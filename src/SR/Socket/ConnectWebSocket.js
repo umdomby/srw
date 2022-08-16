@@ -8,7 +8,7 @@ const ConnectWebSocket = observer(() => {
     const persId = useRef(shortId.generate())
     const [idSocket, setIdSocket] = useState(localStorage.getItem('localIdSocket') || '')
     setInterval(() => socketTest(), 5000)
-    const [hidden, setHidden] = useState(true)
+    const [hidden, setHidden] = useState(false)
 
     useEffect(()=>{
         if( localStorage.getItem('localIdSocket') === null || localStorage.getItem('localIdSocket') === undefined) {
@@ -58,10 +58,10 @@ const ConnectWebSocket = observer(() => {
                            store.setIdSocket(event.target.value)
                        }}
                 />}
-            <button style={{backgroundColor: '#D3D3D3', textAlign: 'center', borderWidth: 1, fontSize: 11, width:'4em', height:'2em'}}
+            <button style={{backgroundColor: '#D3D3D3', textAlign: 'center', borderWidth: 1, fontSize: 11, width:'6em', height:'2em'}}
                 onClick={()=>setHidden(!hidden)}
             >
-                Hid
+                Connect
             </button>
             {/*<div>*/}
             {/*    <button onClick={connectID}>Connect</button>*/}

@@ -5,6 +5,7 @@ import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
 import {messageL} from "../Control/messageL";
 import {messageR} from "../Control/messageR";
 import useEventListener from "@use-it/event-listener";
+import TextSpeakSpeech from "./TextSpeakSpeech";
 const axios = require('axios').default;
 
 
@@ -13,6 +14,7 @@ const TextSpeak = observer(() => {
     const [showResults, setShowResults] = useState(true)
     const onClick = () => setShowResults(!showResults)
     const [hidden, setHidden] = useState(false)
+    const [hiddenSpeech, setHiddenSpeech] = useState(false)
     const refSaddleUP = useRef(true)
     const refSaddleDOWN = useRef(true)
     const [meSendSocket, setMeSendSocket] = useState(false)
@@ -115,19 +117,9 @@ const TextSpeak = observer(() => {
     }
 
     useEffect(()=> {
-        //speak({ text: output, lang:'en-AU' })
-        ///setText(output)
-
         if(store.textSpeak != '' && store.textSpeak != null && store.textSpeak != undefined) {
             console.log('store.textSpeak ' + store.textSpeak)
             speak({text: store.textSpeak, voice, rate, pitch})
-            // translate().then(data =>
-            // {
-            // if(data != null & data !=undefined) {
-            //speak({text: data, voice, rate, pitch})
-            //     }
-            //     console.log('data ' + data)
-            // })
         }
     }, [store.textSpeak])
 
@@ -139,14 +131,11 @@ const TextSpeak = observer(() => {
             listen({ lang, interimResults: false})
         }
     },[speaking])
-
     console.log('render')
 
-    // useEffect(()=>{
-    //     setTimeout(()=> listen({ lang, interimResults: false}), 1000)
-    //     return ()=> stop()
-    // }, [lang])
-
+    useEffect(()=>{
+        cancel()
+    },[store.noSpeech])
 
     useEffect(()=> {
         console.log('value ' + value)
@@ -165,7 +154,6 @@ const TextSpeak = observer(() => {
         setNoVoiceSpeak(false)
     }
 
-
     const socketSend = (method, value) => {
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
@@ -175,13 +163,10 @@ const TextSpeak = observer(() => {
     }
 
     function handlerUP({ key }) {
-        // console.log(refSaddleUP.current);
-        // console.log(refSaddleDOWN.current);
         if(String(key) === 'ArrowUp'){
             refSaddleUP.current = true
             socketSend('saddleUP', true)
-        }
-        else if(String(key) === 'ArrowDown'){
+        } else if(String(key) === 'ArrowDown'){
             refSaddleDOWN.current = true
             socketSend('saddleDOWN', true)
         }
@@ -193,38 +178,55 @@ const TextSpeak = observer(() => {
             socketSend('saddleUP', false)
             refSaddleUP.current = false
             console.log('refSaddleUP ' + refSaddleUP.current);
-        }
-        else if(String(key) === 'ArrowDown' && refSaddleUP.current === true){
+        }else if(String(key) === 'ArrowDown' && refSaddleUP.current === true){
             socketSend('saddleDOWN', false)
             refSaddleDOWN.current = false
             console.log('refSaddleDOWN ' + refSaddleDOWN.current);
-        }
-        else if(String(key) === 'ArrowLeft'){
+        }else if(String(key) === 'ArrowLeft'){
             socketSend('light', true)
-        }
-        else if(String(key) === 'ArrowRight'){
+        }else if(String(key) === 'ArrowRight'){
             socketSend('light', false)
         }
     }
-
     useEventListener('keydown', handlerDOWN);
     useEventListener('keyup', handlerUP);
 
-    const Results = () => (
-        <div>
-        </div>
-    )
     return (
         <div className="Dictaphone" style={{color:'white'}}>
             <button
-                onClick={()=>setHidden(!hidden)}
+                onClick={()=> {setHidden(!hidden)
+                    setHiddenSpeech(false)
+                }}
             >
                 Set
             </button>
+            <button
+                onClick={()=>{setHiddenSpeech(!hiddenSpeech)
+                    setHidden(false)
+                }}
+            >
+                Speech
+            </button>
+            <button
+                onClick={()=> cancel()}
+            >
+                Stop speech me
+            </button>
+            <button
+                onClick={()=> {
+                    store.webSocket.send(JSON.stringify({
+                        id: store.idSocket,
+                        method: 'noSpeech',
+                        message: true,
+                    }))
+                }}
+            >
+                Stop speech to
+            </button>
 
+
+            {hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}
             {hidden && <div>
-            {/*<input type="submit" value="HIDE" onClick={onClick} />*/}
-            {/*{ showResults ? <Results /> : null }*/}
             <div>
                 {value}
             </div>

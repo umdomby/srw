@@ -56,7 +56,10 @@ const WebSocketProject = (id, persId) => {
                             store.setTextSpeak(msg.text)
                             //store.setArduinoFBR(msg.messageFBR)
                             break
-
+                        case "noSpeech":
+                            console.log('noSpeech')
+                            store.setNoSpeech(!store.noSpeech)
+                            break
                         default:
                             console.log('default arduino')
                     }

@@ -17,10 +17,14 @@ class Index {
         this._rulingControl = ''
         this._textSpeak = ''
         this._textSpeakFrom = ''
+        this._noSpeech = false
         // this._joyTriggerLeft = ''
         // this._joyTriggerRight = ''
         makeAutoObservable(this)
     }
+    get noSpeech() {return this._noSpeech;}
+    setNoSpeech(value) {this._noSpeech = value;}
+
     get textSpeakFrom() {return this._textSpeakFrom;}
     setTextSpeakFrom(value) {this._textSpeakFrom = value;}
 
