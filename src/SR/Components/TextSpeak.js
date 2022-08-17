@@ -173,7 +173,7 @@ const TextSpeak = observer(() => {
     }
 
     function handlerDOWN({ key }) {
-        console.log(String(key));
+        // console.log(String(key));
         if(String(key) === 'ArrowUp' && refSaddleDOWN.current === true){
             socketSend('saddleUP', false)
             refSaddleUP.current = false
