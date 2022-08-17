@@ -7,7 +7,7 @@ const TextSpeakSpeech = observer((props) => {
     const intervalMess = useRef(0)
     const intervalArr = useRef([])
     const intervalArrSpeech = useRef([])
-    const [timeSeconds, setTimeSeconds] = useState(3)
+    const [timeSeconds, setTimeSeconds] = useState(localStorage.getItem('timeSeconds') || '')
 
     const [textarea_1, setTextarea_1] = useState(localStorage.getItem('textarea_1') || '')
     const [textarea_2, setTextarea_2] = useState(localStorage.getItem('textarea_2') || '')
@@ -68,6 +68,7 @@ const TextSpeakSpeech = observer((props) => {
                 step="3"
                 onChange={(event) => {
                     setTimeSeconds(event.target.value);
+                    localStorage.setItem('timeSeconds', event.target.value);
                 }}
             />
             {timeSeconds + " seconds"}
