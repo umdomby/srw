@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Buffer} from 'buffer';
 import {observer} from "mobx-react-lite";
 import store from "../Store";
@@ -6,10 +6,19 @@ import store from "../Store";
 export const FileUploader = observer(() => {
     const [image, setImage] = useState();
     const [imageURL, setImageURL] = useState('');
+    const audioTune = useRef(new Audio())
+
+
 
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
         setImageURL(fileReader.result);
+        store.webSocket.send(JSON.stringify({
+            id: store.idSocket,
+            method: 'audioURL',
+            message: fileReader.result,
+            me: store.me
+        }))
     };
     const handleOnChange = (event) => {
         event.preventDefault();
@@ -35,81 +44,85 @@ export const FileUploader = observer(() => {
     };
 
 
-    const audioTune = new Audio(imageURL)
+    //const audioTune = new Audio(imageURL)
+    // if(store.audioURL !== ''){
+    //     audioTune.current = new Audio(store.audioURL)
+    // }
     const [playInLoop, setPlayInLoop] = useState(false);
 
     // load audio file on component load
-    useEffect(() => {
-        console.log(imageURL)
-        audioTune.load();
-    }, [])
+    // useEffect(() => {
+    //     console.log(imageURL)
+    //     if(store.audioURL !== '') {
+    //         audioTune.current.load();
+    //     }
+    // }, [])
 
     // set the loop of audio tune
     useEffect(() => {
-        audioTune.loop = playInLoop;
+        if(store.audioURL !== '') {
+            audioTune.current = playInLoop;
+        }
     }, [playInLoop])
 
     // play audio sound
-    const playSound = () => {
-        console.log('11123 '  + imageURL)
-        audioTune.play();
-    }
-
-    // pause audio sound
-    const pauseSound = () => {
-        audioTune.pause();
-    }
-
-    // stop audio sound
-    const stopSound = () => {
-        audioTune.pause();
-        audioTune.currentTime = 0;
-    }
+    // const playSound = () => {
+    //     //console.log('11123 '  + imageURL)
+    //     audioTune.current = new Audio(imageURL)
+    //     audioTune.current.play();
+    // }
+    //
+    // // pause audio sound
+    // const pauseSound = () => {
+    //     audioTune.current.pause();
+    // }
+    //
+    // // stop audio sound
+    // const stopSound = () => {
+    //     audioTune.current.pause();
+    //     audioTune.current.currentTime = 0;
+    // }
 
     useEffect(()=>{
         console.log('store.audioURL')
         if(store.audioURL !== '') {
-            const audioTune = new Audio(store.audioURL)
-            audioTune.play();
+            // audioTune.current = null
+            //audioTune.current = store.audioURL
+            // audioTune.current.load();
+            audioTune.current.src = store.audioURL
+            audioTune.current.play();
         }
     },[store.audioURL])
 
     useEffect(()=>{
         console.log('store.audioPlaying')
-
+        if(store.audioURL !== '') {
+            if (store.audioPlaying === 1) {
+                audioTune.current.play();
+            } else if (store.audioPlaying === 2) {
+                audioTune.current.pause();
+            } else if (store.audioPlaying === 3) {
+                audioTune.current.pause();
+                audioTune.current.currentTime = 0;
+            }
+        }
     },[store.audioPlaying])
 
-    const startAudio = () => {
+    const playPauseStopAudio = (message) => {
+        console.log('playPauseStopAudio  message: ' + message)
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
             method: 'audioURLto',
-            message: false,
-            stopAudio: false
-        }))
-    }
-
-    const pauseAudio = () => {
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'audioURLto',
-            message: true,
-            stopAudio: false
-        }))
-    }
-    const stopAudio = () => {
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'audioURLto',
-            message: true,
-            stopAudio: true
+            message: message,
+            me: store.me
         }))
     }
 
     return (
         <div>
-            <input type="button" className="btn btn-primary mr-2" value="Play" onClick={playSound}></input>
-            <input type="button" className="btn btn-warning mr-2" value="Pause" onClick={pauseSound}></input>
-            <input type="button" className="btn btn-danger mr-2" value="Stop" onClick={stopSound}></input>
+            {/*<input type="button" className="btn btn-primary mr-2" value="Play" onClick={playSound}></input>*/}
+            {/*<input type="button" className="btn btn-warning mr-2" value="Pause" onClick={pauseSound}></input>*/}
+            {/*<input type="button" className="btn btn-danger mr-2" value="Stop" onClick={stopSound}></input>*/}
             <label
                 htmlFor="file-loader-button"
                 className="file-uploader__custom-button"
@@ -123,8 +136,8 @@ export const FileUploader = observer(() => {
                 onChange={handleOnChange}
             />
             <img
-                src={imageURL ? imageURL : "img.png"}
-                //src={"img.png"}
+                //src={imageURL ? imageURL : "img.png"}
+                src={"img.png"}
                 className="file-uploader__preview"
                 alt="preview"
                 onDrop={handleDrop}
@@ -133,21 +146,29 @@ export const FileUploader = observer(() => {
             />
             <div className="file-uploader__file-name">{image ? image.name : ""}</div>
 
-            <button
-                onClick={()=> {
-                    store.webSocket.send(JSON.stringify({
-                        id: store.idSocket,
-                        method: 'audioURL',
-                        message: imageURL,
-                        me: true
-                    }))
-                }}
-            >
-                send
-            </button>
-            <button onClick={()=>startAudio()}>Play</button>
-            <button onClick={()=>pauseAudio()}>Paused</button>
-            <button onClick={()=>stopAudio()}>Stop</button>
+            {/*<button*/}
+            {/*    onClick={()=> {*/}
+            {/*        store.webSocket.send(JSON.stringify({*/}
+            {/*            id: store.idSocket,*/}
+            {/*            method: 'audioURL',*/}
+            {/*            message: imageURL,*/}
+            {/*            me: store.me*/}
+            {/*        }))*/}
+            {/*    }}*/}
+            {/*>*/}
+            {/*    send*/}
+            {/*</button>*/}
+            <div>
+                <button onClick={()=>{if(store.audioURL !== ''){audioTune.current.play()}}}>miPlay</button>
+                <button onClick={()=>{if(store.audioURL !== ''){audioTune.current.pause()}}}>miPause</button>
+                <button onClick={()=>{ if(store.audioURL !== ''){audioTune.current.pause();
+                    audioTune.current.currentTime = 0;}}}>miStop</button>
+            </div>
+            <div>
+                <button onClick={()=>playPauseStopAudio(1)}>Play</button>
+                <button onClick={()=>playPauseStopAudio(2)}>Paused</button>
+                <button onClick={()=>playPauseStopAudio(3)}>Stop</button>
+            </div>
         </div>
     );
 });

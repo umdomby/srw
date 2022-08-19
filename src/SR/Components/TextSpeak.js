@@ -19,7 +19,6 @@ const TextSpeak = observer(() => {
     const [hiddenSpeech, setHiddenSpeech] = useState(false)
     const refSaddleUP = useRef(true)
     const refSaddleDOWN = useRef(true)
-    const [meSendSocket, setMeSendSocket] = useState(false)
 
     //translate
     const [options, setOptions] = useState([]);
@@ -113,7 +112,7 @@ const TextSpeak = observer(() => {
             id: store.idSocket,
             method: 'textSpeak',
             text: valueTxt,
-            me: meSendSocket
+            me: store.me
         }))
         setValueTxt('')
     }
@@ -146,7 +145,7 @@ const TextSpeak = observer(() => {
                 id: store.idSocket,
                 method: 'textSpeak',
                 text: value,
-                me: meSendSocket
+                me: store.me
             }))
         }
     },[value])
@@ -263,9 +262,10 @@ const TextSpeak = observer(() => {
             </button>
             <input
                 type="checkbox"
-                checked={meSendSocket}
-                onChange={()=>setMeSendSocket(!meSendSocket)}
+                checked={store.me}
+                onChange={()=>store.setMe(!store.me)}
             />
+                {store.me ? 'true' : 'false'}
             {/*<button onClick={()=>*/}
             {/*    setNoVoiceSpeak(!noVoiceSpeak)*/}
             {/*}>*/}

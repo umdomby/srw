@@ -21,11 +21,13 @@ class Index {
         this._youTubeLink = ''
         this._youTubePlaying = false
         this._audioURL = ''
-        this._audioPlaying = false
-        // this._joyTriggerLeft = ''
-        // this._joyTriggerRight = ''
+        this._audioPlaying = null
+        this._me = false
         makeAutoObservable(this)
     }
+    get me() {return this._me;}
+    setMe(value) {this._me = value;}
+
     get audioURL() {return this._audioURL;}
     setAudioURL(value) {this._audioURL = value;}
 
@@ -46,12 +48,6 @@ class Index {
 
     get textSpeak() {return this._textSpeak;}
     setTextSpeak(value) {this._textSpeak = value;}
-
-    // get joyTriggerLeft() {return this._joyTriggerLeft;}
-    // setJoyTriggerLeft(value) {this._joyTriggerLeft = value;}
-    //
-    // get joyTriggerRight() {return this._joyTriggerRight;}
-    // setJoyTriggerRight(value) {this._joyTriggerRight = value;}
 
     get rulingControl() {return this._rulingControl;}
     setRulingControl(value) {this._rulingControl = value;}

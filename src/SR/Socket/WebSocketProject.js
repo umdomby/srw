@@ -70,11 +70,11 @@ const WebSocketProject = (id, persId) => {
                             store.setAudioPlaying(msg.playing)
                             break
                         case "audioURLto":
-                            store.setAudioPlaying(!store.audioPlaying)
-                            console.log(store.audioPlaying)
+                            store.setAudioPlaying(msg.message)
+                            console.log('socket audioURLto: ' + msg.message)
                             break
                         default:
-                            console.log('default arduino')
+                            console.log(msg)
                     }
                 }
             }catch (e) {

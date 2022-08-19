@@ -155,10 +155,6 @@ const start = async () => {
         const wss = new WebSocketServer({server: httpsServer});
         wss.on('connection', ws => {
             ws.on('message', msgg => {
-                // console.log(msgg)
-                // ws.send(data, { binary: true });
-                // console.log(msgg)
-
                     try {
                         msg = JSON.parse(msgg)
                         switch (msg.method) {
@@ -233,33 +229,33 @@ const start = async () => {
                                     wssSend(mess4, ws)
                                 }
                                 break;
-
-                            case "audioURL":
-                                let mess5 = JSON.stringify({
-                                    method: 'audioURL',
-                                    message: msg.message,
-                                    me: msg.me
-                                })
-                                if (msg.me === false) {
-                                    wssSendPersId(mess5, ws)
-                                } else {
-                                    wssSend(mess5, ws)
-                                }
-                                break;
-                            case "audioURLto":
-                                let mess6 = JSON.stringify({
-                                    method: 'audioURLto',
-                                })
-                                if (msg.me === false) {
-                                    wssSendPersId(mess6, ws)
-                                } else {
-                                    wssSend(mess6, ws)
-                                }
-                                break;
+                            // case "audioURL":
+                            //     if (msg.me === false) {
+                            //        wssSend(JSON.stringify(msg), ws)
+                            //     } else {
+                            //         wssSendPersId(JSON.stringify(msg), ws)
+                            //     }
+                            //     break;
+                            // case "audioURLto":
+                            //     let mess6 = JSON.stringify({
+                            //         method: 'audioURLto',
+                            //     })
+                            //     if (msg.me === false) {
+                            //         wssSendPersId(mess6, ws)
+                            //     } else {
+                            //         wssSend(mess6, ws)
+                            //     }
+                            //     break;
                             default:
-                                //wsaSend(msgg, ws)
+                                // console.log('default method: ' + msg.method + ' message: ' + msg.message)
+                                if (msg.me === false && msg.me !== undefined) {
+                                    wssSend(JSON.stringify(msg), ws)
+                                    // console.log('message: ' + msg.message)
+                                } else if  (msg.me === true && msg.me !== undefined){
+                                    wssSendPersId(JSON.stringify(msg), ws)
+                                    // console.log('message: ' + msg.message)
+                                }
                                 break;
-                            //console.log('default')
                         }
                     }catch (e) {
                         console.log(msgg)
