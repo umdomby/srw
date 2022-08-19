@@ -254,12 +254,14 @@ const start = async () => {
                                 } else if  (msg.me === true && msg.me !== undefined){
                                     wssSendPersId(JSON.stringify(msg), ws)
                                     // console.log('message: ' + msg.message)
+                                }else {
+                                    wsaSend(msgg, ws)
                                 }
                                 break;
                         }
                     }catch (e) {
-                        console.log(msgg)
-                        wssSend(msgg, ws)
+                        console.log(e)
+                        // wssSend(msgg, ws)
                         // var buf = new Uint8Array(msgg).buffer
                         // console.log(buf)
                     }

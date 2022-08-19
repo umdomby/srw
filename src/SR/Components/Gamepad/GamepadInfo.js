@@ -130,6 +130,8 @@ function GamepadInfo({ buttons, axes }) {
   if(lt.pressed === true){refLT.current = true}
   if(rt.pressed === true){refRT.current = true}
   if(refLT.current === true || refRT.current === true) {
+    console.log(rt.value)
+    console.log(lt.value)
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messagesLTRT',
