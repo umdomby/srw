@@ -72,7 +72,7 @@ const TextSpeakSpeech = observer((props) => {
                 }}
             />
             {timeSeconds + " seconds"}
-            <div style={{width:'600px'}}>
+            <div style={{width:'25%'}}>
                 <div>
                     <textarea
                         value={textarea_1}

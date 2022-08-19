@@ -13,8 +13,16 @@
     position:absolute;
     z-index: 9200;
     margin: 0 auto;
-    top: 35px;
-    left: 40%;
+    top: 55px;
+    left: 85%;
+}
+
+.Dictaphone10 {
+    position:absolute;
+    z-index: 9200;
+    margin: 0 auto;
+    top: 175px;
+    left: 1%;
 }
 .Page {
     /*margin-top:100px;*/

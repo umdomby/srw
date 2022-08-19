@@ -13,46 +13,8 @@ const axios = require('axios').default;
 
 const TextSpeak = observer(() => {
 
-    const [showResults, setShowResults] = useState(true)
-    const onClick = () => setShowResults(!showResults)
-    const [hidden, setHidden] = useState(false)
-    const [hiddenSpeech, setHiddenSpeech] = useState(false)
     const refSaddleUP = useRef(true)
     const refSaddleDOWN = useRef(true)
-
-    //translate
-    const [options, setOptions] = useState([]);
-    const [to, setTo] = useState('en');
-    const [from, setFrom] = useState('en');
-    const [writeText, setWriteText] = useState('');
-    const translate = () => {
-        const params = new URLSearchParams();
-        params.append('q', store.textSpeak);
-        params.append('source', from);
-        params.append('target', to);
-        params.append('api_key', 'AIzaSyBvBuyaUdGGyDiT90vGvdWvUebwfztZ1Jg');
-        axios.post('https://libretranslate.de/translate',params, {
-            headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        }).then(res=>{
-            console.log(res.data)
-                //return res.data.translatedText
-            //setText(res.data.translatedText)
-        })
-    };
-    useEffect(() => {
-        axios
-            .get('https://libretranslate.de/languages', {
-                headers: { accept: 'application/json' },
-            })
-            .then((res) => {
-                console.log(res.data);
-                setOptions(res.data);
-            });
-    }, []);
-    //End translate
 
     //Speak
     //const [text, setText] = useState('');
@@ -193,39 +155,28 @@ const TextSpeak = observer(() => {
     useEventListener('keyup', handlerUP);
 
     return (
-        <div className="Dictaphone" style={{color:'white'}}>
-            <button
-                onClick={()=> {setHidden(!hidden)
-                    setHiddenSpeech(false)
-                }}
-            >
-                Set
-            </button>
-            <button
-                onClick={()=>{setHiddenSpeech(!hiddenSpeech)
-                    setHidden(false)
-                }}
-            >
-                Speech
-            </button>
-            <button
-                onClick={()=> cancel()}
-            >
-                Stop speech me
-            </button>
-            <button
-                onClick={()=> {
-                    store.webSocket.send(JSON.stringify({
-                        id: store.idSocket,
-                        method: 'noSpeech',
-                        message: true,
-                    }))
-                }}
-            >
-                Stop speech to
-            </button>
-            {hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}
-            {hidden && <div>
+        <div style={{color:'white'}}>
+
+            {/*{hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}*/}
+            {/*{hidden && <div>*/}
+            <TextSpeakSpeech setValue={setValue}/>
+            <div className="Dictaphone10">
+                <button
+                    onClick={()=> cancel()}
+                >
+                    Stop speech me
+                </button>
+                <button
+                    onClick={()=> {
+                        store.webSocket.send(JSON.stringify({
+                            id: store.idSocket,
+                            method: 'noSpeech',
+                            message: true,
+                        }))
+                    }}
+                >
+                    Stop speech to
+                </button>
             <div>
                 {value}
             </div>
@@ -235,6 +186,7 @@ const TextSpeak = observer(() => {
                 onChange={(event) => setValueTxt(event.target.value)}
                 onKeyPress={(event) => event.key === "Enter" && handleSubmit(event)}
             />
+                <div>
             <select
                 form="speech-recognition-form"
                 id="language"
@@ -266,34 +218,10 @@ const TextSpeak = observer(() => {
                 onChange={()=>store.setMe(!store.me)}
             />
                 {store.me ? 'true' : 'false'}
-            {/*<button onClick={()=>*/}
-            {/*    setNoVoiceSpeak(!noVoiceSpeak)*/}
-            {/*}>*/}
-            {/*    {noVoiceSpeak ? 'no Speech' : 'Speech'}*/}
-            {/*</button>*/}
+                </div>
             <div style={{color: 'white'}}>
                 {store.textSpeak}
             </div>
-            {/*<div>*/}
-            {/*    From ({from}) :*/}
-            {/*    <select onChange={(e) => setFrom(e.target.value)}>*/}
-            {/*        {options.map((opt) => (*/}
-            {/*            <option key={opt.code} value={opt.code}>*/}
-            {/*                {opt.name}*/}
-            {/*                /!*{console.log( '222222 ' + opt.code + ' ' + opt.name)}*!/*/}
-            {/*            </option>*/}
-            {/*        ))}*/}
-            {/*    </select>*/}
-            {/*    To ({to}) :*/}
-            {/*    <select onChange={(e) => setTo(e.target.value)}>*/}
-            {/*        {options.map((opt) => (*/}
-            {/*            <option key={opt.code} value={opt.code}>*/}
-            {/*                {opt.name}*/}
-            {/*            </option>*/}
-            {/*        ))}*/}
-            {/*    </select>*/}
-            {/*</div>*/}
-
             {!supported && (
                 <p>
                     Oh no, it looks like your browser doesn&#39;t support Speech
@@ -349,7 +277,8 @@ const TextSpeak = observer(() => {
             {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
             {/*    <TextSpeakYouTube/>*/}
                 <FileUploader/>
-        </div>}
+            </div>
+        {/*</div>}*/}
         </div>
     )
 

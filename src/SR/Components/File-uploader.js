@@ -85,13 +85,24 @@ export const FileUploader = observer(() => {
 
     useEffect(()=>{
         console.log('store.audioURL')
-        if(store.audioURL !== '') {
-            // audioTune.current = null
-            //audioTune.current = store.audioURL
-            // audioTune.current.load();
-            audioTune.current.src = store.audioURL
-            audioTune.current.play();
+        try {
+            if(store.audioURL !== '') {
+                // audioTune.current = null
+                //audioTune.current = store.audioURL
+                // audioTune.current.load();
+                audioTune.current.src = store.audioURL
+                audioTune.current.play();
+            }
+        }catch (e) {
+            console.log(e)
         }
+
+
+        // return ()=> {
+        //     audioTune.current.pause();
+        //     audioTune.current.src = {}
+        // }
+
     },[store.audioURL])
 
     useEffect(()=>{
@@ -135,6 +146,7 @@ export const FileUploader = observer(() => {
                 className="file-uploader__upload-button"
                 onChange={handleOnChange}
             />
+            <div>
             <img
                 //src={imageURL ? imageURL : "img.png"}
                 src={"img.png"}
@@ -145,7 +157,7 @@ export const FileUploader = observer(() => {
                 onDragOver={handleDragEmpty}
             />
             <div className="file-uploader__file-name">{image ? image.name : ""}</div>
-
+            </div>
             {/*<button*/}
             {/*    onClick={()=> {*/}
             {/*        store.webSocket.send(JSON.stringify({*/}
