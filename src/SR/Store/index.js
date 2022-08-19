@@ -18,10 +18,26 @@ class Index {
         this._textSpeak = ''
         this._textSpeakFrom = ''
         this._noSpeech = false
+        this._youTubeLink = ''
+        this._youTubePlaying = false
+        this._audioURL = ''
+        this._audioPlaying = false
         // this._joyTriggerLeft = ''
         // this._joyTriggerRight = ''
         makeAutoObservable(this)
     }
+    get audioURL() {return this._audioURL;}
+    setAudioURL(value) {this._audioURL = value;}
+
+    get audioPlaying() {return this._audioPlaying;}
+    setAudioPlaying(value) {this._audioPlaying = value;}
+
+    get youTubeLink() {return this._youTubeLink;}
+    setYouTubeLink(value) {this._youTubeLink = value;}
+
+    get youTubePlaying() {return this._youTubePlaying;}
+    setYouTubePlaying(value) {this._youTubePlaying = value;}
+
     get noSpeech() {return this._noSpeech;}
     setNoSpeech(value) {this._noSpeech = value;}
 

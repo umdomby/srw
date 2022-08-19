@@ -6,6 +6,8 @@ import {messageL} from "../Control/messageL";
 import {messageR} from "../Control/messageR";
 import useEventListener from "@use-it/event-listener";
 import TextSpeakSpeech from "./TextSpeakSpeech";
+import TextSpeakYouTube from "./TextSpeakYouTube";
+import {FileUploader} from "./File-uploader";
 const axios = require('axios').default;
 
 
@@ -223,8 +225,6 @@ const TextSpeak = observer(() => {
             >
                 Stop speech to
             </button>
-
-
             {hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}
             {hidden && <div>
             <div>
@@ -347,6 +347,8 @@ const TextSpeak = observer(() => {
             <br/>
             {listening && <div>Go ahead I'm listening</div>}
             {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
+            {/*    <TextSpeakYouTube/>*/}
+                <FileUploader/>
         </div>}
         </div>
     )

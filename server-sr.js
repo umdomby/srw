@@ -155,71 +155,120 @@ const start = async () => {
         const wss = new WebSocketServer({server: httpsServer});
         wss.on('connection', ws => {
             ws.on('message', msgg => {
-                msg = JSON.parse(msgg)
-                switch (msg.method) {
-                    case "connection":
-                        console.log('Connected Chrome id ' + msg.id)
-                        console.log('persId ' + msg.persId)
-                        ws.id = msg.id
-                        ws.persId = msg.persId
-                        wss.clients.forEach(function each(client) {
-                            console.log('client.id connection Chrome ' + client.id)
-                        });
-                        wsa.clients.forEach(function each(client) {
-                            console.log('client.id connection arduino ' + client.id)
-                        });
-                        const mess = JSON.stringify({
-                            method: 'connection',
-                            id: msg.id,
-                            persId: msg.persId
-                        })
-                        wssSend(mess, ws)
-                        break;
+                // console.log(msgg)
+                // ws.send(data, { binary: true });
+                // console.log(msgg)
 
-                    case "messagesL":
-                        console.log('Chrome messagesL '+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
-                        wsaSend(msgg, ws)
-                        break;
-                    case "messagesR":
-                        console.log('Chrome messagesR '+ msg.id + ' | R: ' + msg.messageR + ' | L: '+ msg.messageL + ' | ' + " method " + msg.method)
-                        wsaSend(msgg, ws)
-                        break;
-                    case "messagesOnOff":
-                        console.log('Chrome messageOnOff '+ msg.messageOnOff + ' id ' + msg.id)
-                        wsaSend(msgg, ws)
-                        break;
-                    case "messagesStop":
-                        console.log('Chrome messageStop '+ 'id ' + msg.id)
-                        wsaSend(msgg, ws)
-                        break;
-                    case "messagesFBLR":
-                        console.log('Chrome messageFBLR '+ 'id ' + msg.id)
-                        wsaSend(msgg, ws)
-                        break;
-                    case "textSpeak":
-                        console.log('Chrome textSpeak '+ 'text ' + msg.text + ' : ' + msg.me)
-                        let mess1 = JSON.stringify({
-                            method: 'textSpeak',
-                            text: msg.text,
-                        })
-                        if(msg.me === false) {
-                            wssSendPersId(mess1, ws)
-                        }else{
-                            wssSend(mess1, ws)
+                    try {
+                        msg = JSON.parse(msgg)
+                        switch (msg.method) {
+                            case "connection":
+                                console.log('Connected Chrome id ' + msg.id)
+                                console.log('persId ' + msg.persId)
+                                ws.id = msg.id
+                                ws.persId = msg.persId
+                                wss.clients.forEach(function each(client) {
+                                    console.log('client.id connection Chrome ' + client.id)
+                                });
+                                wsa.clients.forEach(function each(client) {
+                                    console.log('client.id connection arduino ' + client.id)
+                                });
+                                const mess = JSON.stringify({
+                                    method: 'connection',
+                                    id: msg.id,
+                                    persId: msg.persId
+                                })
+                                wssSend(mess, ws)
+                                break;
+
+                            case "messagesL":
+                                console.log('Chrome messagesL ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
+                                wsaSend(msgg, ws)
+                                break;
+                            case "messagesR":
+                                console.log('Chrome messagesR ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
+                                wsaSend(msgg, ws)
+                                break;
+                            case "messagesOnOff":
+                                console.log('Chrome messageOnOff ' + msg.messageOnOff + ' id ' + msg.id)
+                                wsaSend(msgg, ws)
+                                break;
+                            case "messagesStop":
+                                console.log('Chrome messageStop ' + 'id ' + msg.id)
+                                wsaSend(msgg, ws)
+                                break;
+                            case "messagesFBLR":
+                                console.log('Chrome messageFBLR ' + 'id ' + msg.id)
+                                wsaSend(msgg, ws)
+                                break;
+                            case "textSpeak":
+                                console.log('Chrome textSpeak ' + 'text ' + msg.text + ' : ' + msg.me)
+                                let mess1 = JSON.stringify({
+                                    method: 'textSpeak',
+                                    text: msg.text,
+                                })
+                                if (msg.me === false) {
+                                    wssSendPersId(mess1, ws)
+                                } else {
+                                    wssSend(mess1, ws)
+                                }
+                                break;
+                            case "noSpeech":
+                                let mess2 = JSON.stringify({
+                                    method: 'noSpeech',
+                                    message: msg.message,
+                                })
+                                wssSendPersId(mess2, ws)
+                                break;
+                            case "youTubeLink":
+                                let mess4 = JSON.stringify({
+                                    method: 'youTubeLink',
+                                    message: msg.message,
+                                    playing: msg.playing,
+                                    me: msg.me
+                                })
+                                if (msg.me === false) {
+                                    wssSendPersId(mess4, ws)
+                                } else {
+                                    wssSend(mess4, ws)
+                                }
+                                break;
+
+                            case "audioURL":
+                                let mess5 = JSON.stringify({
+                                    method: 'audioURL',
+                                    message: msg.message,
+                                    me: msg.me
+                                })
+                                if (msg.me === false) {
+                                    wssSendPersId(mess5, ws)
+                                } else {
+                                    wssSend(mess5, ws)
+                                }
+                                break;
+                            case "audioURLto":
+                                let mess6 = JSON.stringify({
+                                    method: 'audioURLto',
+                                })
+                                if (msg.me === false) {
+                                    wssSendPersId(mess6, ws)
+                                } else {
+                                    wssSend(mess6, ws)
+                                }
+                                break;
+                            default:
+                                //wsaSend(msgg, ws)
+                                break;
+                            //console.log('default')
                         }
-                        break;
-                    case "noSpeech":
-                        let mess2 = JSON.stringify({
-                            method: 'noSpeech',
-                            message: msg.message,
-                        })
-                        wssSendPersId(mess2, ws)
-                        break;
-                    default:
-                        wsaSend(msgg, ws)
-                        break;
-                        //console.log('default')
-                }
+                    }catch (e) {
+                        console.log(msgg)
+                        wssSend(msgg, ws)
+                        // var buf = new Uint8Array(msgg).buffer
+                        // console.log(buf)
+                    }
+
+
                  //wsaSend(msgg, ws)
             })
         })
