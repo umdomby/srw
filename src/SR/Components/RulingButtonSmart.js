@@ -51,6 +51,10 @@ const RulingButtonSmart = observer(() => {
                 messageR(DOWN.current)
                 intervalBool.current = true
                 console.log('interval')
+                if(UP.current === 0 && DOWN.current === 0){
+                    clearInterval(interval.current)
+                    intervalBool.current = false
+                }
             }, 1000)
         }
     }
