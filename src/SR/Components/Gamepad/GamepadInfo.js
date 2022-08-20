@@ -13,6 +13,8 @@ function GamepadInfo({ buttons, axes }) {
   const refB = useRef(true);
   const refY = useRef(true);
   const refRB = useRef(true);
+  const refPWR = useRef(true);
+  const refPWRoNoFF = useRef(false);
   const refSpeed = useRef(50);
   const refInterval = useRef(2000);
   const refRTLTNull = useRef(true);
@@ -54,7 +56,6 @@ function GamepadInfo({ buttons, axes }) {
   //console.log("6666 " + ljVert)
   //console.log("7777 " + refLjVert.current)
 
-
   if(ljHoriz > 0.11 || ljHoriz < -0.11) {
     refBoolLL.current = true
     const map = (x, in_min, in_max,out_min, out_max)=> {
@@ -81,8 +82,6 @@ function GamepadInfo({ buttons, axes }) {
       //messageRR: 40
     }))
   }
-
-
   if(rjVert > 0.11 || rjVert < -0.11) {
     refBoolRR.current = true
     const map = (x, in_min, in_max,out_min, out_max)=> {
@@ -150,7 +149,6 @@ function GamepadInfo({ buttons, axes }) {
       }))
     }
   }
-
   if(lt.pressed === false && refLT.current === true){
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
@@ -169,13 +167,10 @@ function GamepadInfo({ buttons, axes }) {
     }))
     refRT.current = false
   }
-
-
   // if(b.pressed === true){
   //   messageL(0)
   //   messageR(0)
   // }
-
   if(dUp.pressed === true) {
     lineUpDown.current = true
     store.setMessageFBL(true)
@@ -187,7 +182,6 @@ function GamepadInfo({ buttons, axes }) {
       messageFBR: true
     }))
   }
-
   if(dDown.pressed === true) {
     lineUpDown.current = true
     store.setMessageFBL(false)
@@ -199,7 +193,6 @@ function GamepadInfo({ buttons, axes }) {
       messageFBR: false
     }))
   }
-
   if(dLeft.pressed === true) {
     store.setMessageFBL(true)
     store.setMessageFBR(false)
@@ -210,7 +203,6 @@ function GamepadInfo({ buttons, axes }) {
       messageFBR: true
     }))
   }
-
   if(dRight.pressed === true) {
     store.setMessageFBL(false)
     store.setMessageFBR(true)
@@ -221,7 +213,6 @@ function GamepadInfo({ buttons, axes }) {
       messageFBR: false
     }))
   }
-
   if(a.pressed === true && refA.current === true) {
     refA.current = false
     //refRjVert.current = 30
@@ -237,7 +228,6 @@ function GamepadInfo({ buttons, axes }) {
   if(a.pressed === false){
     refA.current = true
   }
-
   if(x.pressed === true && refX.current === true) {
     refX.current = false
     if(refLjHoriz.current < 176) {
@@ -249,13 +239,9 @@ function GamepadInfo({ buttons, axes }) {
       }))
     }
   }
-
   if(x.pressed === false){
     refX.current = true
   }
-
-
-
   if(b.pressed === true && refB.current === true) {
     refB.current = false
     if(refLjHoriz.current > 4) {
@@ -270,7 +256,6 @@ function GamepadInfo({ buttons, axes }) {
   if(b.pressed === false){
     refB.current = true
   }
-
   if(y.pressed === true && refY.current === true) {
     refY.current = false
     if(refRjVert.current < 96) {
@@ -282,11 +267,9 @@ function GamepadInfo({ buttons, axes }) {
       }))
     }
   }
-
   if(y.pressed === false){
     refY.current = true
   }
-
   if(lb.pressed === true && refLB.current === true) {
     refLB.current = false
     if(refSpeed.current === 255) {
@@ -299,8 +282,6 @@ function GamepadInfo({ buttons, axes }) {
   if(lb.pressed === false){
     refLB.current = true
   }
-
-
   if(rb.pressed === true && refRB.current === true) {
     refRB.current = false
     if(refSpeed.current < 151) {
@@ -310,11 +291,9 @@ function GamepadInfo({ buttons, axes }) {
     }
     console.log(refSpeed.current)
   }
-
   if(rb.pressed === false){
     refRB.current = true
   }
-
   if(menu.pressed === true) {
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
@@ -330,6 +309,27 @@ function GamepadInfo({ buttons, axes }) {
     }))
   }
 
+
+
+  // store.webSocket('saddleUP', true)
+  //
+  // store.webSocket('saddleDOWN', true)
+  //
+  // store.webSocket('saddleDOWN', false)
+
+  if(pwr.pressed === true && refPWR.current === true) {
+    console.log('pwr_1')
+    refPWR.current = false
+  }else if(pwr.pressed === false && refPWR.current === false) {
+    console.log('pwr_2')
+    refPWRoNoFF.current = !refPWRoNoFF.current
+    refPWR.current = true
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'light',
+      message: refPWRoNoFF.current
+    }))
+  }
 
   return (
     <div style={{color:'white'}}>
