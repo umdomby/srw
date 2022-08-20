@@ -81,7 +81,6 @@
 /*    background-color: blue;*/
 /*    color:white;*/
 /*}*/
-
 .RulingBottomUp {
     text-shadow: 1px 1px 1px #f1f1f1;
     z-index: 102;
@@ -97,17 +96,16 @@
     /*margin: 0 auto;*/
     position: fixed;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
-    top: 55%;
+    top: 60%;
     left: 4%;
 }
-
 .RulingBottomLeft {
     text-shadow: 1px 1px 1px #f1f1f1;
     z-index: 102;
     /*margin: 0 auto;*/
     position: fixed;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
-    top: 55%;
+    top: 40%;
     left: 65%;
 }
 .RulingBottomRight {
@@ -116,17 +114,43 @@
     /*margin: 0 auto;*/
     position: fixed;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
-    top: 55%;
+    top: 40%;
     left: 83%;
 }
-
+.RulingBottomLeft- {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 75%;
+    left: 65%;
+}
+.RulingBottomRight- {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 75%;
+    left: 83%;
+}
+.RulingBottomRev {
+    text-shadow: 1px 1px 1px #f1f1f1;
+    z-index: 102;
+    /*margin: 0 auto;*/
+    position: fixed;
+    /*top: 1%; left: 34%; bottom: 0; right: 0;*/
+    top: 10%;
+    left: 65%;
+}
 .RulingBottomStop {
     text-shadow: 1px 1px 1px #f1f1f1;
     z-index: 102;
     /*margin: 0 auto;*/
     position: fixed;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
-    top: 20%;
+    top: 10%;
     left: 83%;
 }
 

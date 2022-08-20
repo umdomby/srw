@@ -28,6 +28,7 @@ export function goToRoomInput({history}) {
       <div className="enter-room-container">
             <form>
                   <input
+                      style={{width:'130px'}}
                         type="text"
                         value={roomId} placeholder="Room id"
                         onChange={(event) => {
