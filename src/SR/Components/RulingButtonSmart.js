@@ -260,7 +260,13 @@ const RulingButtonSmart = observer(() => {
                                 console.log(LEFT.current)
                             }
                         }else{
-                            if (LEFT.current < 226 ) {
+                            if(line === 'UP'){
+                                if (RIGHT.current < 226) {
+                                    RIGHT.current = RIGHT.current + speed.current
+                                    messageL(LEFT.current)
+                                    console.log(LEFT.current)
+                                }
+                            }else{
                                 LEFT.current = LEFT.current + speed.current
                                 messageL(LEFT.current)
                                 console.log(LEFT.current)
@@ -300,7 +306,12 @@ const RulingButtonSmart = observer(() => {
                                 console.log(LEFT.current)
                             }
                         }else{
-                            if (RIGHT.current < 226) {
+                            if(line === 'UP'){
+                            if (LEFT.current < 226 ) {
+                                LEFT.current = LEFT.current + speed.current
+                                messageL(LEFT.current)
+                                console.log(LEFT.current)
+                            }}else{
                                 RIGHT.current = RIGHT.current + speed.current
                                 messageL(LEFT.current)
                                 console.log(LEFT.current)

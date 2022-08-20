@@ -22,6 +22,7 @@ function GamepadInfo({ buttons, axes }) {
   const refBoolLL = useRef(false);
   const refBoolRR = useRef(false);
   const refTimeoutBool2 = useRef(true);
+  const lineUpDown = useRef(false)
 
 
   const {
@@ -133,12 +134,21 @@ function GamepadInfo({ buttons, axes }) {
   if(refLT.current === true || refRT.current === true) {
     console.log(rt.value)
     console.log(lt.value)
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messagesLTRT',
-      messageL: rt.value * refSpeed.current,
-      messageR: lt.value * refSpeed.current,
-    }))
+    if(lineUpDown.current === false) {
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messagesLTRT',
+        messageL: rt.value * refSpeed.current,
+        messageR: lt.value * refSpeed.current,
+      }))
+    }else{
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messagesLTRT',
+        messageL: lt.value * refSpeed.current,
+        messageR: rt.value * refSpeed.current
+      }))
+    }
   }
 
   if(lt.pressed === false && refLT.current === true){
@@ -167,6 +177,7 @@ function GamepadInfo({ buttons, axes }) {
   // }
 
   if(dUp.pressed === true) {
+    lineUpDown.current = true
     store.setMessageFBL(true)
     store.setMessageFBR(true)
     store.webSocket.send(JSON.stringify({
@@ -178,6 +189,7 @@ function GamepadInfo({ buttons, axes }) {
   }
 
   if(dDown.pressed === true) {
+    lineUpDown.current = true
     store.setMessageFBL(false)
     store.setMessageFBR(false)
     store.webSocket.send(JSON.stringify({
