@@ -129,6 +129,7 @@ function GamepadInfo({ buttons, axes }) {
 
   if(lt.pressed === true){refLT.current = true}
   if(rt.pressed === true){refRT.current = true}
+
   if(refLT.current === true || refRT.current === true) {
     console.log(rt.value)
     console.log(lt.value)
@@ -209,19 +210,6 @@ function GamepadInfo({ buttons, axes }) {
     }))
   }
 
-  if(lb.pressed === true && refLB.current === true) {
-    refLB.current = false
-    if(refSpeed.current === 255) {
-      refSpeed.current = refSpeed.current - 55
-    }else if(refSpeed.current > 51){
-      refSpeed.current = refSpeed.current - 50
-    }
-    console.log(refSpeed.current)
-  }
-  if(lb.pressed === false){
-    refLB.current = true
-  }
-
   if(a.pressed === true && refA.current === true) {
     refA.current = false
     //refRjVert.current = 30
@@ -287,6 +275,18 @@ function GamepadInfo({ buttons, axes }) {
     refY.current = true
   }
 
+  if(lb.pressed === true && refLB.current === true) {
+    refLB.current = false
+    if(refSpeed.current === 255) {
+      refSpeed.current = refSpeed.current - 55
+    }else if(refSpeed.current > 51){
+      refSpeed.current = refSpeed.current - 50
+    }
+    console.log(refSpeed.current)
+  }
+  if(lb.pressed === false){
+    refLB.current = true
+  }
 
 
   if(rb.pressed === true && refRB.current === true) {

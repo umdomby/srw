@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import '../sr.css'
 import store from "../Store"
 import {messageL} from "../Control/messageL";
@@ -9,20 +9,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RulingButtonSmart = observer(() => {
 
-    const speed = 3
-    const FBL = (FBL) => {
+    const UP = useRef(0)
+    const UPBool = useRef(false)
+    const DOWN = useRef(0)
+    const DOWNBool = useRef(false)
+
+    const interval = useRef()
+    const intervalBool = useRef(false)
+
+
+    const FBLR = (FBL, FBR) => {
         store.setMessageFBL(FBL)
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
-            method: 'messagesFBL',
-            messageFBL: FBL
-        }))
-    }
-    const FBR = (FBR) => {
-        store.setMessageFBR(FBR)
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'messagesFBR',
+            method: 'messagesFBLR',
+            messageFBL: FBL,
             messageFBR: FBR
         }))
     }
@@ -30,6 +31,28 @@ const RulingButtonSmart = observer(() => {
     function Stop(){
         messageL(0)
         messageR(0)
+        UP.current = 0
+        DOWN.current = 0
+        UPBool.current = false
+        DOWNBool.current = false
+        clearInterval(interval.current)
+        intervalBool.current = false
+    }
+
+    // const mouseDOWN = () =>{
+    //     console.log('11111')
+    // }
+
+    const sendDataTime = () => {
+        console.log('231231313')
+        if(intervalBool.current === false){
+            interval.current = setInterval(()=>{
+                messageL(UP.current)
+                messageR(DOWN.current)
+                intervalBool.current = true
+                console.log('interval')
+            }, 1000)
+        }
     }
 
     return (
@@ -39,19 +62,23 @@ const RulingButtonSmart = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        if (store.messageL < speed) {
-                            store.setMessageL(store.messageL + 1)
-                            messageL(store.messageL)
-                        }
-                        if (store.messageR < speed) {
-                            store.setMessageR(store.messageR + 1)
-                            messageR(store.messageR)
-                        }
-                        if (store.messageL > 0) {
-                            FBL(true)
-                        }
-                        if (store.messageR > 0) {
-                            FBR(true)
+                        sendDataTime()
+                        if(UP.current < 201 && DOWNBool.current === false) {
+                            UPBool.current = true
+                            FBLR(true, true)
+                            UP.current = UP.current + 50
+                            DOWN.current = DOWN.current + 50
+                            messageL(UP.current)
+                            messageR(DOWN.current)
+                            console.log(UP.current)
+                        }else if(UP.current >= 50 && DOWNBool.current === true){
+                            UP.current = UP.current - 50
+                            DOWN.current = DOWN.current - 50
+                            messageL(UP.current)
+                            messageR(DOWN.current)
+                            console.log(UP.current)
+                        }else if(UP.current === 0){
+                            UPBool.current = false
                         }
                     }}
                 >UP</button>
@@ -61,89 +88,35 @@ const RulingButtonSmart = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        if (store.messageL > -speed) {
-                            store.setMessageL(store.messageL - 1)
-                            store.setMessageR(store.messageR - 1)
-                            messageL(store.messageL)
-                            messageR(store.messageR)
-                        }
-                        if (store.messageL < 0) {
-                            FBL(false)
-                        }
-                        if (store.messageR < 0) {
-                            FBR(false)
+                        sendDataTime()
+                        if(DOWN.current < 201 && UPBool.current === false) {
+                            FBLR(false, false)
+                            DOWNBool.current = true
+                            UP.current = UP.current + 50
+                            DOWN.current = DOWN.current + 50
+                            messageL(UP.current)
+                            messageR(DOWN.current)
+                            console.log(UP.current)
+                        }else if(DOWN.current >= 50 && UPBool.current === true){
+                            UP.current = UP.current - 50
+                            DOWN.current = DOWN.current - 50
+                            messageL(UP.current)
+                            messageR(DOWN.current)
+                            console.log(UP.current)
+                        }else if(DOWN.current === 0){
+                            DOWNBool.current = false
                         }
                     }}
                 >DOWN</button>
-            </div>
-            <div className="RulingBottomStop">
-                <button
-                    type="button"
-                    className="btnTransparent"
-                    onClick={()=>{
-                        messageL(0)
-                        messageR(0)
-                    }}
-                >STOP</button>
             </div>
             <div className="RulingBottomLeft">
                 <button
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        if(store.messageL < 0){
-                            FBL(true)
-                            FBR(true)
-                            messageL(1)
-                            messageR(0)
-                        }
-                        else if((store.messageL === 3 && store.messageR === 3)
-                            || (store.messageL === 3 && store.messageR === 2)
-                            || (store.messageL === 3 && store.messageR === 1)){
-                            FBR(true)
-                            store.setMessageR(store.messageR - 1)
-                            messageR(store.messageR)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
-                        else if (   store.messageL < 3 && store.messageR < 3
-                            && store.messageL >= 0 && store.messageR >= 0) {
-                            FBL(true)
-                            store.setMessageL(store.messageL + 1)
-                            messageL(store.messageL)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
-                        else if(store.messageR === 3 && store.messageL < 3){
-                            FBL(true)
-                            store.setMessageL(store.messageL + 1)
-                            messageL(store.messageL)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
-
-                        //reverce
-                        else if (store.messageR === 0 && store.messageL === 3){
-                            messageR(- 1)
-                            FBL(true)
-                            FBR(false)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
-                        else if (store.messageR === -1 && store.messageL === 3){
-                            messageR(-2)
-                            FBL(true)
-                            FBR(false)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
-                        else if (store.messageR === -2 && store.messageL === 3){
-                            messageR(-3)
-                            FBL(true)
-                            FBR(false)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
+                        FBLR(false, true)
+                        messageL(100)
+                        messageR(100)
                     }}
                 >LEFT</button>
             </div>
@@ -152,55 +125,20 @@ const RulingButtonSmart = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        if(store.messageR < 0){
-                            FBL(true)
-                            FBR(true)
-                            messageL(0)
-                            messageR(1)
-                        }
-                        else if(    (store.messageL === 3 && store.messageR === 3)
-                            || (store.messageL === 2 && store.messageR === 3)
-                            || (store.messageL === 1 && store.messageR === 3)){
-                            FBL(true)
-                            store.setMessageL(store.messageL - 1)
-                            messageL(store.messageL)
-                        }
-                        else if (   store.messageL < 3 && store.messageR < 3
-                            && store.messageL >= 0 && store.messageR >= 0){
-                            FBR(true)
-                            store.setMessageR(store.messageR + 1)
-                            messageR(store.messageR)
-                        }
-                        else if(store.messageL === 3 && store.messageR < 3){
-                            FBR(true)
-                            store.setMessageR(store.messageR + 1)
-                            messageR(store.messageR)
-                        }
-
-                        //reverce
-                        else if (store.messageR === 3 && store.messageL === 0){
-                            messageL(- 1)
-                            FBL(false)
-                            FBR(true)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
-                        else if (store.messageR === 3 && store.messageL === -1){
-                            messageL(-2)
-                            FBL(false)
-                            FBR(true)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
-                        else if (store.messageR === 3 && store.messageL === -2){
-                            messageL(-3)
-                            FBL(false)
-                            FBR(true)
-                            console.log('--------------L ' + store.messageL)
-                            console.log('--------------R ' + store.messageR)
-                        }
+                        FBLR(true, false)
+                        messageL(100)
+                        messageR(100)
                     }}
                 >RIGHT</button>
+            </div>
+            <div className="RulingBottomStop">
+                <button
+                    type="button"
+                    className="btnTransparent"
+                    onClick={()=>{
+                        Stop()
+                    }}
+                >STOP</button>
             </div>
         </div>
     );
