@@ -14,6 +14,8 @@ function GamepadInfo({ buttons, axes }) {
   const refY = useRef(true);
   const refRB = useRef(true);
   const refPWR = useRef(true);
+  const refLS = useRef(true);
+  const refRS = useRef(true);
   const refPWRoNoFF = useRef(false);
   const refSpeed = useRef(50);
   const refInterval = useRef(2000);
@@ -310,12 +312,37 @@ function GamepadInfo({ buttons, axes }) {
   }
 
 
+  if(ls.pressed === true && refLS.current === true){
+    refLS.current = false
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'saddleUP',
+      message: false
+    }))
+  }else if(ls.pressed === false && refLS.current === false) {
+    refLS.current = true
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'saddleUP',
+      message: true
+    }))
+  }
 
-  // store.webSocket('saddleUP', true)
-  //
-  // store.webSocket('saddleDOWN', true)
-  //
-  // store.webSocket('saddleDOWN', false)
+  if(rs.pressed === true && refRS.current === true){
+    refRS.current = false
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'saddleDOWN',
+      message: false
+    }))
+  }else if(rs.pressed === false && refRS.current === false) {
+    refRS.current = true
+    store.webSocket.send(JSON.stringify({
+      id: store.idSocket,
+      method: 'saddleDOWN',
+      message: true
+    }))
+  }
 
   if(pwr.pressed === true && refPWR.current === true) {
     console.log('pwr_1')
