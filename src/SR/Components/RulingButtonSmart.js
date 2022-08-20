@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import '../sr.css'
 import store from "../Store"
 import {messageL} from "../Control/messageL";
@@ -9,13 +9,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RulingButtonSmart = observer(() => {
 
-    const UP = useRef(0)
-    const UPBool = useRef(false)
-    const DOWN = useRef(0)
-    const DOWNBool = useRef(false)
+    const LEFT = useRef(0)
+    const LEFTBool = useRef(false)
+    const RIGHT = useRef(0)
+    const RIGHTBool = useRef(false)
 
     const interval = useRef()
-    const intervalBool = useRef(false)
+    const [intervalBool, setIntervalBool ]= useState(false)
+
+    const speed = useRef(25)
 
 
     const FBLR = (FBL, FBR) => {
@@ -28,15 +30,34 @@ const RulingButtonSmart = observer(() => {
         }))
     }
 
+
+    // const FBL = (FBL, FBR) => {
+    //     store.setMessageFBL(FBL)
+    //     store.webSocket.send(JSON.stringify({
+    //         id: store.idSocket,
+    //         method: 'messagesFBLR',
+    //         messageFBL: FBL
+    //     }))
+    // }
+    //
+    // const FBR = (FBR) => {
+    //     store.setMessageFBL(FBR)
+    //     store.webSocket.send(JSON.stringify({
+    //         id: store.idSocket,
+    //         method: 'messagesFBLR',
+    //         messageFBR: FBR
+    //     }))
+    // }
+
     function Stop(){
         messageL(0)
         messageR(0)
-        UP.current = 0
-        DOWN.current = 0
-        UPBool.current = false
-        DOWNBool.current = false
+        LEFT.current = 0
+        RIGHT.current = 0
+        LEFTBool.current = false
+        RIGHTBool.current = false
         clearInterval(interval.current)
-        intervalBool.current = false
+        setIntervalBool(false)
     }
 
     // const mouseDOWN = () =>{
@@ -45,15 +66,15 @@ const RulingButtonSmart = observer(() => {
 
     const sendDataTime = () => {
         console.log('231231313')
-        if(intervalBool.current === false){
+        if(intervalBool === false){
+            setIntervalBool(true)
             interval.current = setInterval(()=>{
-                messageL(UP.current)
-                messageR(DOWN.current)
-                intervalBool.current = true
+                messageL(LEFT.current)
+                messageR(RIGHT.current)
                 console.log('interval')
-                if(UP.current === 0 && DOWN.current === 0){
+                if(LEFT.current === 0 && RIGHT.current === 0){
                     clearInterval(interval.current)
-                    intervalBool.current = false
+                    setIntervalBool(false)
                 }
             }, 1000)
         }
@@ -66,23 +87,25 @@ const RulingButtonSmart = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        sendDataTime()
-                        if(UP.current < 201 && DOWNBool.current === false) {
-                            UPBool.current = true
+                        if(intervalBool === false) {
+                            sendDataTime()
+                        }
+                        if(LEFT.current < 226 && RIGHTBool.current === false) {
+                            LEFTBool.current = true
                             FBLR(true, true)
-                            UP.current = UP.current + 50
-                            DOWN.current = DOWN.current + 50
-                            messageL(UP.current)
-                            messageR(DOWN.current)
-                            console.log(UP.current)
-                        }else if(UP.current >= 50 && DOWNBool.current === true){
-                            UP.current = UP.current - 50
-                            DOWN.current = DOWN.current - 50
-                            messageL(UP.current)
-                            messageR(DOWN.current)
-                            console.log(UP.current)
-                        }else if(UP.current === 0){
-                            UPBool.current = false
+                            LEFT.current = LEFT.current + speed.current
+                            RIGHT.current = RIGHT.current + speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }else if(LEFT.current >= speed.current && RIGHTBool.current === true){
+                            LEFT.current = LEFT.current - speed.current
+                            RIGHT.current = RIGHT.current - speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }else if(LEFT.current === 0){
+                            LEFTBool.current = false
                         }
                     }}
                 >UP</button>
@@ -92,25 +115,31 @@ const RulingButtonSmart = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        sendDataTime()
-                        if(DOWN.current < 201 && UPBool.current === false) {
-                            FBLR(false, false)
-                            DOWNBool.current = true
-                            UP.current = UP.current + 50
-                            DOWN.current = DOWN.current + 50
-                            messageL(UP.current)
-                            messageR(DOWN.current)
-                            console.log(UP.current)
-                        }else if(DOWN.current >= 50 && UPBool.current === true){
-                            UP.current = UP.current - 50
-                            DOWN.current = DOWN.current - 50
-                            messageL(UP.current)
-                            messageR(DOWN.current)
-                            console.log(UP.current)
-                        }else if(DOWN.current === 0){
-                            DOWNBool.current = false
+                        if(intervalBool === false) {
+                            sendDataTime()
                         }
-                    }}
+                        if(RIGHT.current < 226 && LEFTBool.current === false) {
+                            FBLR(false, false)
+                            RIGHTBool.current = true
+                            LEFT.current = LEFT.current + speed.current
+                            RIGHT.current = RIGHT.current + speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }else if(RIGHT.current >= speed.current && LEFTBool.current === true){
+                            LEFT.current = LEFT.current - speed.current
+                            RIGHT.current = RIGHT.current - speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }
+                        if(RIGHT.current === 0){
+                            RIGHTBool.current = false
+                        }
+                        if(LEFT.current === 0){
+                            LEFTBool.current = false
+                        }}
+                    }
                 >DOWN</button>
             </div>
             <div className="RulingBottomLeft">
@@ -118,10 +147,31 @@ const RulingButtonSmart = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        FBLR(false, true)
-                        messageL(100)
-                        messageR(100)
-                    }}
+                        if(intervalBool === false) {
+                            sendDataTime()
+                        }
+                        if(LEFT.current < 226 && RIGHTBool.current === false) {
+                            LEFTBool.current = true
+                            FBLR(false, true)
+                            LEFT.current = LEFT.current + speed.current
+                            RIGHT.current = RIGHT.current + speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }else if(LEFT.current >= speed.current && RIGHTBool.current === true){
+                            LEFT.current = LEFT.current - speed.current
+                            RIGHT.current = RIGHT.current - speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }
+                        if(RIGHT.current === 0){
+                            RIGHTBool.current = false
+                        }
+                        if(LEFT.current === 0){
+                            LEFTBool.current = false
+                        }}
+                    }
                 >LEFT</button>
             </div>
             <div className="RulingBottomRight">
@@ -129,9 +179,26 @@ const RulingButtonSmart = observer(() => {
                     type="button"
                     className="btnTransparent"
                     onClick={()=>{
-                        FBLR(true, false)
-                        messageL(100)
-                        messageR(100)
+                        if(intervalBool === false) {
+                            sendDataTime()
+                        }
+                        if(RIGHT.current < 226 && LEFTBool.current === false) {
+                            FBLR(true, false)
+                            RIGHTBool.current = true
+                            LEFT.current = LEFT.current + speed.current
+                            RIGHT.current = RIGHT.current + speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }else if(RIGHT.current >= speed.current && LEFTBool.current === true){
+                            LEFT.current = LEFT.current - speed.current
+                            RIGHT.current = RIGHT.current - speed.current
+                            messageL(LEFT.current)
+                            messageR(RIGHT.current)
+                            console.log(LEFT.current)
+                        }else if(RIGHT.current === 0){
+                            RIGHTBool.current = false
+                        }
                     }}
                 >RIGHT</button>
             </div>
