@@ -136,18 +136,21 @@ function GamepadInfo({ buttons, axes }) {
     console.log(rt.value)
     console.log(lt.value)
     if(lineUpDown.current === false) {
+      console.log('lineUpDown.current 1 ' + lineUpDown.current)
+      store.webSocket.send(JSON.stringify({
+        id: store.idSocket,
+        method: 'messagesLTRT',
+        messageL: lt.value * refSpeed.current,
+        messageR: rt.value * refSpeed.current,
+      }))
+    }
+  else if(lineUpDown.current === true){
+      console.log('lineUpDown.current 2 ' + lineUpDown.current)
       store.webSocket.send(JSON.stringify({
         id: store.idSocket,
         method: 'messagesLTRT',
         messageL: rt.value * refSpeed.current,
         messageR: lt.value * refSpeed.current,
-      }))
-    }else{
-      store.webSocket.send(JSON.stringify({
-        id: store.idSocket,
-        method: 'messagesLTRT',
-        messageL: lt.value * refSpeed.current,
-        messageR: rt.value * refSpeed.current
       }))
     }
   }
@@ -169,10 +172,7 @@ function GamepadInfo({ buttons, axes }) {
     }))
     refRT.current = false
   }
-  // if(b.pressed === true){
-  //   messageL(0)
-  //   messageR(0)
-  // }
+
   if(dUp.pressed === true) {
     lineUpDown.current = true
     store.setMessageFBL(true)
@@ -185,7 +185,7 @@ function GamepadInfo({ buttons, axes }) {
     }))
   }
   if(dDown.pressed === true) {
-    lineUpDown.current = true
+    lineUpDown.current = false
     store.setMessageFBL(false)
     store.setMessageFBR(false)
     store.webSocket.send(JSON.stringify({
