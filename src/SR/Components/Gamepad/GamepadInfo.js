@@ -64,15 +64,15 @@ function GamepadInfo({ buttons, axes }) {
       return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
     //refRjVert.current = map(rjVert, 0, 1, 50, 100);
-    refLjHoriz.current = map(ljHoriz, 0, 1, 90, 180);
+    refLjHoriz.current = map(ljHoriz, 0, -1, 90, 180);
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
       method: 'messageFBLL',
       messageLL: Math.round(refLjHoriz.current),
       //messageRR: Math.round(refRjVert.current)
     }))
-    //console.log('refRjHoriz.current ' + refRjVert.current)
-    console.log('refRjVert.current ' + refLjHoriz.current )
+    console.log('+ ) ' + refLjHoriz.current)
+
   }else if(refBoolLL.current === true){
     refBoolLL.current = false
     //refRjVert.current = 40
@@ -378,7 +378,7 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>menu: {menu && menu.pressed && `pressed`}</p>*/}
       {/*<p>pause: {pause && pause.pressed && `pressed`}</p>*/}
       {/*<p>pwr: {pwr && pwr.pressed && `pressed`}</p>*/}
-      {/*<p>LJ horiz: {ljHoriz}</p>*/}
+      <p>LJ horiz: {ljHoriz}</p>
       {/*<p>LJ vert: {ljVert}</p>*/}
       {/*<p>RJ horiz: {rjHoriz}</p>*/}
       {/*<p>RJ vert: {rjVert}</p>*/}

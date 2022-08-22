@@ -1,14 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Buffer} from 'buffer';
 import {observer} from "mobx-react-lite";
 import store from "../Store";
+import file from '../mp3/oh.mp3'
 
 export const FileUploader = observer(() => {
     const [image, setImage] = useState();
     const [imageURL, setImageURL] = useState('');
     const audioTune = useRef(new Audio())
-
-
 
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
@@ -128,6 +126,21 @@ export const FileUploader = observer(() => {
             me: store.me
         }))
     }
+    const playOhYea = () =>{
+        store.webSocket.send(JSON.stringify({
+            id: store.idSocket,
+            method: 'audioOhYea',
+            message: file,
+            me: store.me
+        }))
+    }
+    useEffect(()=>{
+        if(store.audioOhYea != null) {
+            audioTune.current.src = store.audioOhYea
+            audioTune.current.play();
+        }
+        store.setAudioOhYea(null)
+    }, [store.audioOhYea])
 
     return (
         <div>
@@ -180,6 +193,9 @@ export const FileUploader = observer(() => {
                 <button onClick={()=>playPauseStopAudio(1)}>Play</button>
                 <button onClick={()=>playPauseStopAudio(2)}>Paused</button>
                 <button onClick={()=>playPauseStopAudio(3)}>Stop</button>
+            </div>
+            <div>
+                <button onClick={()=>playOhYea()}>oh-Yea</button>
             </div>
         </div>
     );
