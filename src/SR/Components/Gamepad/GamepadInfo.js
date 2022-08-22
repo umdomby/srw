@@ -17,7 +17,7 @@ function GamepadInfo({ buttons, axes }) {
   const refLS = useRef(true);
   const refRS = useRef(true);
   const refPWRoNoFF = useRef(false);
-  const refSpeed = useRef(50);
+  const refSpeed = useRef(25);
   const refInterval = useRef(2000);
   const refRTLTNull = useRef(true);
   const refRjVert = useRef(0);
@@ -58,7 +58,7 @@ function GamepadInfo({ buttons, axes }) {
   //console.log("6666 " + ljVert)
   //console.log("7777 " + refLjVert.current)
 
-  if(ljHoriz > 0.11 || ljHoriz < -0.11) {
+  if(ljHoriz > 0.11 && ls.pressed === false && rs.pressed === false || ljHoriz < -0.11 && ls.pressed === false && rs.pressed === false) {
     refBoolLL.current = true
     const map = (x, in_min, in_max,out_min, out_max)=> {
       return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -84,7 +84,7 @@ function GamepadInfo({ buttons, axes }) {
       //messageRR: 40
     }))
   }
-  if(rjVert > 0.11 || rjVert < -0.11) {
+  if(rjVert > 0.11 && ls.pressed === false && rs.pressed === false || rjVert < -0.11 && ls.pressed === false && rs.pressed === false) {
     refBoolRR.current = true
     const map = (x, in_min, in_max,out_min, out_max)=> {
       return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -111,23 +111,23 @@ function GamepadInfo({ buttons, axes }) {
     }))
   }
 
-  if(ls.pressed === true){
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messageFBLLRR',
-      messageLL: 90,
-      messageRR: 20
-    }))
-  }
-
-  if(rs.pressed === true){
-    store.webSocket.send(JSON.stringify({
-      id: store.idSocket,
-      method: 'messageFBLLRR',
-      messageLL: 90,
-      messageRR: 30
-    }))
-  }
+  // if(ls.pressed === true){
+  //   store.webSocket.send(JSON.stringify({
+  //     id: store.idSocket,
+  //     method: 'messageFBLLRR',
+  //     messageLL: 90,
+  //     messageRR: 30
+  //   }))
+  // }
+  //
+  // if(rs.pressed === true){
+  //   store.webSocket.send(JSON.stringify({
+  //     id: store.idSocket,
+  //     method: 'messageFBLLRR',
+  //     messageLL: 90,
+  //     messageRR: 30
+  //   }))
+  // }
 
   if(lt.pressed === true){refLT.current = true}
   if(rt.pressed === true){refRT.current = true}
@@ -275,9 +275,9 @@ function GamepadInfo({ buttons, axes }) {
   if(lb.pressed === true && refLB.current === true) {
     refLB.current = false
     if(refSpeed.current === 255) {
-      refSpeed.current = refSpeed.current - 55
-    }else if(refSpeed.current > 51){
-      refSpeed.current = refSpeed.current - 50
+      refSpeed.current = refSpeed.current - 30
+    }else if(refSpeed.current > 26){
+      refSpeed.current = refSpeed.current - 25
     }
     console.log(refSpeed.current)
   }
@@ -286,10 +286,10 @@ function GamepadInfo({ buttons, axes }) {
   }
   if(rb.pressed === true && refRB.current === true) {
     refRB.current = false
-    if(refSpeed.current < 151) {
-      refSpeed.current = refSpeed.current + 50
-    } else if(refSpeed.current === 200){
-      refSpeed.current = refSpeed.current + 55
+    if(refSpeed.current < 201) {
+      refSpeed.current = refSpeed.current + 25
+    } else if(refSpeed.current === 225){
+      refSpeed.current = refSpeed.current + 30
     }
     console.log(refSpeed.current)
   }
