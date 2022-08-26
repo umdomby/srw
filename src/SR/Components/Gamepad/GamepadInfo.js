@@ -378,7 +378,7 @@ function GamepadInfo({ buttons, axes }) {
       {/*<p>menu: {menu && menu.pressed && `pressed`}</p>*/}
       {/*<p>pause: {pause && pause.pressed && `pressed`}</p>*/}
       {/*<p>pwr: {pwr && pwr.pressed && `pressed`}</p>*/}
-      <p>LJ horiz: {ljHoriz}</p>
+      {/*<p>LJ horiz: {ljHoriz}</p>*/}
       {/*<p>LJ vert: {ljVert}</p>*/}
       {/*<p>RJ horiz: {rjHoriz}</p>*/}
       {/*<p>RJ vert: {rjVert}</p>*/}

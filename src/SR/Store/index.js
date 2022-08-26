@@ -22,15 +22,12 @@ class Index {
         this._youTubePlaying = false
         this._audioURL = ''
         this._audioPlaying = null
-        this._me = false
-        this._audioOhYea = null
+        this._meSend = false
         makeAutoObservable(this)
     }
-    get audioOhYea() {return this._audioOhYea;}
-    setAudioOhYea(value) {this._audioOhYea = value;}
 
-    get me() {return this._me;}
-    setMe(value) {this._me = value;}
+    get meSend() {return this._meSend;}
+    setMeSend(value) {this._meSend = value;}
 
     get audioURL() {return this._audioURL;}
     setAudioURL(value) {this._audioURL = value;}

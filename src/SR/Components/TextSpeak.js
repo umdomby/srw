@@ -2,13 +2,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import store from "../Store";
 import {observer} from "mobx-react-lite";
 import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
-import {messageL} from "../Control/messageL";
-import {messageR} from "../Control/messageR";
 import useEventListener from "@use-it/event-listener";
-import TextSpeakSpeech from "./TextSpeakSpeech";
-import TextSpeakYouTube from "./TextSpeakYouTube";
 import {FileUploader} from "./File-uploader";
-const axios = require('axios').default;
 
 
 const TextSpeak = observer(() => {
@@ -74,7 +69,7 @@ const TextSpeak = observer(() => {
             id: store.idSocket,
             method: 'textSpeak',
             text: valueTxt,
-            me: store.me
+            meSend: store.meSend
         }))
         setValueTxt('')
     }
@@ -107,7 +102,7 @@ const TextSpeak = observer(() => {
                 id: store.idSocket,
                 method: 'textSpeak',
                 text: value,
-                me: store.me
+                meSend: store.meSend
             }))
         }
     },[value])
@@ -159,7 +154,7 @@ const TextSpeak = observer(() => {
 
             {/*{hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}*/}
             {/*{hidden && <div>*/}
-            <TextSpeakSpeech setValue={setValue}/>
+            {/*<TextSpeakSpeech setValue={setValue}/>*/}
             <div className="Dictaphone10">
                 <button
                     onClick={()=> cancel()}
@@ -199,51 +194,56 @@ const TextSpeak = observer(() => {
                     </option>
                 ))}
             </select>
-            <button
-                onClick={()=>{
-                    listen({ lang, interimResults: false})
-                    setNoVoiceSpeak(true)
-                }}
-            >
-                🎤
-            </button>
-            <button
-                onClick={()=>noSpeak()}
-            >
-                stop
-            </button>
-            <input
-                type="checkbox"
-                checked={store.me}
-                onChange={()=>store.setMe(!store.me)}
-            />
-                {store.me ? 'true' : 'false'}
+                <div>
+                    <button
+                        onClick={()=>{
+                            listen({ lang, interimResults: false})
+                            setNoVoiceSpeak(true)
+                        }}
+                    >
+                        🎤
+                    </button>
+                    <button
+                        onClick={()=>noSpeak()}
+                    >
+                        stop
+                    </button>
+                    <input
+                        type="checkbox"
+                        checked={store.meSend}
+                        onChange={()=>store.setMeSend(!store.meSend)}
+                    />
+                    {store.meSend ? 'true' : 'false'}
                 </div>
-            <div style={{color: 'white'}}>
-                {store.textSpeak}
-            </div>
-            {!supported && (
-                <p>
-                    Oh no, it looks like your browser doesn&#39;t support Speech
-                    Synthesis.
-                </p>
-            )}
+                <div style={{color: 'white'}}>
+                    {store.textSpeak}
+                </div>
+                {!supported && (
+                    <p>
+                        Oh no, it looks like your browser doesn&#39;t support Speech
+                        Synthesis.
+                    </p>
+                )}
+                </div>
+
             <label htmlFor="voice">Voice</label>
-            <select
-                id="voice"
-                name="voice"
-                value={voiceIndex || ''}
-                onChange={(event) => {
-                    setVoiceIndex(event.target.value);
-                }}
-            >
-                <option value="">Default</option>
-                {voices.map((option, index) => (
-                    <option key={option.voiceURI} value={index}>
-                        {`${option.lang} - ${option.name}`}
-                    </option>
-                ))}
-            </select>
+                <select
+                    id="voice"
+                    name="voice"
+                    style={{width:'100px'}}
+                    value={voiceIndex || ''}
+                    onChange={(event) => {
+                        setVoiceIndex(event.target.value);
+                    }}
+                >
+
+                    <option value="">Default</option>
+                    {voices.map((option, index) => (
+                        <option key={option.voiceURI} value={index}>
+                            {`${option.lang} - ${option.name}`}
+                        </option>
+                    ))}
+                </select>
             <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
                 <div>{rate}</div>
                 <input

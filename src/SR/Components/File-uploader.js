@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react-lite";
 import store from "../Store";
-import file from '../mp3/oh.mp3'
+// import file from '../mp3/oh.mp3'
 
 export const FileUploader = observer(() => {
     const [image, setImage] = useState();
@@ -15,7 +15,7 @@ export const FileUploader = observer(() => {
             id: store.idSocket,
             method: 'audioURL',
             message: fileReader.result,
-            me: store.me
+            meSend: store.meSend
         }))
     };
     const handleOnChange = (event) => {
@@ -27,34 +27,7 @@ export const FileUploader = observer(() => {
         }
     };
 
-    const handleDrop = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (event.dataTransfer.files && event.dataTransfer.files.length) {
-            setImage(event.dataTransfer.files[0]);
-            fileReader.readAsDataURL(event.dataTransfer.files[0]);
-        }
-    };
-
-    const handleDragEmpty = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-    };
-
-
-    //const audioTune = new Audio(imageURL)
-    // if(store.audioURL !== ''){
-    //     audioTune.current = new Audio(store.audioURL)
-    // }
     const [playInLoop, setPlayInLoop] = useState(false);
-
-    // load audio file on component load
-    // useEffect(() => {
-    //     console.log(imageURL)
-    //     if(store.audioURL !== '') {
-    //         audioTune.current.load();
-    //     }
-    // }, [])
 
     // set the loop of audio tune
     useEffect(() => {
@@ -63,43 +36,16 @@ export const FileUploader = observer(() => {
         }
     }, [playInLoop])
 
-    // play audio sound
-    // const playSound = () => {
-    //     //console.log('11123 '  + imageURL)
-    //     audioTune.current = new Audio(imageURL)
-    //     audioTune.current.play();
-    // }
-    //
-    // // pause audio sound
-    // const pauseSound = () => {
-    //     audioTune.current.pause();
-    // }
-    //
-    // // stop audio sound
-    // const stopSound = () => {
-    //     audioTune.current.pause();
-    //     audioTune.current.currentTime = 0;
-    // }
-
     useEffect(()=>{
         console.log('store.audioURL')
         try {
             if(store.audioURL !== '') {
-                // audioTune.current = null
-                //audioTune.current = store.audioURL
-                // audioTune.current.load();
                 audioTune.current.src = store.audioURL
                 audioTune.current.play();
             }
         }catch (e) {
             console.log(e)
         }
-
-
-        // return ()=> {
-        //     audioTune.current.pause();
-        //     audioTune.current.src = {}
-        // }
 
     },[store.audioURL])
 
@@ -123,30 +69,12 @@ export const FileUploader = observer(() => {
             id: store.idSocket,
             method: 'audioURLto',
             message: message,
-            me: store.me
+            meSend: store.meSend
         }))
     }
-    const playOhYea = () =>{
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'audioOhYea',
-            message: file,
-            me: store.me
-        }))
-    }
-    useEffect(()=>{
-        if(store.audioOhYea != null) {
-            audioTune.current.src = store.audioOhYea
-            audioTune.current.play();
-        }
-        store.setAudioOhYea(null)
-    }, [store.audioOhYea])
 
     return (
         <div>
-            {/*<input type="button" className="btn btn-primary mr-2" value="Play" onClick={playSound}></input>*/}
-            {/*<input type="button" className="btn btn-warning mr-2" value="Pause" onClick={pauseSound}></input>*/}
-            {/*<input type="button" className="btn btn-danger mr-2" value="Stop" onClick={stopSound}></input>*/}
             <label
                 htmlFor="file-loader-button"
                 className="file-uploader__custom-button"
@@ -160,30 +88,6 @@ export const FileUploader = observer(() => {
                 onChange={handleOnChange}
             />
             <div>
-            <img
-                //src={imageURL ? imageURL : "img.png"}
-                src={"img.png"}
-                className="file-uploader__preview"
-                alt="preview"
-                onDrop={handleDrop}
-                onDragEnter={handleDragEmpty}
-                onDragOver={handleDragEmpty}
-            />
-            <div className="file-uploader__file-name">{image ? image.name : ""}</div>
-            </div>
-            {/*<button*/}
-            {/*    onClick={()=> {*/}
-            {/*        store.webSocket.send(JSON.stringify({*/}
-            {/*            id: store.idSocket,*/}
-            {/*            method: 'audioURL',*/}
-            {/*            message: imageURL,*/}
-            {/*            me: store.me*/}
-            {/*        }))*/}
-            {/*    }}*/}
-            {/*>*/}
-            {/*    send*/}
-            {/*</button>*/}
-            <div>
                 <button onClick={()=>{if(store.audioURL !== ''){audioTune.current.play()}}}>miPlay</button>
                 <button onClick={()=>{if(store.audioURL !== ''){audioTune.current.pause()}}}>miPause</button>
                 <button onClick={()=>{ if(store.audioURL !== ''){audioTune.current.pause();
@@ -193,9 +97,6 @@ export const FileUploader = observer(() => {
                 <button onClick={()=>playPauseStopAudio(1)}>Play</button>
                 <button onClick={()=>playPauseStopAudio(2)}>Paused</button>
                 <button onClick={()=>playPauseStopAudio(3)}>Stop</button>
-            </div>
-            <div>
-                <button onClick={()=>playOhYea()}>oh-Yea</button>
             </div>
         </div>
     );

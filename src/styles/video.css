@@ -82,9 +82,8 @@
 .controls{
   z-index: 100;
   position:fixed;
-
   top:65%;
-  left:2%;
+  left:47%;
 }
 .control-btn{
   position: relative;

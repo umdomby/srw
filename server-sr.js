@@ -198,12 +198,12 @@ const start = async () => {
                                 wsaSend(msgg, ws)
                                 break;
                             case "textSpeak":
-                                console.log('Chrome textSpeak ' + 'text ' + msg.text + ' : ' + msg.me)
+                                console.log('Chrome textSpeak ' + 'text ' + msg.text + ' : ' + msg.meSend)
                                 let mess1 = JSON.stringify({
                                     method: 'textSpeak',
                                     text: msg.text,
                                 })
-                                if (msg.me === false) {
+                                if (msg.meSend === false) {
                                     wssSendPersId(mess1, ws)
                                 } else {
                                     wssSend(mess1, ws)
@@ -216,19 +216,19 @@ const start = async () => {
                                 })
                                 wssSendPersId(mess2, ws)
                                 break;
-                            case "youTubeLink":
-                                let mess4 = JSON.stringify({
-                                    method: 'youTubeLink',
-                                    message: msg.message,
-                                    playing: msg.playing,
-                                    me: msg.me
-                                })
-                                if (msg.me === false) {
-                                    wssSendPersId(mess4, ws)
-                                } else {
-                                    wssSend(mess4, ws)
-                                }
-                                break;
+                            // case "youTubeLink":
+                            //     let mess4 = JSON.stringify({
+                            //         method: 'youTubeLink',
+                            //         message: msg.message,
+                            //         playing: msg.playing,
+                            //         meSend: msg.me
+                            //     })
+                            //     if (msg.meSend === false) {
+                            //         wssSendPersId(mess4, ws)
+                            //     } else {
+                            //         wssSend(mess4, ws)
+                            //     }
+                            //     break;
                             // case "audioURL":
                             //     if (msg.me === false) {
                             //        wssSend(JSON.stringify(msg), ws)
@@ -248,11 +248,11 @@ const start = async () => {
                             //     break;
                             default:
                                 // console.log('default method: ' + msg.method + ' message: ' + msg.message)
-                                if (msg.me === false && msg.me !== undefined) {
-                                    wssSend(JSON.stringify(msg), ws)
-                                    // console.log('message: ' + msg.message)
-                                } else if  (msg.me === true && msg.me !== undefined){
+                                if (msg.meSend === false && msg.meSend !== undefined) {
                                     wssSendPersId(JSON.stringify(msg), ws)
+                                    // console.log('message: ' + msg.message)
+                                } else if  (msg.meSend === true && msg.meSend !== undefined){
+                                    wssSend(JSON.stringify(msg), ws)
                                     // console.log('message: ' + msg.message)
                                 }else {
                                     wsaSend(msgg, ws)

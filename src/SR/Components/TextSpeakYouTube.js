@@ -48,7 +48,7 @@ const TextSpeakSpeechYoutube = observer((props) => {
                         method: 'youTubeLink',
                         message: linkVideo,
                         playing: true,
-                        me: false
+                        meSend: false
                     }))
                 }}>send</button>
 
@@ -58,7 +58,7 @@ const TextSpeakSpeechYoutube = observer((props) => {
                         method: 'youTubeLink',
                         message: linkVideo,
                         playing: false,
-                        me: false
+                        meSend: false
                     }))
                 }}>stop</button>
             </div>

@@ -73,10 +73,6 @@ const WebSocketProject = (id, persId) => {
                             store.setAudioPlaying(msg.message)
                             console.log('socket audioURLto: ' + msg.message)
                             break
-                        case "audioOhYea":
-                            store.setAudioOhYea(msg.message)
-                            // console.log('socket audioOhYea: ' + msg.message)
-                            break
                         default:
                             console.log(msg)
                     }
