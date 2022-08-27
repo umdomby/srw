@@ -46,7 +46,6 @@ export const FileUploader = observer(() => {
         }catch (e) {
             console.log(e)
         }
-
     },[store.audioURL])
 
     useEffect(()=>{
@@ -88,7 +87,9 @@ export const FileUploader = observer(() => {
                 onChange={handleOnChange}
             />
             <div>
-                <button onClick={()=>{if(store.audioURL !== ''){audioTune.current.play()}}}>miPlay</button>
+                <button onClick={()=>{if(store.audioURL !== ''){
+                    audioTune.current.src = imageURL
+                    audioTune.current.play()}}}>miPlay</button>
                 <button onClick={()=>{if(store.audioURL !== ''){audioTune.current.pause()}}}>miPause</button>
                 <button onClick={()=>{ if(store.audioURL !== ''){audioTune.current.pause();
                     audioTune.current.currentTime = 0;}}}>miStop</button>

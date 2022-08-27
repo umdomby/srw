@@ -12,22 +12,19 @@ const TextSpeak = observer(() => {
     const refSaddleDOWN = useRef(true)
 
     //Speak
-    //const [text, setText] = useState('');
     const [pitch, setPitch] = useState(0.6);
     const [rate, setRate] = useState(1);
-    const [voiceIndex, setVoiceIndex] = useState(null);
     const [noVoiceSpeak, setNoVoiceSpeak] = useState(false)
-    const onEnd = () => {
-        //setText('')
-        // You could do something here after speaking has finished
-    };
-    // const { speak } = useSpeechSynthesis({
-    // });
+    // const onEnd = () => {
+    // };
     const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis({
-        onEnd,
+        // onEnd,
     });
-    const voice = voices[voiceIndex] || null;
+    const [voiceIndex, setVoiceIndex] = useState(localStorage.getItem('voicesId') || '');
+
+    const voice = voices[localStorage.getItem('voicesId') || null];
     const styleFlexRow = { display: 'flex', flexDirection: 'row' };
+
     const styleContainerRatePitch = {
         display: 'flex',
         flexDirection: 'column',
@@ -76,7 +73,6 @@ const TextSpeak = observer(() => {
 
     useEffect(()=> {
         if(store.textSpeak != '' && store.textSpeak != null && store.textSpeak != undefined) {
-            console.log('store.textSpeak ' + store.textSpeak)
             speak({text: store.textSpeak, voice, rate, pitch})
         }
     }, [store.textSpeak])
@@ -233,7 +229,9 @@ const TextSpeak = observer(() => {
                     style={{width:'100px'}}
                     value={voiceIndex || ''}
                     onChange={(event) => {
+                        localStorage.setItem('voicesId', event.target.value)
                         setVoiceIndex(event.target.value);
+                        console.log(event.target.value)
                     }}
                 >
 
@@ -245,7 +243,7 @@ const TextSpeak = observer(() => {
                     ))}
                 </select>
             <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                <div>{rate}</div>
+                {rate}
                 <input
                     type="range"
                     value={rate}
@@ -259,7 +257,7 @@ const TextSpeak = observer(() => {
                 />
             </div>
             <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                <div>{pitch}</div>
+                {pitch}
                 <input
                     value={pitch}
                     type="range"
@@ -279,6 +277,14 @@ const TextSpeak = observer(() => {
                 <FileUploader/>
             </div>
         {/*</div>}*/}
+
+            {/*<button onClick={()=>{*/}
+            {/*    store.webSocket.send(JSON.stringify({*/}
+            {/*        id: store.idSocket,*/}
+            {/*        method: 'data',*/}
+            {/*        message: voices[1].lang*/}
+            {/*    }))*/}
+            {/*}}>2222</button>*/}
         </div>
     )
 
