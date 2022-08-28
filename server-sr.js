@@ -90,8 +90,10 @@ const start = async () => {
 
         const wsa = new WebSocketServer({server: httpServer});
         wsa.on('connection', ws => {
-            ws.isAlive = true;
-            ws.on('pong', heartbeat);
+
+            // ws.isAlive = true;
+            // ws.on('pong', heartbeat);
+
             //global.wsg = ws
             ws.send('connected WS server')
             ws.on('message', msg => {
@@ -103,20 +105,20 @@ const start = async () => {
                         console.log('Connected Arduino id ' + msg.id)
                         ws.id = msg.id
                         break;
-                    case "messages":
-                        console.log('Arduino '+ msg.id + '|' + msg.messageL + '|' + msg.messageR)
-                        break;
-
-                    case "messagesFBLR":
-                        let mess6 = JSON.stringify({
-                            method: 'messagesFBLR',
-                            messageFBL: msg.messageFBL,
-                            messageFBR: msg.messageFBR,
-                        })
-                        console.log('From arduino messageFBL '+ 'id ' + msg.id + ' messageFBL ' + msg.messageFBL)
-                        console.log('From arduino messageFBR '+ 'id ' + msg.id + ' messageFBR ' + msg.messageFBR)
-                        wssSend(mess6, ws)
-                        break;
+                    // case "messages":
+                    //     console.log('Arduino '+ msg.id + '|' + msg.messageL + '|' + msg.messageR)
+                    //     break;
+                    //
+                    // case "messagesFBLR":
+                    //     let mess6 = JSON.stringify({
+                    //         method: 'messagesFBLR',
+                    //         messageFBL: msg.messageFBL,
+                    //         messageFBR: msg.messageFBR,
+                    //     })
+                    //     console.log('From arduino messageFBL '+ 'id ' + msg.id + ' messageFBL ' + msg.messageFBL)
+                    //     console.log('From arduino messageFBR '+ 'id ' + msg.id + ' messageFBR ' + msg.messageFBR)
+                    //     wssSend(mess6, ws)
+                    //     break;
 
                     case "messagesOnOff":
                         let mess8 = JSON.stringify({
@@ -135,22 +137,22 @@ const start = async () => {
 
         })
 
-        function heartbeat() {
-            this.isAlive = true;
-        }
+        // function heartbeat() {
+        //     this.isAlive = true;
+        // }
+        //
+        // const interval = setInterval(function ping() {
+        //     wsa.clients.forEach(function each(ws) {
+        //         if (ws.isAlive === false) return ws.terminate();
+        //         ws.isAlive = false;
+        //         ws.ping();
+        //         console.log('Arduino client.id ' + ws.id + ' OPEN ')
+        //     });
+        // }, 5000);
 
-        const interval = setInterval(function ping() {
-            wsa.clients.forEach(function each(ws) {
-                if (ws.isAlive === false) return ws.terminate();
-                ws.isAlive = false;
-                ws.ping();
-                console.log('Arduino client.id ' + ws.id + ' OPEN ')
-            });
-        }, 5000);
-
-        wsa.on('close', function close() {
-            clearInterval(interval);
-        });
+        // wsa.on('close', function close() {
+        //     clearInterval(interval);
+        // });
 
         const wss = new WebSocketServer({server: httpsServer});
         wss.on('connection', ws => {
@@ -248,6 +250,7 @@ const start = async () => {
                             //     break;
                             default:
                                 // console.log('default method: ' + msg.method + ' message: ' + msg.message)
+
                                 if (msg.meSend === false && msg.meSend !== undefined) {
                                     wssSendPersId(JSON.stringify(msg), ws)
                                     // console.log('message: ' + msg.message)

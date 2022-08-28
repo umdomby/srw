@@ -17,7 +17,7 @@ const TextSpeak = observer(() => {
     const [noVoiceSpeak, setNoVoiceSpeak] = useState(false)
     // const onEnd = () => {
     // };
-    const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis({
+    const { speak, cancel, speaking, supported, voices} = useSpeechSynthesis({
         // onEnd,
     });
     const [voiceIndex, setVoiceIndex] = useState(localStorage.getItem('voicesId') || '');
@@ -243,7 +243,6 @@ const TextSpeak = observer(() => {
                     ))}
                 </select>
             <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                {rate}
                 <input
                     type="range"
                     value={rate}
@@ -255,9 +254,9 @@ const TextSpeak = observer(() => {
                         setRate(event.target.value);
                     }}
                 />
+                {rate}
             </div>
             <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                {pitch}
                 <input
                     value={pitch}
                     type="range"
@@ -269,6 +268,7 @@ const TextSpeak = observer(() => {
                         setPitch(event.target.value);
                     }}
                 />
+                {pitch}
             </div>
             <br/>
             {listening && <div>Go ahead I'm listening</div>}

@@ -23,8 +23,12 @@ class Index {
         this._audioURL = ''
         this._audioPlaying = null
         this._meSend = false
+        this._audioVolume = 1
         makeAutoObservable(this)
     }
+
+    get audioVolume() {return this._audioVolume}
+    setAudioVolume(value) {this._audioVolume = value;}
 
     get meSend() {return this._meSend;}
     setMeSend(value) {this._meSend = value;}

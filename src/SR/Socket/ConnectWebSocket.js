@@ -35,7 +35,7 @@ const ConnectWebSocket = observer(() => {
         }
     }
 
-    setInterval(() => connectByte(), 1000)
+    setInterval(() => connectByte(), 900)
     const connectByte = () => {
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,

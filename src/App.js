@@ -12,6 +12,7 @@ import Start from "./SR/Components/Start";
 import ScrollToTop from "./SR/Components/ScrollToTop";
 import SR from "./SR";
 import Gamepad from "./SR/Components/Gamepad/Gamepad";
+import TextSpeak from "./SR/Components/TextSpeak";
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <SR/>
           <Gamepad/>
           <Switch>
+          {/*<TextSpeak/>*/}
             <React.Fragment>
                <Route path="/" exact component={goToRoomInput}/>
                 <Route path="/start" exact component={Start}/>

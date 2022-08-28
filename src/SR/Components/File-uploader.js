@@ -1,16 +1,19 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react-lite";
 import store from "../Store";
-// import file from '../mp3/oh.mp3'
+import ohLittle from "./ohLittle.mp3"
 
 export const FileUploader = observer(() => {
-    const [image, setImage] = useState();
-    const [imageURL, setImageURL] = useState('');
+    //const [image, setImage] = useState();
+    const [imageURL, setImageURL] = useState(ohLittle);
     const audioTune = useRef(new Audio())
+    const [audioVolume, setAudioVolume] = useState(1)
+    const [audioVolume2, setAudioVolume2] = useState(1)
 
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
         setImageURL(fileReader.result);
+        //store.setPlayMp3(fileReader.result)
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
             method: 'audioURL',
@@ -22,7 +25,7 @@ export const FileUploader = observer(() => {
         event.preventDefault();
         if (event.target.files && event.target.files.length) {
             const file = event.target.files[0];
-            setImage(file);
+            // setImage(file);
             fileReader.readAsDataURL(file);
         }
     };
@@ -37,9 +40,10 @@ export const FileUploader = observer(() => {
     }, [playInLoop])
 
     useEffect(()=>{
-        console.log('store.audioURL')
+        console.log(store.audioURL)
         try {
             if(store.audioURL !== '') {
+                setImageURL(store.audioURL)
                 audioTune.current.src = store.audioURL
                 audioTune.current.play();
             }
@@ -71,6 +75,10 @@ export const FileUploader = observer(() => {
             meSend: store.meSend
         }))
     }
+    useEffect(()=>{
+        console.log('volume ' + store.audioVolume)
+        audioTune.current.volume = store.audioVolume
+    }, [store.audioVolume])
 
     return (
         <div>
@@ -87,17 +95,56 @@ export const FileUploader = observer(() => {
                 onChange={handleOnChange}
             />
             <div>
-                <button onClick={()=>{if(store.audioURL !== ''){
+                <button onClick={()=>{
                     audioTune.current.src = imageURL
-                    audioTune.current.play()}}}>miPlay</button>
-                <button onClick={()=>{if(store.audioURL !== ''){audioTune.current.pause()}}}>miPause</button>
-                <button onClick={()=>{ if(store.audioURL !== ''){audioTune.current.pause();
-                    audioTune.current.currentTime = 0;}}}>miStop</button>
+                    audioTune.current.volume = store.audioVolume
+                    audioTune.current.play()
+                }}>miPlay</button>
+                <button onClick={()=>{audioTune.current.pause()}}>miPause</button>
+                <button onClick={()=>{
+                    audioTune.current.pause();
+                    audioTune.current.currentTime = 0;}}>miStop</button>
             </div>
+            <div>
+                <input
+                    type="range"
+                    value={audioVolume2}
+                    min="0.1"
+                    max="1"
+                    step="0.1"
+                    id="audioVolume2"
+                    onChange={(event) => {
+                        setAudioVolume2(event.target.value);
+                        audioTune.current.volume = audioVolume2
+                    }}
+                />
+                {audioVolume2}
+            </div>
+
             <div>
                 <button onClick={()=>playPauseStopAudio(1)}>Play</button>
                 <button onClick={()=>playPauseStopAudio(2)}>Paused</button>
                 <button onClick={()=>playPauseStopAudio(3)}>Stop</button>
+            </div>
+            <div>
+                <input
+                    type="range"
+                    value={store.audioVolume}
+                    min="0.1"
+                    max="1"
+                    step="0.1"
+                    id="audioVolume"
+                    onChange={(event) => {
+                        store.setAudioVolume(event.target.value);
+                        store.webSocket.send(JSON.stringify({
+                            id: store.idSocket,
+                            method: 'audioVolume',
+                            message: event.target.value,
+                            meSend: store.meSend
+                        }))
+                    }}
+                />
+                {store.audioVolume}
             </div>
         </div>
     );

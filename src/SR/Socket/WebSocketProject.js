@@ -65,13 +65,17 @@ const WebSocketProject = (id, persId) => {
                             store.setYouTubePlaying(msg.playing)
                             break
                         case "audioURL":
-                            console.log(msg.message)
+                            // console.log(msg.message)
                             store.setAudioURL(msg.message)
                             store.setAudioPlaying(msg.playing)
                             break
                         case "audioURLto":
                             store.setAudioPlaying(msg.message)
                             console.log('socket audioURLto: ' + msg.message)
+                            break
+                        case "audioVolume":
+                            store.setAudioVolume(msg.message)
+                            console.log('socket audioVolume: ' + msg.message)
                             break
                         default:
                             console.log(msg)
