@@ -179,57 +179,44 @@ const start = async () => {
                                 wssSend(mess, ws)
                                 break;
 
-                            case "messagesL":
-                                console.log('Chrome messagesL ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
-                                wsaSend(msgg, ws)
-                                break;
-                            case "messagesR":
-                                console.log('Chrome messagesR ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
-                                wsaSend(msgg, ws)
-                                break;
-                            case "messagesOnOff":
-                                console.log('Chrome messageOnOff ' + msg.messageOnOff + ' id ' + msg.id)
-                                wsaSend(msgg, ws)
-                                break;
-                            case "messagesStop":
-                                console.log('Chrome messageStop ' + 'id ' + msg.id)
-                                wsaSend(msgg, ws)
-                                break;
-                            case "messagesFBLR":
-                                console.log('Chrome messageFBLR ' + 'id ' + msg.id)
-                                wsaSend(msgg, ws)
-                                break;
-                            case "textSpeak":
-                                console.log('Chrome textSpeak ' + 'text ' + msg.text + ' : ' + msg.meSend)
-                                let mess1 = JSON.stringify({
-                                    method: 'textSpeak',
-                                    text: msg.text,
-                                })
-                                if (msg.meSend === false) {
-                                    wssSendPersId(mess1, ws)
-                                } else {
-                                    wssSend(mess1, ws)
-                                }
-                                break;
-                            case "noSpeech":
-                                let mess2 = JSON.stringify({
-                                    method: 'noSpeech',
-                                    message: msg.message,
-                                })
-                                wssSendPersId(mess2, ws)
-                                break;
-                            // case "youTubeLink":
-                            //     let mess4 = JSON.stringify({
-                            //         method: 'youTubeLink',
-                            //         message: msg.message,
-                            //         playing: msg.playing,
-                            //         meSend: msg.me
+                            // case "messagesL":
+                            //     console.log('Chrome messagesL ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
+                            //     wsaSend(msgg, ws)
+                            //     break;
+                            // case "messagesR":
+                            //     console.log('Chrome messagesR ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
+                            //     wsaSend(msgg, ws)
+                            //     break;
+                            // case "messagesOnOff":
+                            //     console.log('Chrome messageOnOff ' + msg.messageOnOff + ' id ' + msg.id)
+                            //     wsaSend(msgg, ws)
+                            //     break;
+                            // case "messagesStop":
+                            //     console.log('Chrome messageStop ' + 'id ' + msg.id)
+                            //     wsaSend(msgg, ws)
+                            //     break;
+                            // case "messagesFBLR":
+                            //     console.log('Chrome messageFBLR ' + 'id ' + msg.id)
+                            //     wsaSend(msgg, ws)
+                            //     break;
+                            // case "textSpeak":
+                            //     console.log('Chrome textSpeak ' + 'text ' + msg.text + ' : ' + msg.meSend)
+                            //     let mess1 = JSON.stringify({
+                            //         method: 'textSpeak',
+                            //         text: msg.text,
                             //     })
                             //     if (msg.meSend === false) {
-                            //         wssSendPersId(mess4, ws)
+                            //         wssSendPersId(mess1, ws)
                             //     } else {
-                            //         wssSend(mess4, ws)
+                            //         wssSend(mess1, ws)
                             //     }
+                            //     break;
+                            // case "noSpeech":
+                            //     let mess2 = JSON.stringify({
+                            //         method: 'noSpeech',
+                            //         message: msg.message,
+                            //     })
+                            //     wssSendPersId(mess2, ws)
                             //     break;
                             // case "audioURL":
                             //     if (msg.me === false) {
@@ -259,6 +246,7 @@ const start = async () => {
                                     // console.log('message: ' + msg.message)
                                 }else {
                                     wsaSend(msgg, ws)
+                                    console.log(msg)
                                 }
                                 break;
                         }

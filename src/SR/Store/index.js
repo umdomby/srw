@@ -21,7 +21,7 @@ class Index {
         this._youTubeLink = ''
         this._youTubePlaying = false
         this._audioURL = ''
-        this._audioPlaying = null
+        this._audioPlaying = 0
         this._meSend = false
         this._audioVolume = 1
         makeAutoObservable(this)

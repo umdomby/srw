@@ -7,7 +7,6 @@ export const FileUploader = observer(() => {
     //const [image, setImage] = useState();
     const [imageURL, setImageURL] = useState(ohLittle);
     const audioTune = useRef(new Audio())
-    const [audioVolume, setAudioVolume] = useState(1)
     const [audioVolume2, setAudioVolume2] = useState(1)
 
     const fileReader = new FileReader();
