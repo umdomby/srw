@@ -24,8 +24,11 @@ class Index {
         this._audioPlaying = 0
         this._meSend = false
         this._audioVolume = 1
+        this._speedControl = 1
         makeAutoObservable(this)
     }
+    get speedControl() {return this._speedControl}
+    setSpeedControl(value) {this._speedControl = value}
 
     get audioVolume() {return this._audioVolume}
     setAudioVolume(value) {this._audioVolume = value;}

@@ -3,7 +3,7 @@ import store from "../../Store"
 import {messageL} from "../../Control/messageL";
 import {messageR} from "../../Control/messageR";
 
-function GamepadInfo({ buttons, axes }) {
+const GamepadInfo = ({ buttons, axes }) => {
 
   const refLT = useRef(false);
   const refRT = useRef(false);
@@ -17,7 +17,7 @@ function GamepadInfo({ buttons, axes }) {
   const refLS = useRef(true);
   const refRS = useRef(true);
   const refPWRoNoFF = useRef(false);
-  const refSpeed = useRef(25);
+  const refSpeed = useRef(1);
   const refInterval = useRef(2000);
   const refRTLTNull = useRef(true);
   const refRjVert = useRef(0);
@@ -140,8 +140,8 @@ function GamepadInfo({ buttons, axes }) {
       store.webSocket.send(JSON.stringify({
         id: store.idSocket,
         method: 'messagesLTRT',
-        messageL: lt.value * refSpeed.current,
-        messageR: rt.value * refSpeed.current,
+        messageL: lt.value * refSpeed.current * 25,
+        messageR: rt.value * refSpeed.current * 25,
       }))
     }
   else if(lineUpDown.current === true){
@@ -149,8 +149,8 @@ function GamepadInfo({ buttons, axes }) {
       store.webSocket.send(JSON.stringify({
         id: store.idSocket,
         method: 'messagesLTRT',
-        messageL: rt.value * refSpeed.current,
-        messageR: lt.value * refSpeed.current,
+        messageL: rt.value * refSpeed.current * 25,
+        messageR: lt.value * refSpeed.current * 25,
       }))
     }
   }
@@ -272,30 +272,49 @@ function GamepadInfo({ buttons, axes }) {
   if(y.pressed === false){
     refY.current = true
   }
+
   if(lb.pressed === true && refLB.current === true) {
     refLB.current = false
-    if(refSpeed.current === 255) {
-      refSpeed.current = refSpeed.current - 30
-    }else if(refSpeed.current > 26){
-      refSpeed.current = refSpeed.current - 25
+    if(refSpeed.current > 0) {
+      refSpeed.current = refSpeed.current - 1
     }
-    console.log(refSpeed.current)
+    //console.log(refSpeed.current)
   }
+
+  // if(lb.pressed === true && refLB.current === true) {
+  //   refLB.current = false
+  //   if(refSpeed.current === 255) {
+  //     refSpeed.current = refSpeed.current - 30
+  //   }else if(refSpeed.current > 26){
+  //     refSpeed.current = refSpeed.current - 25
+  //   }
+  //   console.log(refSpeed.current)
+  // }
   if(lb.pressed === false){
     refLB.current = true
   }
+
   if(rb.pressed === true && refRB.current === true) {
     refRB.current = false
-    if(refSpeed.current < 201) {
-      refSpeed.current = refSpeed.current + 25
-    } else if(refSpeed.current === 225){
-      refSpeed.current = refSpeed.current + 30
+    if(refSpeed.current < 10) {
+      refSpeed.current = refSpeed.current + 1
     }
-    console.log(refSpeed.current)
+    //refSpeed.current = store.speedControl + store.speedControl * 25.5
+    //console.log(refSpeed.current)
   }
+  // if(rb.pressed === true && refRB.current === true) {
+  //   refRB.current = false
+  //   if(refSpeed.current < 201) {
+  //     refSpeed.current = refSpeed.current + 25
+  //   } else if(refSpeed.current === 225){
+  //     refSpeed.current = refSpeed.current + 30
+  //   }
+  //   console.log(refSpeed.current)
+  // }
   if(rb.pressed === false){
     refRB.current = true
   }
+
   if(menu.pressed === true) {
     store.webSocket.send(JSON.stringify({
       id: store.idSocket,
@@ -360,6 +379,7 @@ function GamepadInfo({ buttons, axes }) {
 
   return (
     <div style={{color:'white'}}>
+      {refSpeed.current + ', speed = ' + (25.5 * refSpeed.current)}
       {/*<div style={{ fontFamily: "monospace", color:'white', paddingTop:'100px' ,width:'30%', margin: '0 auto'}}>*/}
       {/*<p>X: {x && x.pressed && `pressed`}</p>*/}
       {/*<p>Y: {y && y.pressed && `pressed`}</p>*/}

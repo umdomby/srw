@@ -95,7 +95,9 @@ export const FileUploader = observer(() => {
             />
             <div>
                 <button onClick={()=>{
-                    audioTune.current.src = imageURL
+                    //audioTune.current.src = imageURL
+                    //audioTune.current.src = 'https://servicerobot.pro:4433/1.mp3'
+                    audioTune.current.src = 'https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download'
                     audioTune.current.volume = store.audioVolume
                     audioTune.current.play()
                 }}>miPlay</button>
@@ -108,7 +110,7 @@ export const FileUploader = observer(() => {
                 <input
                     type="range"
                     value={audioVolume2}
-                    min="0.1"
+                    min="0"
                     max="1"
                     step="0.1"
                     id="audioVolume2"
@@ -129,7 +131,7 @@ export const FileUploader = observer(() => {
                 <input
                     type="range"
                     value={store.audioVolume}
-                    min="0.1"
+                    min="0"
                     max="1"
                     step="0.1"
                     id="audioVolume"

@@ -34,6 +34,9 @@
 // console.log('2 ' + clearText);
 // console.log('3 ' + dencrypted);
 
+const Connection = require('./Server/models/Connections');
+const Message = require('./Server/models/Messages');
+
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
@@ -42,7 +45,7 @@ const WebSocketServer = require('ws').Server;
 //const WebSocket = require('ws');
 
 require('dotenv').config()
-// const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 const cors = require('cors')
 // const fileUpload = require('express-fileupload')
 // const router = require('./routes/index')
@@ -61,6 +64,14 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
 const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
 const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+
+util = require('util');
+var filepath = path.join(__dirname, './public/1.mp3');
+app.get('/1.mp3', function(req, res){
+    res.set({'Content-Type': 'audio/mpeg'});
+    var readStream = fs.createReadStream(filepath);
+    readStream.pipe(res);
+})
 
 const credentials = {
     key: privateKey,
@@ -84,9 +95,9 @@ const httpsServer = https.createServer(credentials, app);
 const start = async () => {
 
     try {
-        // await mongoose.connect(process.env.DATABASE_URL)
-        //     .then(() => console.log("Successfully connect to MongoDB."))
-        //     .catch(err => console.error("Connection error", err));
+        await mongoose.connect(process.env.DATABASE_URL)
+            .then(() => console.log("Successfully connect to MongoDB."))
+            .catch(err => console.error("Connection error", err));
 
         const wsa = new WebSocketServer({server: httpServer});
         wsa.on('connection', ws => {
@@ -156,109 +167,117 @@ const start = async () => {
 
         const wss = new WebSocketServer({server: httpsServer});
         wss.on('connection', ws => {
-            ws.on('message', msgg => {
-                    try {
-                        msg = JSON.parse(msgg)
-                        switch (msg.method) {
-                            case "connection":
-                                console.log('Connected Chrome id ' + msg.id)
-                                console.log('persId ' + msg.persId)
-                                ws.id = msg.id
-                                ws.persId = msg.persId
-                                wss.clients.forEach(function each(client) {
-                                    console.log('client.id connection Chrome ' + client.id)
-                                });
-                                wsa.clients.forEach(function each(client) {
-                                    console.log('client.id connection arduino ' + client.id)
-                                });
-                                const mess = JSON.stringify({
-                                    method: 'connection',
-                                    id: msg.id,
-                                    persId: msg.persId
-                                })
-                                wssSend(mess, ws)
-                                break;
+            ws.on('message', async msgg => {
+                try {
+                    msg = JSON.parse(msgg)
+                    switch (msg.method) {
+                        case "connection":
+                            console.log('Connected Chrome id ' + msg.id)
+                            console.log('persId ' + msg.persId)
+                            ws.id = msg.id
+                            ws.persId = msg.persId
+                            wss.clients.forEach(function each(client) {
+                                console.log('client.id connection Chrome ' + client.id)
+                            });
+                            wsa.clients.forEach(function each(client) {
+                                console.log('client.id connection arduino ' + client.id)
+                            });
+                            const mess = JSON.stringify({
+                                method: 'connection',
+                                id: msg.id,
+                                persId: msg.persId
+                            })
+                            wssSend(mess, ws)
+                            break;
 
-                            // case "messagesL":
-                            //     console.log('Chrome messagesL ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
-                            //     wsaSend(msgg, ws)
-                            //     break;
-                            // case "messagesR":
-                            //     console.log('Chrome messagesR ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
-                            //     wsaSend(msgg, ws)
-                            //     break;
-                            // case "messagesOnOff":
-                            //     console.log('Chrome messageOnOff ' + msg.messageOnOff + ' id ' + msg.id)
-                            //     wsaSend(msgg, ws)
-                            //     break;
-                            // case "messagesStop":
-                            //     console.log('Chrome messageStop ' + 'id ' + msg.id)
-                            //     wsaSend(msgg, ws)
-                            //     break;
-                            // case "messagesFBLR":
-                            //     console.log('Chrome messageFBLR ' + 'id ' + msg.id)
-                            //     wsaSend(msgg, ws)
-                            //     break;
-                            // case "textSpeak":
-                            //     console.log('Chrome textSpeak ' + 'text ' + msg.text + ' : ' + msg.meSend)
-                            //     let mess1 = JSON.stringify({
-                            //         method: 'textSpeak',
-                            //         text: msg.text,
-                            //     })
-                            //     if (msg.meSend === false) {
-                            //         wssSendPersId(mess1, ws)
-                            //     } else {
-                            //         wssSend(mess1, ws)
-                            //     }
-                            //     break;
-                            // case "noSpeech":
-                            //     let mess2 = JSON.stringify({
-                            //         method: 'noSpeech',
-                            //         message: msg.message,
-                            //     })
-                            //     wssSendPersId(mess2, ws)
-                            //     break;
-                            // case "audioURL":
-                            //     if (msg.me === false) {
-                            //        wssSend(JSON.stringify(msg), ws)
-                            //     } else {
-                            //         wssSendPersId(JSON.stringify(msg), ws)
-                            //     }
-                            //     break;
-                            // case "audioURLto":
-                            //     let mess6 = JSON.stringify({
-                            //         method: 'audioURLto',
-                            //     })
-                            //     if (msg.me === false) {
-                            //         wssSendPersId(mess6, ws)
-                            //     } else {
-                            //         wssSend(mess6, ws)
-                            //     }
-                            //     break;
-                            default:
-                                // console.log('default method: ' + msg.method + ' message: ' + msg.message)
+                        case "audioURL":
+                            const message = new Message({user : '111', messages: msg.message});
+                            await message.save();
+                            // const connection = new Connection({ user: msg.username});
+                            // await connection.save();
+                            //await this.messages(aWss)
+                            break
 
-                                if (msg.meSend === false && msg.meSend !== undefined) {
-                                    wssSendPersId(JSON.stringify(msg), ws)
-                                    // console.log('message: ' + msg.message)
-                                } else if  (msg.meSend === true && msg.meSend !== undefined){
-                                    wssSend(JSON.stringify(msg), ws)
-                                    // console.log('message: ' + msg.message)
-                                }else {
-                                    wsaSend(msgg, ws)
-                                    console.log(msg)
-                                }
-                                break;
-                        }
-                    }catch (e) {
-                        console.log(e)
-                        // wssSend(msgg, ws)
-                        // var buf = new Uint8Array(msgg).buffer
-                        // console.log(buf)
+                        // case "messagesL":
+                        //     console.log('Chrome messagesL ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
+                        //     wsaSend(msgg, ws)
+                        //     break;
+                        // case "messagesR":
+                        //     console.log('Chrome messagesR ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
+                        //     wsaSend(msgg, ws)
+                        //     break;
+                        // case "messagesOnOff":
+                        //     console.log('Chrome messageOnOff ' + msg.messageOnOff + ' id ' + msg.id)
+                        //     wsaSend(msgg, ws)
+                        //     break;
+                        // case "messagesStop":
+                        //     console.log('Chrome messageStop ' + 'id ' + msg.id)
+                        //     wsaSend(msgg, ws)
+                        //     break;
+                        // case "messagesFBLR":
+                        //     console.log('Chrome messageFBLR ' + 'id ' + msg.id)
+                        //     wsaSend(msgg, ws)
+                        //     break;
+                        // case "textSpeak":
+                        //     console.log('Chrome textSpeak ' + 'text ' + msg.text + ' : ' + msg.meSend)
+                        //     let mess1 = JSON.stringify({
+                        //         method: 'textSpeak',
+                        //         text: msg.text,
+                        //     })
+                        //     if (msg.meSend === false) {
+                        //         wssSendPersId(mess1, ws)
+                        //     } else {
+                        //         wssSend(mess1, ws)
+                        //     }
+                        //     break;
+                        // case "noSpeech":
+                        //     let mess2 = JSON.stringify({
+                        //         method: 'noSpeech',
+                        //         message: msg.message,
+                        //     })
+                        //     wssSendPersId(mess2, ws)
+                        //     break;
+                        // case "audioURL":
+                        //     if (msg.me === false) {
+                        //        wssSend(JSON.stringify(msg), ws)
+                        //     } else {
+                        //         wssSendPersId(JSON.stringify(msg), ws)
+                        //     }
+                        //     break;
+                        // case "audioURLto":
+                        //     let mess6 = JSON.stringify({
+                        //         method: 'audioURLto',
+                        //     })
+                        //     if (msg.me === false) {
+                        //         wssSendPersId(mess6, ws)
+                        //     } else {
+                        //         wssSend(mess6, ws)
+                        //     }
+                        //     break;
+                        default:
+                            // console.log('default method: ' + msg.method + ' message: ' + msg.message)
+
+                            if (msg.meSend === false && msg.meSend !== undefined) {
+                                wssSendPersId(JSON.stringify(msg), ws)
+                                // console.log('message: ' + msg.message)
+                            } else if (msg.meSend === true && msg.meSend !== undefined) {
+                                wssSend(JSON.stringify(msg), ws)
+                                // console.log('message: ' + msg.message)
+                            } else {
+                                wsaSend(msgg, ws)
+                                console.log(msg)
+                            }
+                            break;
                     }
+                } catch (e) {
+                    console.log(e)
+                    // wssSend(msgg, ws)
+                    // var buf = new Uint8Array(msgg).buffer
+                    // console.log(buf)
+                }
 
 
-                 //wsaSend(msgg, ws)
+                //wsaSend(msgg, ws)
             })
         })
 

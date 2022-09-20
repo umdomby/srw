@@ -4,6 +4,8 @@ import {observer} from "mobx-react-lite";
 import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
 import useEventListener from "@use-it/event-listener";
 import {FileUploader} from "./File-uploader";
+import ReactPlayer from 'react-player'
+import ReactAudioPlayer from 'react-audio-player';
 
 
 const TextSpeak = observer(() => {
@@ -15,6 +17,8 @@ const TextSpeak = observer(() => {
     const [pitch, setPitch] = useState(0.6);
     const [rate, setRate] = useState(1);
     const [noVoiceSpeak, setNoVoiceSpeak] = useState(false)
+    //speed
+    const [speedControl, setSpeedControl] = useState(null);
     // const onEnd = () => {
     // };
     const { speak, cancel, speaking, supported, voices} = useSpeechSynthesis({
@@ -147,7 +151,6 @@ const TextSpeak = observer(() => {
 
     return (
         <div style={{color:'white'}}>
-
             {/*{hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}*/}
             {/*{hidden && <div>*/}
             {/*<TextSpeakSpeech setValue={setValue}/>*/}
@@ -285,6 +288,16 @@ const TextSpeak = observer(() => {
             {/*        message: voices[1].lang*/}
             {/*    }))*/}
             {/*}}>2222</button>*/}
+
+            {/*<ReactPlayer url='https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download' />*/}
+            {/*<ReactAudioPlayer*/}
+            {/*    //src="https://drive.google.com/file/d/1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI/view?usp=sharing"*/}
+            {/*    src="https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download"*/}
+            {/*    //src="https://servicerobot.pro:4433/1.mp3"*/}
+            {/*    autoPlay={true}*/}
+            {/*    controls*/}
+            {/*/>*/}
+
         </div>
     )
 
