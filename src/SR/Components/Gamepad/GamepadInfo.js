@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import store from "../../Store"
 import {messageL} from "../../Control/messageL";
 import {messageR} from "../../Control/messageR";
@@ -18,6 +18,7 @@ const GamepadInfo = ({ buttons, axes }) => {
   const refRS = useRef(true);
   const refPWRoNoFF = useRef(false);
   const refSpeed = useRef(1);
+  const [startSpeed, setStartSpeed] = useState(Number(localStorage.getItem('startSpeed') || 0));
   const refInterval = useRef(2000);
   const refRTLTNull = useRef(true);
   const refRjVert = useRef(0);
@@ -140,8 +141,8 @@ const GamepadInfo = ({ buttons, axes }) => {
       store.webSocket.send(JSON.stringify({
         id: store.idSocket,
         method: 'messagesLTRT',
-        messageL: lt.value * refSpeed.current * 25,
-        messageR: rt.value * refSpeed.current * 25,
+        messageL: lt.value * refSpeed.current * 25 + startSpeed,
+        messageR: rt.value * refSpeed.current * 25 + startSpeed,
       }))
     }
   else if(lineUpDown.current === true){
@@ -149,8 +150,8 @@ const GamepadInfo = ({ buttons, axes }) => {
       store.webSocket.send(JSON.stringify({
         id: store.idSocket,
         method: 'messagesLTRT',
-        messageL: rt.value * refSpeed.current * 25,
-        messageR: lt.value * refSpeed.current * 25,
+        messageL: rt.value * refSpeed.current * 25 + startSpeed,
+        messageR: lt.value * refSpeed.current * 25 + startSpeed,
       }))
     }
   }
@@ -296,7 +297,7 @@ const GamepadInfo = ({ buttons, axes }) => {
 
   if(rb.pressed === true && refRB.current === true) {
     refRB.current = false
-    if(refSpeed.current < 10) {
+    if(25.5 * refSpeed.current + startSpeed < 255) {
       refSpeed.current = refSpeed.current + 1
     }
     //refSpeed.current = store.speedControl + store.speedControl * 25.5
@@ -379,7 +380,22 @@ const GamepadInfo = ({ buttons, axes }) => {
 
   return (
     <div style={{color:'white'}}>
-      {refSpeed.current + ', speed = ' + (25.5 * refSpeed.current)}
+      {refSpeed.current + ', speed = ' + (25.5 * refSpeed.current + startSpeed)}
+      <div>
+        <input
+            value={startSpeed}
+            type="range"
+            min="0"
+            max="255"
+            step="1"
+            id="pitch"
+            onChange={(event) => {
+              setStartSpeed(Number(event.target.value));
+              localStorage.setItem('startSpeed', Number(event.target.value))
+            }}
+        />
+        {startSpeed}
+      </div>
       {/*<div style={{ fontFamily: "monospace", color:'white', paddingTop:'100px' ,width:'30%', margin: '0 auto'}}>*/}
       {/*<p>X: {x && x.pressed && `pressed`}</p>*/}
       {/*<p>Y: {y && y.pressed && `pressed`}</p>*/}
