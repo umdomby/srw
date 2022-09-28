@@ -77,6 +77,14 @@ const WebSocketProject = (id, persId) => {
                             store.setAudioVolume(msg.message)
                             console.log('socket audioVolume: ' + msg.message)
                             break
+                        case "mongoMusicToClient":
+                            // {Object.keys(msg.message).map((item, index) => (
+                            //     <div key={index}>
+                            //         {console.log('link: ' + msg.message[item].link + ' - name ' + msg.message[item].name + ' - pl - ' + msg.message[item].pl)}
+                            //     </div>
+                            // ))}
+                            //console.log('mongoMusicToClient: ' + msg.message)
+                            break
                         default:
                             console.log(msg)
                     }

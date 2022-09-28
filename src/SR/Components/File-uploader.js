@@ -9,6 +9,19 @@ export const FileUploader = observer(() => {
     const audioTune = useRef(new Audio())
     const [audioVolume2, setAudioVolume2] = useState(1)
 
+
+    const [musicLink, setMusicLink] = useState('');
+    const [musicPl, setMusicPl] = useState('');
+    const [musicName, setMusicName] = useState('');
+
+    useEffect(() => {
+        audioTune.current.src = imageURL
+        audioTune.current.src = 'https://servicerobot.pro:4433/1.mp3'
+        //audioTune.current.src = 'https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download'
+        //https://drive.google.com/file/d/1pvCUGmA4A8ek9D5zOia-TialDce68cMz/view?usp=sharing
+        //https://drive.google.com/u/0/uc?id=1pvCUGmA4A8ek9D5zOia-TialDce68cMz&export=download
+    }, [])
+
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
         setImageURL(fileReader.result);
@@ -95,16 +108,12 @@ export const FileUploader = observer(() => {
             />
             <div>
                 <button onClick={()=>{
-                    //audioTune.current.src = imageURL
-                    //audioTune.current.src = 'https://servicerobot.pro:4433/1.mp3'
-                    audioTune.current.src = 'https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download'
-                    audioTune.current.volume = store.audioVolume
                     audioTune.current.play()
                 }}>miPlay</button>
                 <button onClick={()=>{audioTune.current.pause()}}>miPause</button>
                 <button onClick={()=>{
                     audioTune.current.pause();
-                    audioTune.current.currentTime = 0;}}>miStop</button>
+                   }}>miStop</button>
             </div>
             <div>
                 <input
@@ -146,6 +155,73 @@ export const FileUploader = observer(() => {
                     }}
                 />
                 {store.audioVolume}
+            </div>
+            <br/>
+            <div>
+                <div>
+                    <input
+                        type='text'
+                        value={musicLink}
+                        style={{width:'140px'}}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
+                            setMusicLink(e.target.value)
+                        }}
+                    /> link music
+                </div>
+                <div>
+                    <input
+                        type='text'
+                        value={musicName}
+                        style={{width:'140px'}}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
+                               setMusicName(e.target.value)
+                        }}
+                    /> name
+                </div>
+                <div>
+                    <input
+                        type='text'
+                        value={musicPl}
+                        style={{width:'140px'}}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
+                            setMusicPl(e.target.value)
+                        }}
+                    /> pl
+                </div>
+                <div>
+                    <button
+                        style={{width:'140px'}}
+                        onClick={()=> {
+                            if(musicLink !== '' && musicName !== '' && musicPl !== ''){
+                                store.webSocket.send(JSON.stringify({
+                                    id: store.idSocket,
+                                    method: 'mongoMusic',
+                                    link: musicLink,
+                                    name: musicName,
+                                    pl: musicPl
+                                }))
+                                setMusicLink('')
+                                setMusicName('')
+                                setMusicPl('')
+                            }
+                        }}
+                    >Send
+                    </button>
+                </div>
+                <div>
+                    <button
+                        style={{width:'140px'}}
+                        onClick={()=> {
+                                store.webSocket.send(JSON.stringify({
+                                    id: store.idSocket,
+                                    method: 'mongoMusicToClient',
+                                }))
+                            }
+                        }
+                    >
+                        Music
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -35,7 +35,9 @@
 // console.log('3 ' + dencrypted);
 
 const Connection = require('./Server/models/Connections');
-const Message = require('./Server/models/Messages');
+const Pl = require('./Server/models/Pl');
+// const Message = require('./Server/models/Messages');
+//const Message = require('./Server/models/Messages');
 
 const fs = require('fs');
 const http = require('http');
@@ -190,13 +192,32 @@ const start = async () => {
                             wssSend(mess, ws)
                             break;
 
-                        case "audioURL":
-                            const message = new Message({user : '111', messages: msg.message});
-                            await message.save();
+                        case "mongoMusic":
+                            const pl = new Pl({ link: msg.link, name: msg.name, pl: msg.pl });
+                            await pl.save();
                             // const connection = new Connection({ user: msg.username});
                             // await connection.save();
                             //await this.messages(aWss)
                             break
+
+                        case "mongoMusicToClient":
+                            await Pl.find().then(pl => {
+                                // console.log(pl)
+                                wssSend(JSON.stringify({
+                                        method: 'mongoMusicToClient',
+                                        message: pl
+                                }), ws)
+                            })
+                            break
+
+
+                        // case "audioURL":
+                        //     const message = new Message({user : '111', messages: msg.message});
+                        //     await message.save();
+                        //     // const connection = new Connection({ user: msg.username});
+                        //     // await connection.save();
+                        //     //await this.messages(aWss)
+                        //     break
 
                         // case "messagesL":
                         //     console.log('Chrome messagesL ' + msg.id + ' | R: ' + msg.messageR + ' | L: ' + msg.messageL + ' | ' + " method " + msg.method)
