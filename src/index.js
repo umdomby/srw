@@ -5,7 +5,7 @@ import App from './App';
 import './App.css';
 import './SR/sr.css'
 // import registerServiceWorker from './registerServiceWorker';
-import SR from "./SR";
+// import SR from "./SR";
 import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "./dev";
 

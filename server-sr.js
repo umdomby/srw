@@ -34,7 +34,7 @@
 // console.log('2 ' + clearText);
 // console.log('3 ' + dencrypted);
 
-const Connection = require('./Server/models/Connections');
+// const Connection = require('./Server/models/Connections');
 const Pl = require('./Server/models/Pl');
 // const Message = require('./Server/models/Messages');
 //const Message = require('./Server/models/Messages');
@@ -312,7 +312,7 @@ const start = async () => {
 
         const wssSendPersId = (mess, ws)=> {
             wss.clients.forEach(function each(client) {
-                if (client.id === ws.id  && client.persId != ws.persId && client.readyState === client.OPEN) {
+                if (client.id === ws.id  && client.persId !== ws.persId && client.readyState === client.OPEN) {
                 //if (client.id === ws.id && client.readyState === client.OPEN) {
                     client.send(mess)
                 }
