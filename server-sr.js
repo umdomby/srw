@@ -190,6 +190,14 @@ const start = async () => {
                                 persId: msg.persId
                             })
                             wssSend(mess, ws)
+
+                            await Pl.find().then(pl => {
+                                // console.log(pl)
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoMusicToClient',
+                                    message: pl
+                                }), ws)
+                            })
                             break;
 
                         case "mongoMusic":
@@ -200,15 +208,15 @@ const start = async () => {
                             //await this.messages(aWss)
                             break
 
-                        case "mongoMusicToClient":
-                            await Pl.find().then(pl => {
-                                // console.log(pl)
-                                wssSend(JSON.stringify({
-                                        method: 'mongoMusicToClient',
-                                        message: pl
-                                }), ws)
-                            })
-                            break
+                        // case "mongoMusicToClient":
+                        //     await Pl.find().then(pl => {
+                        //         // console.log(pl)
+                        //         wssSend(JSON.stringify({
+                        //                 method: 'mongoMusicToClient',
+                        //                 message: pl
+                        //         }), ws)
+                        //     })
+                        //     break
 
 
                         // case "audioURL":
@@ -305,6 +313,14 @@ const start = async () => {
         const wsaSend = (mess, ws)=> {
             wsa.clients.forEach(function each(client) {
                 if (client.id === ws.id && client.readyState === client.OPEN) {
+                    client.send(mess)
+                }
+            });
+        }
+
+        const wssSendPersIdOne = (mess, ws)=> {
+            wss.clients.forEach(function each(client) {
+                if (client.persId === ws.persId && client.readyState === client.OPEN) {
                     client.send(mess)
                 }
             });

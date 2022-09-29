@@ -208,20 +208,20 @@ export const FileUploader = observer(() => {
                     >Send
                     </button>
                 </div>
-                <div>
-                    <button
-                        style={{width:'140px'}}
-                        onClick={()=> {
-                                store.webSocket.send(JSON.stringify({
-                                    id: store.idSocket,
-                                    method: 'mongoMusicToClient',
-                                }))
-                            }
-                        }
-                    >
-                        Music
-                    </button>
-                </div>
+                {/*<div>*/}
+                {/*    <button*/}
+                {/*        style={{width:'140px'}}*/}
+                {/*        onClick={()=> {*/}
+                {/*                store.webSocket.send(JSON.stringify({*/}
+                {/*                    id: store.idSocket,*/}
+                {/*                    method: 'mongoMusicToClient',*/}
+                {/*                }))*/}
+                {/*            }*/}
+                {/*        }*/}
+                {/*    >*/}
+                {/*        Music*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
         </div>
     );

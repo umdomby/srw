@@ -4,6 +4,7 @@ import {observer} from "mobx-react-lite";
 import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
 import useEventListener from "@use-it/event-listener";
 import {FileUploader} from "./File-uploader";
+import {MongoMusic} from "./MongoMusic";
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
 
@@ -278,6 +279,7 @@ const TextSpeak = observer(() => {
             {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
             {/*    <TextSpeakYouTube/>*/}
                 <FileUploader/>
+
             </div>
         {/*</div>}*/}
 
@@ -297,7 +299,7 @@ const TextSpeak = observer(() => {
             {/*    autoPlay={true}*/}
             {/*    controls*/}
             {/*/>*/}
-
+            <MongoMusic/>
         </div>
     )
 

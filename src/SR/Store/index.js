@@ -25,8 +25,12 @@ class Index {
         this._meSend = false
         this._audioVolume = 1
         this._speedControl = 1
+        this._mongoMusic = []
         makeAutoObservable(this)
     }
+    get mongoMusic() {return this._mongoMusic}
+    setMongoMusic(value) {this._mongoMusic = value}
+
     get speedControl() {return this._speedControl}
     setSpeedControl(value) {this._speedControl = value}
 
