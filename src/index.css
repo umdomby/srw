@@ -20,14 +20,6 @@ body, html {
   /*margin-right: auto;*/
 }
 
-.music-container{
-  margin-left: 85%;
-  padding-top: 50px;
-  width: 10%;
-  position: absolute;
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
-}
 .enter-room-container form{
   /*display: flex;*/
 }

@@ -2,8 +2,10 @@ import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react-lite";
 import store from "../Store";
 import ohLittle from "./ohLittle.mp3"
+import Cookies from 'universal-cookie';
 
 export const FileUploader = observer(() => {
+
     //const [image, setImage] = useState();
     const [imageURL, setImageURL] = useState(ohLittle);
     const audioTune = useRef(new Audio())
@@ -15,7 +17,7 @@ export const FileUploader = observer(() => {
     const [musicName, setMusicName] = useState('');
 
     useEffect(() => {
-        audioTune.current.src = imageURL
+        //audioTune.current.src = imageURL
         audioTune.current.src = 'https://servicerobot.pro:4433/1.mp3'
         //audioTune.current.src = 'https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download'
         //https://drive.google.com/file/d/1pvCUGmA4A8ek9D5zOia-TialDce68cMz/view?usp=sharing
@@ -52,10 +54,19 @@ export const FileUploader = observer(() => {
     }, [playInLoop])
 
     useEffect(()=>{
-        console.log(store.audioURL)
+        //console.log(store.audioURL)
         try {
             if(store.audioURL !== '') {
-                setImageURL(store.audioURL)
+                //setImageURL(store.audioURL)
+                //document.cookie = "SameSite=Lax";
+                const cookies = new Cookies();
+                cookies.set('ServiceRobot', 'SRTechnologies', { path: store.audioURL });
+                // cookies.set('ServiceRobot2', 'SRTechnologies2', { path: '.z2.fm/' });
+                // cookies.set('ServiceRobot3', 'SRTechnologies3', { path: '.google.com/' });
+                //console.log(cookies.get('ServiceRobot'));
+                //document.cookie = "SameSite=Lax; secure";
+                console.log(document.cookie)
+                console.log(store.audioURL)
                 audioTune.current.src = store.audioURL
                 audioTune.current.play();
             }
@@ -113,6 +124,7 @@ export const FileUploader = observer(() => {
                 <button onClick={()=>{audioTune.current.pause()}}>miPause</button>
                 <button onClick={()=>{
                     audioTune.current.pause();
+                    audioTune.current.currentTime = 0;
                    }}>miStop</button>
             </div>
             <div>

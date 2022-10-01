@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-buddy/ide-toolbox": "^2.2.1",
     "@use-it/event-listener": "^0.1.7",
     "axios": "^0.27.2",
     "bootstrap": "5.2.0-beta1",
     "buffer": "^6.0.3",
+    "cookie": "^0.5.0",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.2",
     "mobx-react-lite": "^3.4.0",
@@ -18,6 +22,7 @@
     "react": "^18.2.0",
     "react-audio-player": "^0.17.0",
     "react-bootstrap": "^2.4.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-player": "^2.10.1",
     "react-router-dom": "^5.2.0",
@@ -28,9 +33,9 @@
     "simple-peer": "^9.5.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^1.1.1",
-    "ws": "^8.8.1",
-    "@react-buddy/ide-toolbox": "^2.2.1"
+    "ws": "^8.8.1"
   },
   "alias": [
     "video-chat.now.sh"

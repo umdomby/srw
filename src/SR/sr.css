@@ -17,6 +17,16 @@
     left: 85%;
 }
 
+.music-container{
+    margin-left: 85%;
+    padding-top: 50px;
+    width: 10%;
+    position: absolute;
+    z-index: 10501;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+}
+
 .Dictaphone10 {
     position:absolute;
     z-index: 9200;

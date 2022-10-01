@@ -43,6 +43,30 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const express = require('express');
+const app = express();
+
+// const session = require('express-session');
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: true,  sameSite: 'None' }
+// }))
+
+
+// var cookieSession = require("cookie-session");
+// app.set('trust proxy', 1)
+// app.use(
+//     cookieSession({
+//         name: "__session",
+//         keys: ["key1"],
+//         maxAge: 24 * 60 * 60 * 100,
+//         secure: true,
+//         httpOnly: true,
+//         sameSite: 'none'
+//     })
+// );
+
 const WebSocketServer = require('ws').Server;
 //const WebSocket = require('ws');
 
@@ -54,7 +78,8 @@ const cors = require('cors')
 // const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 
 const path = require('path')
-const app = express();
+
+
 app.use(cors())
 //app.use(errorHandler)
 app.use(express.json({ extended: true }))
@@ -192,7 +217,7 @@ const start = async () => {
                             wssSend(mess, ws)
 
                             await Pl.find().then(pl => {
-                                // console.log(pl)
+                                //console.log(pl)
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
                                     message: pl

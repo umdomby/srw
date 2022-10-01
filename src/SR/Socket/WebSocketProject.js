@@ -79,22 +79,7 @@ const WebSocketProject = (id, persId) => {
                             break
                         case "mongoMusicToClient":
                             store.setMongoMusic(msg.message)
-
                             //console.log(JSON.stringify(store.mongoMusic))
-
-
-                            //console.log(store.mongoMusic)
-                            // const arr = []
-                            // {Object.keys(msg.message).map((item, index) => (
-                            //     <div key={index}>
-                            //         {
-                            //             arr.push(msg.message[item])
-                            //             //console.log('link: ' + msg.message[item].link + ' - name ' + msg.message[item].name + ' - pl - ' + msg.message[item].pl)
-                            //         }
-                            //     </div>
-                            // ))}
-                            // store.setMongoMusic(arr)
-                            //console.log('mongoMusicToClient: ' + msg.message)
                             break
                         default:
                             console.log(msg)
