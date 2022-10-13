@@ -88,8 +88,9 @@ class Video extends React.Component {
   }
 
   setVideoLocal(){
-    if(this.state.localStream.getVideoTracks().length>0){
+    if(this.state.localStream.getVideoTracks().length > 0){
       this.state.localStream.getVideoTracks().forEach(track => {
+        //console.log("Camera "+ track.getSettings().deviceId)
         track.enabled=!track.enabled;
       });
     }

@@ -55,6 +55,14 @@ class Video extends React.Component {
 
   getUserMedia(cb) {
     return new Promise((resolve, reject) => {
+
+      //получение устройств
+      navigator.mediaDevices.enumerateDevices()
+          .then(devices => {
+            console.log(devices)
+          });
+
+
       navigator.getUserMedia = navigator.getUserMedia =
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
@@ -90,8 +98,9 @@ class Video extends React.Component {
   }
 
   setVideoLocal(){
-    if(this.state.localStream.getVideoTracks().length>0){
+    if(this.state.localStream.getVideoTracks().length > 0){
       this.state.localStream.getVideoTracks().forEach(track => {
+        console.log("Camera "+ track.getSettings().deviceId)
         track.enabled=!track.enabled;
       });
     }

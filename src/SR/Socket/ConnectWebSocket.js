@@ -6,7 +6,8 @@ import shortId from "shortid";
 
 const ConnectWebSocket = observer(() => {
     const persId = useRef(shortId.generate())
-    const [idSocket, setIdSocket] = useState(localStorage.getItem('localIdSocket') || '')
+    const [idSocket, setIdSocket] = useState('')
+    const [displayMessage, setDisplayMessage] = useState(localStorage.getItem('localIdSocket') || '');
     setInterval(() => socketTest(), 5000)
     const [hidden, setHidden] = useState(false)
 
@@ -37,12 +38,28 @@ const ConnectWebSocket = observer(() => {
 
     setInterval(() => connectByte(), 900)
     const connectByte = () => {
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'messages',
-            connectByte: true
-        }))
+        try {
+            store.webSocket.send(JSON.stringify({
+                id: store.idSocket,
+                method: 'messages',
+                connectByte: true
+            }))
+        }catch (e) {
+            console.log('err send connectByte')
+        }
+
     }
+
+    useEffect(() => {
+        const timeOutId = setTimeout(() => {
+            console.log('11111')
+            setIdSocket(displayMessage)
+            localStorage.setItem('localIdSocket', displayMessage)
+            setIdSocket(displayMessage)
+            store.setIdSocket(displayMessage)
+        }, 1500);
+        return () => clearTimeout(timeOutId);
+    }, [displayMessage]);
 
     return (
         <div className="socketAdd">
@@ -51,12 +68,13 @@ const ConnectWebSocket = observer(() => {
                        type='text'
                        disabled={false}
                        style={{backgroundColor: '#D3D3D3', textAlign: 'center', borderWidth: 1, fontSize: 12, width:'15em', height:'1.5em'}}
-                       value={idSocket}
-                       onChange={(event) => {
-                           localStorage.setItem('localIdSocket', event.target.value)
-                           setIdSocket(event.target.value)
-                           store.setIdSocket(event.target.value)
-                       }}
+                       value={displayMessage}
+                       onChange={event => setDisplayMessage(event.target.value)}
+                       // onChange={(event) => {
+                       //     localStorage.setItem('localIdSocket', event.target.value)
+                       //     setIdSocket(event.target.value)
+                       //     store.setIdSocket(event.target.value)
+                       // }}
                 />}
             <button style={{backgroundColor: '#D3D3D3', textAlign: 'center', borderWidth: 1, fontSize: 11, width:'6em', height:'2em'}}
                 onClick={()=>setHidden(!hidden)}

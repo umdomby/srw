@@ -90,7 +90,7 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 
 const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
 const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
-const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+//const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
 
 util = require('util');
 var filepath = path.join(__dirname, './public/1.mp3');
@@ -103,7 +103,7 @@ app.get('/1.mp3', function(req, res){
 const credentials = {
     key: privateKey,
     cert: certificate,
-    ca: ca
+    //ca: ca
 };
 
 app.use((req, res) => {
@@ -216,8 +216,9 @@ const start = async () => {
                             })
                             wssSend(mess, ws)
 
-                            await Pl.find().then(pl => {
+                            await Pl.find({socketId: msg.id}).then(pl => {
                                 //console.log(pl)
+
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
                                     message: pl
@@ -226,7 +227,7 @@ const start = async () => {
                             break;
 
                         case "mongoMusic":
-                            const pl = new Pl({ link: msg.link, name: msg.name, pl: msg.pl });
+                            const pl = new Pl({ link: msg.link, name: msg.name, pl: msg.pl, socketId: ws.id });
                             await pl.save();
                             // const connection = new Connection({ user: msg.username});
                             // await connection.save();
@@ -371,8 +372,8 @@ const start = async () => {
         httpServer.listen(8081, () => {
             console.log('HTTP Server running on port 8081');
         });
-        httpsServer.listen(4433, () => {
-            console.log('HTTPS Server running on port 4433');
+        httpsServer.listen(4444, () => {
+            console.log('HTTPS Server running on port 4444');
         });
 
     } catch (e) {

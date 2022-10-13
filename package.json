@@ -46,7 +46,7 @@
     "server": "nodemon server-web-rtc.js & nodemon server-sr.js",
     "start": "react-scripts --openssl-legacy-provider start",
     "client": "node client.js",
-    "https": "HTTPS=true SSL_CRT_FILE='./cert/servicerobotpro/cert.pem' SSL_KEY_FILE='./cert/servicerobotpro/privkey.pem' react-scripts --openssl-legacy-provider start",
+    "https": "HTTPS=true PORT=443 SSL_CRT_FILE='./cert/servicerobotpro/cert.pem' SSL_KEY_FILE='./cert/servicerobotpro/privkey.pem' react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
