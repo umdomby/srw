@@ -90,7 +90,7 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 
 const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
 const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
-//const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
 
 util = require('util');
 var filepath = path.join(__dirname, './public/1.mp3');
@@ -103,7 +103,7 @@ app.get('/1.mp3', function(req, res){
 const credentials = {
     key: privateKey,
     cert: certificate,
-    //ca: ca
+    ca: ca
 };
 
 app.use((req, res) => {
@@ -232,6 +232,15 @@ const start = async () => {
                             // const connection = new Connection({ user: msg.username});
                             // await connection.save();
                             //await this.messages(aWss)
+                            break
+
+                        case "mongoMusicPl":
+                            await Pl.find({socketId: msg.id, pl: msg.message}).then(pl => {
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoMusicToClient',
+                                    message: pl
+                                }), ws)
+                            })
                             break
 
                         // case "mongoMusicToClient":

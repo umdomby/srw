@@ -7,7 +7,7 @@ const path = require('path')
 
 const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
 const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
-//const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
 
 // const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/umdomby/privkey.pem'));
 // const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/umdomby/cert.pem'));
@@ -20,7 +20,7 @@ app.use(express.static(path.resolve(__dirname, 'build')))
 const credentials = {
     key: privateKey,
     cert: certificate,
-    //ca: ca
+    ca: ca
 };
 
 //const httpServer = http.createServer(app);

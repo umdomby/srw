@@ -52,7 +52,6 @@ const ConnectWebSocket = observer(() => {
 
     useEffect(() => {
         const timeOutId = setTimeout(() => {
-            console.log('11111')
             setIdSocket(displayMessage)
             localStorage.setItem('localIdSocket', displayMessage)
             setIdSocket(displayMessage)

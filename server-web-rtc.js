@@ -7,15 +7,21 @@ const path = require('path')
 
 
 var https = require('https');
-var options = {
-    key: fs.readFileSync('./cert/servicerobotpro/privkey.pem'),
-    cert: fs.readFileSync('./cert/servicerobotpro/cert.pem')
-};
-var server = https.createServer(options, app);
 
-// const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
-// const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
-// const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+// var options = {
+//     key: fs.readFileSync('./cert/servicerobotpro/privkey.pem'),
+//     cert: fs.readFileSync('./cert/servicerobotpro/cert.pem')
+// };
+
+const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
+const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
+const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+};
+var server = https.createServer(credentials, app);
 
 const io = require("socket.io")(server, {
     cors: {
