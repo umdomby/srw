@@ -217,8 +217,6 @@ const start = async () => {
                             wssSend(mess, ws)
 
                             await Pl.find({socketId: msg.id}).then(pl => {
-                                //console.log(pl)
-
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
                                     message: pl
@@ -236,6 +234,15 @@ const start = async () => {
 
                         case "mongoMusicPl":
                             await Pl.find({socketId: msg.id, pl: msg.message}).then(pl => {
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoMusicToClient',
+                                    message: pl
+                                }), ws)
+                            })
+                            break
+                        case "mongoMusicDel":
+                            await Pl.remove({"_id":msg.message});
+                            await Pl.find({socketId: msg.id}).then(pl => {
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
                                     message: pl
