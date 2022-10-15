@@ -379,7 +379,7 @@ const GamepadInfo = ({ buttons, axes }) => {
   }
 
   return (
-    <div style={{color:'white'}}>
+    <div style={{color:'white', position:'absolute', zIndex: '10801'}}>
       {refSpeed.current + ', speed = ' + (25.5 * refSpeed.current + startSpeed)}
       <div>
         <input
