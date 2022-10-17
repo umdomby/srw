@@ -18,12 +18,10 @@ export const MongoMusic = observer(() => {
     }
 
     const sendMusicMongoDel = (_id) => {
-        //console.log(_id)
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
             method: 'mongoMusicDel',
             message: _id,
-            //meSend: store.meSend
         }))
     }
 
@@ -42,6 +40,10 @@ export const MongoMusic = observer(() => {
             }
         }, 1000)
     }, [])
+
+    useEffect(()=>{
+        store.setMongoMusic(store.mongoMusic)
+    }, [store.mongoMusic])
 
     const [showModal, setShowModal] = useState(false)
     const delMusicRef = useRef()

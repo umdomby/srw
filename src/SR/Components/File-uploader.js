@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react-lite";
 import store from "../Store";
-import ohLittle from "./ohLittle.mp3"
+//import ohLittle from "../../../public/ohLittle.mp3"
 import Cookies from 'universal-cookie';
 
 export const FileUploader = observer(() => {
 
     //const [image, setImage] = useState();
-    const [imageURL, setImageURL] = useState(ohLittle);
+    //const [imageURL, setImageURL] = useState(ohLittle);
     const audioTune = useRef(new Audio())
     const [audioVolume2, setAudioVolume2] = useState(1)
 
@@ -18,10 +18,11 @@ export const FileUploader = observer(() => {
 
     useEffect(() => {
         //audioTune.current.src = imageURL
-        audioTune.current.src = 'https://servicerobot.pro:4444/1.mp3'
+        audioTune.current.src = 'https://drive.google.com/u/0/uc?id=1tvG7sGFLgYf9kaz9OlUVUX4qEXvzJC1u&export=download'
         //audioTune.current.src = 'https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download'
         //https://drive.google.com/file/d/1pvCUGmA4A8ek9D5zOia-TialDce68cMz/view?usp=sharing
         //https://drive.google.com/u/0/uc?id=1pvCUGmA4A8ek9D5zOia-TialDce68cMz&export=download
+        //https://drive.google.com/u/0/uc?id=1tvG7sGFLgYf9kaz9OlUVUX4qEXvzJC1u&export=download
     }, [])
 
     const fileReader = new FileReader();

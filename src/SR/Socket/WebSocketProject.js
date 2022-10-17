@@ -8,7 +8,7 @@ const WebSocketProject = (id, persId) => {
         //     store.webSocket.close()
         // }
 
-        store.setWebSocket(new WebSocket('wss://servicerobot.pro:4444'))
+        store.setWebSocket(new WebSocket('wss://servicerobot.pro:4443'))
         //store.setWebSocket(new WebSocket('wss://umdom.by:4433'))
         //store.setWebSocket(new WebSocket('wss://localhost:4433'))
 
@@ -65,8 +65,14 @@ const WebSocketProject = (id, persId) => {
                             store.setYouTubePlaying(msg.playing)
                             break
                         case "audioURL":
-                            // console.log(msg.message)
-                            store.setAudioURL(msg.message)
+                            if (store.audioURL !== msg.message){
+                                store.setAudioURL(msg.message)
+                            }else {
+                                store.setAudioURL('')
+                                setTimeout(()=>{
+                                    store.setAudioURL(msg.message)
+                                }, 1000)
+                            }
                             store.setAudioPlaying(msg.playing)
                             break
                         case "audioURLto":

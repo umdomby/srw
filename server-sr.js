@@ -227,9 +227,12 @@ const start = async () => {
                         case "mongoMusic":
                             const pl = new Pl({ link: msg.link, name: msg.name, pl: msg.pl, socketId: ws.id });
                             await pl.save();
-                            // const connection = new Connection({ user: msg.username});
-                            // await connection.save();
-                            //await this.messages(aWss)
+                            await Pl.find({socketId: msg.id}).then(pl => {
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoMusicToClient',
+                                    message: pl
+                                }), ws)
+                            })
                             break
 
                         case "mongoMusicPl":
@@ -388,8 +391,8 @@ const start = async () => {
         httpServer.listen(8081, () => {
             console.log('HTTP Server running on port 8081');
         });
-        httpsServer.listen(4444, () => {
-            console.log('HTTPS Server running on port 4444');
+        httpsServer.listen(4443, () => {
+            console.log('HTTPS Server running on port 4443');
         });
 
     } catch (e) {
