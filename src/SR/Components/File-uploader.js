@@ -12,9 +12,9 @@ export const FileUploader = observer(() => {
     const [audioVolume2, setAudioVolume2] = useState(1)
 
 
-    const [musicLink, setMusicLink] = useState('');
-    const [musicPl, setMusicPl] = useState('');
-    const [musicName, setMusicName] = useState('');
+    // const [musicLink, setMusicLink] = useState('');
+    // const [musicPl, setMusicPl] = useState('');
+    // const [musicName, setMusicName] = useState('');
 
     useEffect(() => {
         //audioTune.current.src = imageURL
@@ -25,25 +25,25 @@ export const FileUploader = observer(() => {
         //https://drive.google.com/u/0/uc?id=1tvG7sGFLgYf9kaz9OlUVUX4qEXvzJC1u&export=download
     }, [])
 
-    const fileReader = new FileReader();
-    fileReader.onloadend = () => {
-        setImageURL(fileReader.result);
-        //store.setPlayMp3(fileReader.result)
-        store.webSocket.send(JSON.stringify({
-            id: store.idSocket,
-            method: 'audioURL',
-            message: fileReader.result,
-            meSend: store.meSend
-        }))
-    };
-    const handleOnChange = (event) => {
-        event.preventDefault();
-        if (event.target.files && event.target.files.length) {
-            const file = event.target.files[0];
-            // setImage(file);
-            fileReader.readAsDataURL(file);
-        }
-    };
+    // const fileReader = new FileReader();
+    // fileReader.onloadend = () => {
+    //     setImageURL(fileReader.result);
+    //     //store.setPlayMp3(fileReader.result)
+    //     store.webSocket.send(JSON.stringify({
+    //         id: store.idSocket,
+    //         method: 'audioURL',
+    //         message: fileReader.result,
+    //         meSend: store.meSend
+    //     }))
+    // };
+    // const handleOnChange = (event) => {
+    //     event.preventDefault();
+    //     if (event.target.files && event.target.files.length) {
+    //         const file = event.target.files[0];
+    //         // setImage(file);
+    //         fileReader.readAsDataURL(file);
+    //     }
+    // };
 
     const [playInLoop, setPlayInLoop] = useState(false);
 
@@ -106,18 +106,18 @@ export const FileUploader = observer(() => {
 
     return (
         <div>
-            <label
-                htmlFor="file-loader-button"
-                className="file-uploader__custom-button"
-            >
-                {/*Загрузить файл*/}
-            </label>
-            <input
-                id="file-loader-button"
-                type="file"
-                className="file-uploader__upload-button"
-                onChange={handleOnChange}
-            />
+            {/*<label*/}
+            {/*    htmlFor="file-loader-button"*/}
+            {/*    className="file-uploader__custom-button"*/}
+            {/*>*/}
+            {/*    /!*Загрузить файл*!/*/}
+            {/*</label>*/}
+            {/*<input*/}
+            {/*    id="file-loader-button"*/}
+            {/*    type="file"*/}
+            {/*    className="file-uploader__upload-button"*/}
+            {/*    onChange={handleOnChange}*/}
+            {/*/>*/}
             <div>
                 <button onClick={()=>{
                     audioTune.current.play()
@@ -170,72 +170,59 @@ export const FileUploader = observer(() => {
                 {store.audioVolume}
             </div>
             <br/>
-            <div>
-                <div>
-                    <input
-                        type='text'
-                        value={musicLink}
-                        style={{width:'140px'}}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
-                            setMusicLink(e.target.value)
-                        }}
-                    /> link music
-                </div>
-                <div>
-                    <input
-                        type='text'
-                        value={musicName}
-                        style={{width:'140px'}}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
-                               setMusicName(e.target.value)
-                        }}
-                    /> name
-                </div>
-                <div>
-                    <input
-                        type='text'
-                        value={musicPl}
-                        style={{width:'140px'}}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
-                            setMusicPl(e.target.value)
-                        }}
-                    /> pl
-                </div>
-                <div>
-                    <button
-                        style={{width:'140px'}}
-                        onClick={()=> {
-                            if(musicLink !== '' && musicName !== '' && musicPl !== ''){
-                                store.webSocket.send(JSON.stringify({
-                                    id: store.idSocket,
-                                    method: 'mongoMusic',
-                                    link: musicLink,
-                                    name: musicName,
-                                    pl: musicPl
-                                }))
-                                setMusicLink('')
-                                setMusicName('')
-                                setMusicPl('')
-                            }
-                        }}
-                    >Send
-                    </button>
-                </div>
+            {/*<div>*/}
+            {/*    <div>*/}
+            {/*        <input*/}
+            {/*            type='text'*/}
+            {/*            value={musicLink}*/}
+            {/*            style={{width:'140px'}}*/}
+            {/*            onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {*/}
+            {/*                setMusicLink(e.target.value)*/}
+            {/*            }}*/}
+            {/*        /> link music*/}
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*        <input*/}
+            {/*            type='text'*/}
+            {/*            value={musicName}*/}
+            {/*            style={{width:'140px'}}*/}
+            {/*            onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {*/}
+            {/*                   setMusicName(e.target.value)*/}
+            {/*            }}*/}
+            {/*        /> name*/}
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*        <input*/}
+            {/*            type='text'*/}
+            {/*            value={musicPl}*/}
+            {/*            style={{width:'140px'}}*/}
+            {/*            onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {*/}
+            {/*                setMusicPl(e.target.value)*/}
+            {/*            }}*/}
+            {/*        /> pl*/}
+            {/*    </div>*/}
                 {/*<div>*/}
                 {/*    <button*/}
                 {/*        style={{width:'140px'}}*/}
                 {/*        onClick={()=> {*/}
+                {/*            if(musicLink !== '' && musicName !== '' && musicPl !== ''){*/}
                 {/*                store.webSocket.send(JSON.stringify({*/}
                 {/*                    id: store.idSocket,*/}
-                {/*                    method: 'mongoMusicToClient',*/}
+                {/*                    method: 'mongoMusic',*/}
+                {/*                    link: musicLink,*/}
+                {/*                    name: musicName,*/}
+                {/*                    pl: musicPl*/}
                 {/*                }))*/}
+                {/*                setMusicLink('')*/}
+                {/*                setMusicName('')*/}
+                {/*                setMusicPl('')*/}
                 {/*            }*/}
-                {/*        }*/}
-                {/*    >*/}
-                {/*        Music*/}
+                {/*        }}*/}
+                {/*    >Send*/}
                 {/*    </button>*/}
                 {/*</div>*/}
-            </div>
+                {/*<div>*/}
+            {/*</div>*/}
         </div>
     );
 });

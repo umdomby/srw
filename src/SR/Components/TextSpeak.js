@@ -7,6 +7,7 @@ import {FileUploader} from "./File-uploader";
 import {MongoMusic} from "./MongoMusic";
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
+import {Jook} from "./Jook";
 
 
 const TextSpeak = observer(() => {
@@ -150,156 +151,173 @@ const TextSpeak = observer(() => {
     useEventListener('keydown', handlerDOWN);
     useEventListener('keyup', handlerUP);
 
+    const [show, toggleShow] = useState(true);
+
     return (
-        <div style={{color:'white'}}>
-            {/*{hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}*/}
-            {/*{hidden && <div>*/}
-            {/*<TextSpeakSpeech setValue={setValue}/>*/}
-            <div className="Dictaphone10">
-                <button
-                    onClick={()=> cancel()}
-                >
-                    Stop speech me
-                </button>
-                <button
-                    onClick={()=> {
-                        store.webSocket.send(JSON.stringify({
-                            id: store.idSocket,
-                            method: 'noSpeech',
-                            message: true,
-                        }))
-                    }}
-                >
-                    Stop speech to
-                </button>
-            <div>
-                {value}
-            </div>
-            <textarea
-                style={{height:'50px'}}
-                value={valueTxt}
-                onChange={(event) => setValueTxt(event.target.value)}
-                onKeyPress={(event) => event.key === "Enter" && handleSubmit(event)}
-            />
-                <div>
-            <select
-                form="speech-recognition-form"
-                id="language"
-                value={lang}
-                onChange={changeLang}
-            >
-                {languageOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                        {option.label}
-                    </option>
-                ))}
-            </select>
-                <div>
-                    <button
-                        onClick={()=>{
-                            listen({ lang, interimResults: false})
-                            setNoVoiceSpeak(true)
-                        }}
-                    >
-                        🎤
-                    </button>
-                    <button
-                        onClick={()=>noSpeak()}
-                    >
-                        stop
-                    </button>
-                    <input
-                        type="checkbox"
-                        checked={store.meSend}
-                        onChange={()=>store.setMeSend(!store.meSend)}
-                    />
-                    {store.meSend ? 'true' : 'false'}
+        <div>
+        <button className="TextSpeakCss"
+            onClick={() => toggleShow(!show)}
+        >
+            toggle: {show ? 'show' : 'hide'}
+        </button>
+            {show &&
+                <div style={{color:'white'}}>
+                    {/*{hiddenSpeech && <TextSpeakSpeech setValue={setValue}/>}*/}
+                    {/*{hidden && <div>*/}
+                    {/*<TextSpeakSpeech setValue={setValue}/>*/}
+                    <div className="Dictaphone10">
+                        <button
+                            onClick={()=> cancel()}
+                        >
+                            Stop speech me
+                        </button>
+                        <button
+                            onClick={()=> {
+                                store.webSocket.send(JSON.stringify({
+                                    id: store.idSocket,
+                                    method: 'noSpeech',
+                                    message: true,
+                                }))
+                            }}
+                        >
+                            Stop speech to
+                        </button>
+                        <div>
+                            {value}
+                        </div>
+                        <textarea
+                            style={{height:'50px'}}
+                            value={valueTxt}
+                            onChange={(event) => setValueTxt(event.target.value)}
+                            onKeyPress={(event) => event.key === "Enter" && handleSubmit(event)}
+                        />
+                        <div>
+
+                            <div>
+                                <button
+                                    onClick={()=>{
+                                        listen({ lang, interimResults: false})
+                                        setNoVoiceSpeak(true)
+                                    }}
+                                >
+                                    🎤
+                                </button>
+                                <button
+                                    onClick={()=>noSpeak()}
+                                >
+                                    stop
+                                </button>
+                                <input
+                                    type="checkbox"
+                                    checked={store.meSend}
+                                    onChange={()=>store.setMeSend(!store.meSend)}
+                                />
+                                {store.meSend ? 'true' : 'false'}
+                            </div>
+                            <div style={{color: 'white'}}>
+                                {store.textSpeak}
+                            </div>
+                            {!supported && (
+                                <p>
+                                    Oh no, it looks like your browser doesn&#39;t support Speech
+                                    Synthesis.
+                                </p>
+                            )}
+                        </div>
+                        <div>
+                            <select
+                                form="speech-recognition-form"
+                                id="language"
+                                value={lang}
+                                onChange={changeLang}
+                            >
+                                {languageOptions.map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="voice">Voice</label>
+                            <select
+                                id="voice"
+                                name="voice"
+                                style={{width:'100px'}}
+                                value={voiceIndex || ''}
+                                onChange={(event) => {
+                                    localStorage.setItem('voicesId', event.target.value)
+                                    setVoiceIndex(event.target.value);
+                                    console.log(event.target.value)
+                                }}
+                            >
+
+                                <option value="">Default</option>
+                                {voices.map((option, index) => (
+                                    <option key={option.voiceURI} value={index}>
+                                        {`${option.lang} - ${option.name}`}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
+                            <input
+                                type="range"
+                                value={rate}
+                                min="0"
+                                max="2"
+                                step="0.1"
+                                id="rate"
+                                onChange={(event) => {
+                                    setRate(event.target.value);
+                                }}
+                            />
+                            {rate}
+                        </div>
+                        <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
+                            <input
+                                value={pitch}
+                                type="range"
+                                min="0"
+                                max="2"
+                                step="0.1"
+                                id="pitch"
+                                onChange={(event) => {
+                                    setPitch(event.target.value);
+                                }}
+                            />
+                            {pitch}
+                        </div>
+                        <br/>
+                        {listening && <div>Go ahead I'm listening</div>}
+                        {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
+                        {/*    <TextSpeakYouTube/>*/}
+                        <FileUploader/>
+
+                    </div>
+                    {/*</div>}*/}
+
+                    {/*<button onClick={()=>{*/}
+                    {/*    store.webSocket.send(JSON.stringify({*/}
+                    {/*        id: store.idSocket,*/}
+                    {/*        method: 'data',*/}
+                    {/*        message: voices[1].lang*/}
+                    {/*    }))*/}
+                    {/*}}>2222</button>*/}
+
+                    {/*<ReactPlayer url='https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download' />*/}
+                    {/*<ReactAudioPlayer*/}
+                    {/*    //src="https://drive.google.com/file/d/1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI/view?usp=sharing"*/}
+                    {/*    src="https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download"*/}
+                    {/*    //src="https://servicerobot.pro:4433/1.mp3"*/}
+                    {/*    autoPlay={true}*/}
+                    {/*    controls*/}
+                    {/*/>*/}
+
                 </div>
-                <div style={{color: 'white'}}>
-                    {store.textSpeak}
-                </div>
-                {!supported && (
-                    <p>
-                        Oh no, it looks like your browser doesn&#39;t support Speech
-                        Synthesis.
-                    </p>
-                )}
-                </div>
-
-            <label htmlFor="voice">Voice</label>
-                <select
-                    id="voice"
-                    name="voice"
-                    style={{width:'100px'}}
-                    value={voiceIndex || ''}
-                    onChange={(event) => {
-                        localStorage.setItem('voicesId', event.target.value)
-                        setVoiceIndex(event.target.value);
-                        console.log(event.target.value)
-                    }}
-                >
-
-                    <option value="">Default</option>
-                    {voices.map((option, index) => (
-                        <option key={option.voiceURI} value={index}>
-                            {`${option.lang} - ${option.name}`}
-                        </option>
-                    ))}
-                </select>
-            <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                <input
-                    type="range"
-                    value={rate}
-                    min="0"
-                    max="2"
-                    step="0.1"
-                    id="rate"
-                    onChange={(event) => {
-                        setRate(event.target.value);
-                    }}
-                />
-                {rate}
-            </div>
-            <div style={{styleContainerRatePitch, styleFlexRow, color: 'white'}}>
-                <input
-                    value={pitch}
-                    type="range"
-                    min="0"
-                    max="2"
-                    step="0.1"
-                    id="pitch"
-                    onChange={(event) => {
-                        setPitch(event.target.value);
-                    }}
-                />
-                {pitch}
-            </div>
-            <br/>
-            {listening && <div>Go ahead I'm listening</div>}
-            {/*<button type="button" onClick={() => speak({ text, voice, rate, pitch })}>Speak</button>*/}
-            {/*    <TextSpeakYouTube/>*/}
-                <FileUploader/>
-
-            </div>
-        {/*</div>}*/}
-
-            {/*<button onClick={()=>{*/}
-            {/*    store.webSocket.send(JSON.stringify({*/}
-            {/*        id: store.idSocket,*/}
-            {/*        method: 'data',*/}
-            {/*        message: voices[1].lang*/}
-            {/*    }))*/}
-            {/*}}>2222</button>*/}
-
-            {/*<ReactPlayer url='https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download' />*/}
-            {/*<ReactAudioPlayer*/}
-            {/*    //src="https://drive.google.com/file/d/1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI/view?usp=sharing"*/}
-            {/*    src="https://drive.google.com/u/0/uc?id=1GpeRbUuHWgURaGWt6QoIJEFcDRUn91OI&export=download"*/}
-            {/*    //src="https://servicerobot.pro:4433/1.mp3"*/}
-            {/*    autoPlay={true}*/}
-            {/*    controls*/}
-            {/*/>*/}
+            }
             <MongoMusic/>
+            <Jook/>
         </div>
     )
 

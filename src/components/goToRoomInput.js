@@ -25,26 +25,25 @@ export function goToRoomInput({history}) {
     },[roomId])
 
   return (
-      <div className="enter-room-container">
-            <form>
-                  <input
-                      style={{width:'130px'}}
-                        type="text"
-                        value={roomId} placeholder="Room id"
-                        onChange={(event) => {
-                            localStorage.setItem('localIdRoom', event.target.value)
-                            setRoomId(event.target.value)
-                        }}
-                  />
+      <div className="enter-room-container-my">
+              <input
+                    style={{width:'90px'}}
+                    type="text"
+                    value={roomId} placeholder="Room id"
+                    onChange={(event) => {
+                        localStorage.setItem('localIdRoom', event.target.value)
+                        setRoomId(event.target.value)
+                    }}
+              />
             <button onClick={() => {
             goToRoom(history, roomId)
             }}>Enter</button>
             <button onClick={() => {
                 goToRoomVR(history, roomId)
-            }}>Enter VR</button>
+            }}>VR</button>
             <button onClick={() => {
                 goToRoomNoMic(history, roomId)
             }}>No Mic</button>
-          </form>
+
       </div>)
 }

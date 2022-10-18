@@ -19,14 +19,29 @@
 
 .music-container{
     margin-left: 85%;
-    padding-top: 50px;
+    margin-top: 0px;
     width: 10%;
     position: absolute;
     z-index: 10501;
     /*margin-left: auto;*/
     /*margin-right: auto;*/
 }
+.jook-container{
+    margin-left: 75%;
+    margin-top: 0%;
+    width: 10%;
+    position: absolute;
+    z-index: 999999;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+}
+.TextSpeakCss {
+    position:absolute;
+    z-index: 999999;
+    margin: 0 auto;
 
+    left: 1%;
+}
 .Dictaphone10 {
     position:absolute;
     z-index: 9200;
@@ -46,7 +61,7 @@
     position: fixed;
     /*top: 1%; left: 34%; bottom: 0; right: 0;*/
     top: 0;
-    left: 45%;
+    left: 25%;
 }
 .DropDownMenuRuling {
     z-index: 10200;
