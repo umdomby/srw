@@ -11,7 +11,6 @@ export const MongoMusic = observer(() => {
     const [musicName, setMusicName] = useState('');
 
     const sendMusicMongo = (link) => {
-        //console.log(link)
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
             method: 'audioURL',
@@ -29,22 +28,22 @@ export const MongoMusic = observer(() => {
     }
 
     const sendMusicMongoPl = (pl) => {
-        //console.log(link)
         store.webSocket.send(JSON.stringify({
             id: store.idSocket,
             method: 'mongoMusicPl',
             message: pl
         }))
     }
-    useEffect(()=> {
-        setTimeout(()=> {
-            if(store.mongoMusic) {
-                setPll(store.mongoMusic.filter((v,i,a)=>a.findIndex(v2=>(v2.pl===v.pl))===i))
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (store.mongoMusic) {
+                setPll(store.mongoMusic.filter((v, i, a) => a.findIndex(v2 => (v2.pl === v.pl)) === i))
             }
         }, 1000)
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         store.setMongoMusic(store.mongoMusic)
     }, [store.mongoMusic])
 
@@ -66,42 +65,43 @@ export const MongoMusic = observer(() => {
         }
     };
 
-    return(
+    return (
 
         <div className="music-container">
-            <button onClick={()=>{
+            <button onClick={() => {
                 // delMusicRef.current = mongoMusic._id
                 setShowModal(true)
-            }}>Music</button>
+            }}>Music
+            </button>
 
             <Modal
                 className="modal-jook"
                 style={customStyles}
                 ariaHideApp={false}
                 isOpen={showModal}
-                onRequestClose={()=>setShowModal(false)}
+                onRequestClose={() => setShowModal(false)}
             >
-
                 <div>
-                    {/*{console.log(store.mongoMusic)}*/}
                     {pll.map((mongoMusic, index) =>
                         <div
-                            style={{color:'red', width:'250px', display: 'inline', fontSize:'10px'}}
+                            style={{color: 'red', width: '250px', display: 'inline', fontSize: '10px'}}
                             key={index}
                         >
-                            <button onClick={()=>sendMusicMongoPl(mongoMusic.pl)}>{mongoMusic.pl}</button>
+                            <button onClick={() => sendMusicMongoPl(mongoMusic.pl)}>{mongoMusic.pl}</button>
                         </div>
                     )}
                     {store.mongoMusic.map((mongoMusic, index) =>
                         <div
-                            style={{color:'red', width:'250px', fontSize:'10px'}}
+                            style={{color: 'red', width: '250px', fontSize: '10px'}}
                             key={index}
                         >
-                            <button onClick={()=>sendMusicMongo(mongoMusic.link)}>{mongoMusic.name}, {mongoMusic.pl} </button>
-                            <button onClick={()=>{
+                            <button
+                                onClick={() => sendMusicMongo(mongoMusic.link)}>{mongoMusic.name}, {mongoMusic.pl} </button>
+                            <button onClick={() => {
                                 delMusicRef.current = mongoMusic._id
                                 setShowModalDel(true)
-                            }}>Dell</button>
+                            }}>Dell
+                            </button>
                         </div>
                     )}
                     <div>
@@ -109,8 +109,8 @@ export const MongoMusic = observer(() => {
                             <input
                                 type='text'
                                 value={musicLink}
-                                style={{width:'140px'}}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
+                                style={{width: '140px'}}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     setMusicLink(e.target.value)
                                 }}
                             /> link music
@@ -119,8 +119,8 @@ export const MongoMusic = observer(() => {
                             <input
                                 type='text'
                                 value={musicName}
-                                style={{width:'140px'}}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
+                                style={{width: '140px'}}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     setMusicName(e.target.value)
                                 }}
                             /> name
@@ -129,59 +129,56 @@ export const MongoMusic = observer(() => {
                             <input
                                 type='text'
                                 value={musicPl}
-                                style={{width:'140px'}}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
+                                style={{width: '140px'}}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     setMusicPl(e.target.value)
                                 }}
                             /> pl
                         </div>
-                    <div>
-                        <button
-                            style={{width:'140px'}}
-                            onClick={()=> {
-                                if(musicLink !== '' && musicName !== '' && musicPl !== ''){
-                                    store.webSocket.send(JSON.stringify({
-                                        id: store.idSocket,
-                                        method: 'mongoMusic',
-                                        link: musicLink,
-                                        name: musicName,
-                                        pl: musicPl
-                                    }))
-                                    setMusicLink('')
-                                    setMusicName('')
-                                    setMusicPl('')
-                                }
-                            }}
-                        >Send
-                        </button>
+                        <div>
+                            <button
+                                style={{width: '140px'}}
+                                onClick={() => {
+                                    if (musicLink !== '' && musicName !== '' && musicPl !== '') {
+                                        store.webSocket.send(JSON.stringify({
+                                            id: store.idSocket,
+                                            method: 'mongoMusic',
+                                            link: musicLink,
+                                            name: musicName,
+                                            pl: musicPl
+                                        }))
+                                        setMusicLink('')
+                                        setMusicName('')
+                                        setMusicPl('')
+                                    }
+                                }}
+                            >Send
+                            </button>
+                        </div>
+                        <button onClick={() => setShowModal(false)} style={{marginLeft: '5px'}}>Закрыть</button>
                     </div>
-                    <button onClick={()=>setShowModal(false)} style={{marginLeft: '5px'}}>Закрыть</button>
-                </div>
                 </div>
 
             </Modal>
-            
+
             <div>
-            {/*<button onClick={()=>setShowModalDel(true)}>Modal</button>*/}
                 <Modal
                     className="modal-mongo-music"
                     style={customStyles2}
                     ariaHideApp={false}
                     isOpen={showModalDel}
-                    onRequestClose={()=>setShowModalDel(false)}
+                    onRequestClose={() => setShowModalDel(false)}
                 >
-                    <button onClick={()=> {
+                    <button onClick={() => {
                         sendMusicMongoDel(delMusicRef.current)
                         setShowModalDel(false)
                     }
-                    }>Да</button>
-                    <button onClick={()=>setShowModalDel(false)} style={{marginLeft: '5px'}}>Нет</button>
+                    }>Да
+                    </button>
+                    <button onClick={() => setShowModalDel(false)} style={{marginLeft: '5px'}}>Нет</button>
                     <span style={{marginLeft: '15px'}}>Удалить?</span>
                 </Modal>
             </div>
-            
-
         </div>
     )
-
 })

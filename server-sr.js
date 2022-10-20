@@ -36,6 +36,7 @@
 
 // const Connection = require('./Server/models/Connections');
 const Pl = require('./Server/models/Pl');
+const Jook = require('./Server/models/Jook');
 // const Message = require('./Server/models/Messages');
 //const Message = require('./Server/models/Messages');
 
@@ -222,6 +223,13 @@ const start = async () => {
                                     message: pl
                                 }), ws)
                             })
+
+                            await Jook.find({socketId: msg.id}).then(jook => {
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoJookToClient',
+                                    message: jook
+                                }), ws)
+                            })
                             break;
 
                         case "mongoMusic":
@@ -230,6 +238,20 @@ const start = async () => {
                             await Pl.find({socketId: msg.id}).then(pl => {
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
+                                    message: pl
+                                }), ws)
+                            })
+                            break
+
+                        case "mongoJook":
+                            console.log(msg.txtJook  + msg.name + msg.pl  + ws.id)
+                            const jook = new Jook({ txtJook: msg.txtJook, name: msg.name, pl: msg.pl, socketId: ws.id });
+
+                            await jook.save();
+
+                            await Jook.find({socketId: msg.id}).then(pl => {
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoJookToClient',
                                     message: pl
                                 }), ws)
                             })
@@ -249,6 +271,15 @@ const start = async () => {
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
                                     message: pl
+                                }), ws)
+                            })
+                            break
+                        case "mongoJookDel":
+                            await Jook.remove({"_id":msg.message});
+                            await Jook.find({socketId: msg.id}).then(jook => {
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoJookToClient',
+                                    message: jook
                                 }), ws)
                             })
                             break

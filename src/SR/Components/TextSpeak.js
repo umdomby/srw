@@ -7,7 +7,7 @@ import {FileUploader} from "./File-uploader";
 import {MongoMusic} from "./MongoMusic";
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
-import {Jook} from "./Jook";
+import {MongoJook} from "./MongoJook";
 
 
 const TextSpeak = observer(() => {
@@ -317,7 +317,7 @@ const TextSpeak = observer(() => {
                 </div>
             }
             <MongoMusic/>
-            <Jook/>
+            <MongoJook/>
         </div>
     )
 

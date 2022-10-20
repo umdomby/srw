@@ -75,6 +75,17 @@ const WebSocketProject = (id, persId) => {
                             }
                             store.setAudioPlaying(msg.playing)
                             break
+                        case "jookTxt":
+                            if (store.jookTxt !== msg.message){
+                                store.setJookTxt(msg.message)
+                            }else {
+                                store.setJookTxt('')
+                                setTimeout(()=>{
+                                    store.setJookTxt(msg.message)
+                                }, 1000)
+                            }
+                            store.setAudioPlaying(msg.playing)
+                            break
                         case "audioURLto":
                             store.setAudioPlaying(msg.message)
                             console.log('socket audioURLto: ' + msg.message)
@@ -85,6 +96,10 @@ const WebSocketProject = (id, persId) => {
                             break
                         case "mongoMusicToClient":
                             store.setMongoMusic(msg.message)
+                            //console.log(JSON.stringify(store.mongoMusic))
+                            break
+                        case "mongoJookToClient":
+                            store.setMongoJook(msg.message)
                             //console.log(JSON.stringify(store.mongoMusic))
                             break
                         default:

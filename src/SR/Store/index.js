@@ -21,14 +21,27 @@ class Index {
         this._youTubeLink = ''
         this._youTubePlaying = false
         this._audioURL = ''
+        this._jookTxt = ''
         this._audioPlaying = 0
         this._meSend = false
         this._audioVolume = 1
         this._speedControl = 1
         this._mongoMusic = []
         this._mongoMusicPl = []
+        this._mongoJook = []
+        this._mongoJookPl = []
         makeAutoObservable(this)
     }
+
+    get jookTxt() {return this._jookTxt;}
+    setJookTxt(value) {this._jookTxt = value;}
+
+    get mongoJook() {return this._mongoJook}
+    setMongoJook(value) {this._mongoJook = value}
+
+    get mongoJookPl() {return this._mongoJookPl}
+    setMongoJookPl(value) {this._mongoJookPl = value}
+
     get mongoMusic() {return this._mongoMusic}
     setMongoMusic(value) {this._mongoMusic = value}
 
