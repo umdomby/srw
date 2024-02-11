@@ -8,18 +8,20 @@ const WebSocketProject = (id, persId) => {
         //     store.webSocket.close()
         // }
 
-        store.setWebSocket(new WebSocket('wss://servicerobot.pro:4443'))
+        //store.setWebSocket(new WebSocket('wss://servicerobot.pro:4443'))
         //store.setWebSocket(new WebSocket('wss://umdom.by:4433'))
-        //store.setWebSocket(new WebSocket('wss://localhost:4433'))
+        //store.setWebSocket(new WebSocket('ws://localhost:8081'))
+        store.setWebSocket(new WebSocket('ws://217.21.54.2:8081'))
 
 
             store.webSocket.onopen = () => {
                 if (store.webSocket.readyState === 1){
                     store.webSocket.send(JSON.stringify({
                         id: id,
-                        username: 'user',
+                        username: "user",
                         method: "connection",
-                        persId: persId
+                        persId: persId,
+                        connected: "frontend"
                     }))
                 }
             }
@@ -38,10 +40,10 @@ const WebSocketProject = (id, persId) => {
                         case "messagesR":
                             console.log("from server messageR " + msg.messageR)
                             break
-                        case "messagesOnOff":
-                            console.log('From arduino messageOnOff ' + msg.messageOnOff)
-                            store.setArduinoOnOff(msg.messageOnOff)
-                            break
+                        // case "messagesOnOff":
+                        //     console.log('From arduino messageOnOff ' + msg.messageOnOff)
+                        //     store.setArduinoOnOff(msg.messageOnOff)
+                        //     break
                         case "messagesStop":
                             console.log("from server messageStop")
                             break

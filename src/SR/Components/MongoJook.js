@@ -93,17 +93,19 @@ export const MongoJook = observer(() => {
                 onRequestClose={() => setShowModal(false)}
             >
                 <div>
-                    {pll.map((mongoJook, index) =>
-                        <div
-                            style={{color: 'red', width: '250px', display: 'inline', fontSize: '10px'}}
-                            key={index}
-                        >
-                            <button onClick={() => sendJookMongoPl(mongoJook.pl)}>{mongoJook.pl}</button>
-                        </div>
-                    )}
+                    <div>
+                        {pll.map((mongoJook, index) =>
+                            <div
+                                style={{color: 'red', width: '250px', display: 'inline', fontSize: '10px'}}
+                                key={index}
+                            >
+                                <button onClick={() => sendJookMongoPl(mongoJook.pl)}>{mongoJook.pl}</button>
+                            </div>
+                        )}
+                    </div>
                     {store.mongoJook.map((mongoJook, index) =>
                         <div
-                            style={{color: 'red', width: '250px', fontSize: '10px'}}
+                            style={{color: 'red', width: '220px', fontSize: '10px', display: 'inline-block'}}
                             key={index}
                         >
                             <button onClick={() => sendJookMongo(mongoJook.txtJook)}>{mongoJook.name}, {mongoJook.pl} </button>

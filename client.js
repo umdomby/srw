@@ -27,8 +27,8 @@ const credentials = {
 
 // http.createServer(function(req, res) {
 //     res.writeHead(301, {
-//         //Location: "https://www." + req.headers["host"].replace("www.", "") + req.url
-//         Location: 'https://' + req.headers.host + req.url
+//         Location: "https://www." + req.headers["host"].replace("www.", "") + req.url
+//         //Location: 'https://' + req.headers.host + req.url
 //     });
 //     res.end();
 // }).listen(80);

@@ -82,17 +82,19 @@ export const MongoMusic = observer(() => {
                 onRequestClose={() => setShowModal(false)}
             >
                 <div>
-                    {pll.map((mongoMusic, index) =>
-                        <div
-                            style={{color: 'red', width: '250px', display: 'inline', fontSize: '10px'}}
-                            key={index}
-                        >
-                            <button onClick={() => sendMusicMongoPl(mongoMusic.pl)}>{mongoMusic.pl}</button>
-                        </div>
-                    )}
+                    <div>
+                        {pll.map((mongoMusic, index) =>
+                            <div
+                                style={{color: 'red', width: '250px', display: 'inline', fontSize: '10px'}}
+                                key={index}
+                            >
+                                <button onClick={() => sendMusicMongoPl(mongoMusic.pl)}>{mongoMusic.pl}</button>
+                            </div>
+                        )}
+                    </div>
                     {store.mongoMusic.map((mongoMusic, index) =>
                         <div
-                            style={{color: 'red', width: '250px', fontSize: '10px'}}
+                            style={{color: 'red', width: '250px', fontSize: '10px', display: 'inline-block'}}
                             key={index}
                         >
                             <button

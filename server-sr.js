@@ -83,19 +83,19 @@ const path = require('path')
 
 app.use(cors())
 //app.use(errorHandler)
-app.use(express.json({ extended: true }))
+app.use(express.json({extended: true}))
 app.use(express.static(path.resolve(__dirname, 'static')))
 //app.use(express.static(path.join(__dirname, 'public')));
 // app.use(fileUpload({}))
 // app.use('/api', router)
 
-const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
-const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
-const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+const privateKey = fs.readFileSync(path.resolve(__dirname, './cert/servicerobotpro/privkey.pem'));
+const certificate = fs.readFileSync(path.resolve(__dirname, './cert/servicerobotpro/cert.pem'));
+const ca = fs.readFileSync(path.resolve(__dirname, './cert/servicerobotpro/chain.pem'));
 
 util = require('util');
 var filepath = path.join(__dirname, './public/1.mp3');
-app.get('/1.mp3', function(req, res){
+app.get('/1.mp3', function (req, res) {
     res.set({'Content-Type': 'audio/mpeg'});
     var readStream = fs.createReadStream(filepath);
     readStream.pipe(res);
@@ -135,15 +135,17 @@ const start = async () => {
 
             //global.wsg = ws
             ws.send('connected WS server')
-            ws.on('message', msg => {
-                msg = JSON.parse(msg)
+            ws.on('message', msgg => {
+                msg = JSON.parse(msgg)
                 switch (msg.method) {
+
                     case "connection":
                         // const dencrypted = encrypter.dencrypt(msg.id);
                         // wsg.id = dencrypted
-                        console.log('Connected Arduino id ' + msg.id)
+                        console.log(msg.connected + ' connected ' + msg.id + ' ' )
                         ws.id = msg.id
                         break;
+
                     // case "messages":
                     //     console.log('Arduino '+ msg.id + '|' + msg.messageL + '|' + msg.messageR)
                     //     break;
@@ -159,19 +161,53 @@ const start = async () => {
                     //     wssSend(mess6, ws)
                     //     break;
 
+
+                    // case "messagesLTRT":
+                    //     console.log('messageRT ' + 'id ' + msg.id + " " + msg.messageRT + " " + msg.messageLT)
+                    //     break;
+
+                    case "testFromArduino":
+                        console.log('Frontend --> Server --> Arduino --> Server ' + ' id: ' + msg.id + " OnOff: " + msg.messageOnOff)
+                        break;
+
                     case "messagesOnOff":
-                        let mess8 = JSON.stringify({
-                            method: 'messagesOnOff',
+                        // let mess8 = JSON.stringify({
+                        //     method: 'messagesOnOff',
+                        //     messageOnOff: msg.messageOnOff,
+                        // })
+                        console.log(msg.id + ' Frontend --> Server  OnOff: ' + msg.messageOnOff)
+
+                        //to Arduino
+                        let mess11 = JSON.stringify({
+                            method: 'test',
+                            id : msg.id,
                             messageOnOff: msg.messageOnOff,
                         })
-                        console.log('From arduino messageOnOff '+ 'id ' + msg.id + ' messageOnOff ' + msg.messageOnOff)
-                        wssSend(mess8, ws)
+
+                        //wssSend(mess8, ws)
+                        wsaSend(mess11, ws)
+
                         break;
+
+                    case 'connectByte':
+                        //console.log('id ' + msg.id + ' connectByte ' + msg.connectByte)
+                        let mess12 = JSON.stringify({
+                            method: 'connectByte',
+                            connectByte: msg.connectByte,
+                        })
+                        wsaSend(mess12, ws)
+                        break;
+
+                    // case 'arduino':
+                    //     console.log('id ' + msg.id + ' ' + msg.txt + ' OnOff ' + msg.messageOnOff)
+                    //     break;
 
                     //    break;
                     default:
-                        //console.log('default')
+                    //console.log('default')
+                        wsaSend(msgg, ws)
                 }
+
             })
 
         })
@@ -233,25 +269,11 @@ const start = async () => {
                             break;
 
                         case "mongoMusic":
-                            const pl = new Pl({ link: msg.link, name: msg.name, pl: msg.pl, socketId: ws.id });
+                            const pl = new Pl({link: msg.link, name: msg.name, pl: msg.pl, socketId: ws.id});
                             await pl.save();
                             await Pl.find({socketId: msg.id}).then(pl => {
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
-                                    message: pl
-                                }), ws)
-                            })
-                            break
-
-                        case "mongoJook":
-                            console.log(msg.txtJook  + msg.name + msg.pl  + ws.id)
-                            const jook = new Jook({ txtJook: msg.txtJook, name: msg.name, pl: msg.pl, socketId: ws.id });
-
-                            await jook.save();
-
-                            await Jook.find({socketId: msg.id}).then(pl => {
-                                wssSendPersIdOne(JSON.stringify({
-                                    method: 'mongoJookToClient',
                                     message: pl
                                 }), ws)
                             })
@@ -266,7 +288,7 @@ const start = async () => {
                             })
                             break
                         case "mongoMusicDel":
-                            await Pl.remove({"_id":msg.message});
+                            await Pl.remove({"_id": msg.message});
                             await Pl.find({socketId: msg.id}).then(pl => {
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoMusicToClient',
@@ -274,8 +296,23 @@ const start = async () => {
                                 }), ws)
                             })
                             break
+
+                        case "mongoJook":
+                            console.log(msg.txtJook + msg.name + msg.pl + ws.id)
+                            const jook = new Jook({txtJook: msg.txtJook, name: msg.name, pl: msg.pl, socketId: ws.id});
+
+                            await jook.save();
+
+                            await Jook.find({socketId: msg.id}).then(pl => {
+                                wssSendPersIdOne(JSON.stringify({
+                                    method: 'mongoJookToClient',
+                                    message: pl
+                                }), ws)
+                            })
+                            break
+
                         case "mongoJookDel":
-                            await Jook.remove({"_id":msg.message});
+                            await Jook.remove({"_id": msg.message});
                             await Jook.find({socketId: msg.id}).then(jook => {
                                 wssSendPersIdOne(JSON.stringify({
                                     method: 'mongoJookToClient',
@@ -386,15 +423,16 @@ const start = async () => {
             })
         })
 
-        const wsaSend = (mess, ws)=> {
+        const wsaSend = (mess, ws) => {
             wsa.clients.forEach(function each(client) {
+                //console.log('client.id ' + client.id + ' ws.id  ' + ws.id );
                 if (client.id === ws.id && client.readyState === client.OPEN) {
                     client.send(mess)
                 }
             });
         }
 
-        const wssSendPersIdOne = (mess, ws)=> {
+        const wssSendPersIdOne = (mess, ws) => {
             wss.clients.forEach(function each(client) {
                 if (client.persId === ws.persId && client.readyState === client.OPEN) {
                     client.send(mess)
@@ -402,16 +440,16 @@ const start = async () => {
             });
         }
 
-        const wssSendPersId = (mess, ws)=> {
+        const wssSendPersId = (mess, ws) => {
             wss.clients.forEach(function each(client) {
-                if (client.id === ws.id  && client.persId !== ws.persId && client.readyState === client.OPEN) {
-                //if (client.id === ws.id && client.readyState === client.OPEN) {
+                if (client.id === ws.id && client.persId !== ws.persId && client.readyState === client.OPEN) {
+                    //if (client.id === ws.id && client.readyState === client.OPEN) {
                     client.send(mess)
                 }
             });
         }
 
-        const wssSend = (mess, ws)=> {
+        const wssSend = (mess, ws) => {
             wss.clients.forEach(function each(client) {
                 if (client.id === ws.id && client.readyState === client.OPEN) {
                     client.send(mess)

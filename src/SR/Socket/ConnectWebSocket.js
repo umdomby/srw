@@ -41,8 +41,8 @@ const ConnectWebSocket = observer(() => {
         try {
             store.webSocket.send(JSON.stringify({
                 id: store.idSocket,
-                method: 'messages',
-                connectByte: true
+                method: 'connectByte',
+                connectByte: true,
             }))
         }catch (e) {
             console.log('err send connectByte')
