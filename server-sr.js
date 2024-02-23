@@ -89,9 +89,9 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 // app.use(fileUpload({}))
 // app.use('/api', router)
 
-const privateKey = fs.readFileSync(path.resolve(__dirname, './cert/servicerobotpro/privkey.pem'));
-const certificate = fs.readFileSync(path.resolve(__dirname, './cert/servicerobotpro/cert.pem'));
-const ca = fs.readFileSync(path.resolve(__dirname, './cert/servicerobotpro/chain.pem'));
+const privateKey = fs.readFileSync(path.resolve(__dirname, './cert/serbotonline/privkey.pem'));
+const certificate = fs.readFileSync(path.resolve(__dirname, './cert/serbotonline/cert.pem'));
+const ca = fs.readFileSync(path.resolve(__dirname, './cert/serbotonline/chain.pem'));
 
 util = require('util');
 var filepath = path.join(__dirname, './public/1.mp3');

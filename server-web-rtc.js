@@ -13,9 +13,9 @@ var https = require('https');
 //     cert: fs.readFileSync('./cert/servicerobotpro/cert.pem')
 // };
 
-const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/privkey.pem'));
-const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/cert.pem'));
-const ca = fs.readFileSync(path.resolve(__dirname,'./cert/servicerobotpro/chain.pem'));
+const privateKey = fs.readFileSync(path.resolve(__dirname,'./cert/serbotonline/privkey.pem'));
+const certificate = fs.readFileSync(path.resolve(__dirname,'./cert/serbotonline/cert.pem'));
+const ca = fs.readFileSync(path.resolve(__dirname,'./cert/serbotonline/chain.pem'));
 const credentials = {
     key: privateKey,
     cert: certificate,

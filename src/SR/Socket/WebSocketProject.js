@@ -8,10 +8,10 @@ const WebSocketProject = (id, persId) => {
         //     store.webSocket.close()
         // }
 
-        //store.setWebSocket(new WebSocket('wss://servicerobot.pro:4443'))
+        store.setWebSocket(new WebSocket('wss://serbot.online:4443'))
         //store.setWebSocket(new WebSocket('wss://umdom.by:4433'))
         //store.setWebSocket(new WebSocket('ws://localhost:8081'))
-        store.setWebSocket(new WebSocket('ws://217.21.54.2:8081'))
+        //store.setWebSocket(new WebSocket('ws://217.21.54.2:8081'))
 
 
             store.webSocket.onopen = () => {
