@@ -42,10 +42,10 @@
     "video-chat.now.sh"
   ],
   "scripts": {
-    "index": "node server-web-rtc.js & node server-sr.js & node client",
+    "index": "node server-web-rtc.js & node server.js & node client",
     "indexxx": "concurrently \"node server-web-rtc.js & node client\" \"cd client && node index\"",
-    "server": "nodemon server-web-rtc.js & nodemon server-sr.js",
-    "server1": "nodemon server-sr.js",
+    "server": "nodemon server-web-rtc.js & nodemon server.js",
+    "server1": "nodemon server.js",
     "start": "react-scripts --openssl-legacy-provider start",
     "client": "node client.js",
     "https": "HTTPS=true PORT=443 SSL_CRT_FILE='./cert/serbotonline/cert.pem' SSL_KEY_FILE='./cert/serbotonline/privkey.pem' react-scripts --openssl-legacy-provider start",

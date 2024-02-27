@@ -1,0 +1,401 @@
+[{
+  "_id": {
+    "$oid": "6332a86e4e345e32db80e5a8"
+  },
+  "link": "https://drive.google.com/u/0/uc?id=1pvCUGmA4A8ek9D5zOia-TialDce68cMz&export=download",
+  "name": "amaranthe_-_maximize",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6332a953f9914f6756c69405"
+  },
+  "link": "https://drive.google.com/u/0/uc?id=1QQhf3KkWid8ehK1Qtugf2qms67-AFNFq&export=download",
+  "name": "_billy_idol_-_mony_mony_",
+  "pl": "pl1",
+  "socketId": "995512"
+},{
+  "_id": {
+    "$oid": "6332a9c1f9914f6756c69407"
+  },
+  "link": "https://drive.google.com/u/0/uc?id=1TnPbuxs3uhfSbkBlF_CfOMDKt3OZMIQU&export=download",
+  "name": "_billy_idol_-_rebel_yell_",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6335afa28023c9ae10be12f4"
+  },
+  "link": "https://dll.z2.fm/music/a/25/masha_kondratenko_-_vanka-vstanka_(zf.fm).mp3?download=force",
+  "name": "Маша Кондратенко Ванька-Встанька",
+  "pl": "pl2",
+  "socketId": "995512"
+},{
+  "_id": {
+    "$oid": "63367f398298031db0e92f18"
+  },
+  "link": "https://dll.z2.fm/music/f/6f/8-manowar-warriors_of_the_world_united_(zvukoff.ru).mp3?download=force",
+  "name": "manowar_-_warriors",
+  "pl": "pl2",
+  "socketId": "995512"
+},{
+  "_id": {
+    "$oid": "634880c1b2c575bc22c4bbb7"
+  },
+  "link": "https://muz8.z2.fm/4/0d/deep_purple_-_the_cut_runs_deep_(zf.fm).mp3?download=force",
+  "name": "deee purple",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6348811bb2c575bc22c4bbbc"
+  },
+  "link": "https://muz8.z2.fm/4/0d/deep_purple_-_the_cut_runs_deep_(zf.fm).mp3?download=force",
+  "name": "de pu",
+  "pl": "pl2",
+  "socketId": "995512"
+},{
+  "_id": {
+    "$oid": "634ae0b3cb39ad0296e2d264"
+  },
+  "link": "https://dll.z2.fm/music/f/6f/8-manowar-warriors_of_the_world_united_(zvukoff.ru).mp3?download=force",
+  "name": "manowar_-_warriors",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "634ae301cb39ad0296e2d267"
+  },
+  "link": "https://dll.z2.fm/music/e/e0/1-the_xx-intro_(xx)_(zvukoff.ru).mp3?download=force",
+  "name": "the_xx_-_intro",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "634ae40ecb39ad0296e2d26a"
+  },
+  "link": "https://dll.z2.fm/music/a/25/masha_kondratenko_-_vanka-vstanka_(zf.fm).mp3?download=force",
+  "name": "vanka-vstanka",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "634aede0cb39ad0296e2d279"
+  },
+  "link": "https://dll.z2.fm/music/a/4c/muzika_v_mashinu_2022_-_sia_-_unstoppable_r3hab_remix.mp3?download=force",
+  "name": "unstoppable",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "634aef8fcb39ad0296e2d27e"
+  },
+  "link": "https://dll.z2.fm/music/e/57/luchshie_pesni_shazam_2022_-_alan_walker_-_faded.mp3?download=force",
+  "name": "alan_walker",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "634bc73acfdabbe7483b8511"
+  },
+  "link": "https://muz.z2.fm/7/4b/david_a_stewart__candy_dulfer_-_lily_was_here_(zf.fm).mp3?download=force",
+  "name": "david_a_stewart",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "634bc767cfdabbe7483b8516"
+  },
+  "link": "https://rorg.z2.fm/9/0c/the_dandy_warhols_-_get_off_(zf.fm).mp3?download=force",
+  "name": "the_dandy_warhols_-_get_off",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "634bd95f7bbeed3d34a4b518"
+  },
+  "link": "https://drive.google.com/u/0/uc?id=1tvG7sGFLgYf9kaz9OlUVUX4qEXvzJC1u&export=download",
+  "name": "ohLittle",
+  "pl": "f1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63501288d43f75b379439ea9"
+  },
+  "link": "https://rorg.z2.fm/3/14/viktor_coj_i_gruppa_kino_-_gruppa_krovi_(zv.fm).mp3?download=force",
+  "name": "Цой группа крови",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63501d6ad43f75b379439eb8"
+  },
+  "link": "https://st1.z2.fm/music/c/c4/boney_m_-_rasputin_(zvukoff.ru).mp3?download=force",
+  "name": "boney_m_-_rasputin",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63501f50d43f75b379439ebb"
+  },
+  "link": "https://muz7.z2.fm/2/25/judas_priest_-_the_hellionelectric_eye_(zf.fm).mp3?download=force",
+  "name": "judas_priest",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63501fbdd43f75b379439ebe"
+  },
+  "link": "https://st1.z2.fm/music/a/83/lily_allen_-_not_fair_(zvukoff.ru).mp3?download=force",
+  "name": "lily_allen_-_not_fair",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63502528d43f75b379439ec1"
+  },
+  "link": "https://muz8.z2.fm/1/19/omnimar_-_out_of_my_life_(zf.fm).mp3?download=force",
+  "name": "omnimar_-_out_of_my_life",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63502663d43f75b379439ec4"
+  },
+  "link": "https://st1.z2.fm/music/5/ce/metallica_-_turn_the_page_(zvukoff.ru).mp3?download=force",
+  "name": "metallica_-_turn_the_page",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635027a4d43f75b379439ec7"
+  },
+  "link": "https://muz8.z2.fm/d/88/luchshie_remiksi_90-h__haddaway_-_what_is_love_(zf.fm).mp3?download=force",
+  "name": "90-h__haddaway_-_what_is_love",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63502ab9d43f75b379439eca"
+  },
+  "link": "https://muz.z2.fm/4/2d/gwen_stefani_-_what_you_waiting_for_(zf.fm).mp3?download=force",
+  "name": "gwen_stefani_-_what",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63502c2cd43f75b379439ecd"
+  },
+  "link": "https://rorg.z2.fm/8/a8/nogu_svelo_-_liliputskaja_ljubov_(zv.fm).mp3?download=force",
+  "name": "nogu_svelo_-_liliputskaja_ljubov",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63503009d43f75b379439ed0"
+  },
+  "link": "https://dll.z2.fm/music/d/4d/elena_kamburova_-_malenkij_princ_(zvukoff.ru).mp3?download=force",
+  "name": "elena_kamburova_-_malenkij_princ",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635038efd43f75b379439ed9"
+  },
+  "link": "https://muz8.z2.fm/f/01/grigorij_leps_-_zaraza_2021_(zf.fm).mp3?download=force",
+  "name": "Лепс зараза",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63513c75ce676bc5a4489a2b"
+  },
+  "link": "https://dll.z2.fm/music/1/7e/milana_hametova_feat_milana_star_-_lp.mp3?download=force",
+  "name": "LP",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63513e56ce676bc5a4489a2e"
+  },
+  "link": "https://muz8.z2.fm/c/18/cypis_-_polskaja_korova_(zf.fm).mp3?download=force",
+  "name": "Польская корова",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635151920050adf1c597afdf"
+  },
+  "link": "https://dll.z2.fm/music/b/34/muzika_v_mashinu_2022_-_inna_-_up.mp3?download=force",
+  "name": "up up",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6351531a0050adf1c597afe2"
+  },
+  "link": "https://dll.z2.fm/music/9/50/hiti_2022_-_aleks_ataman__finikfinya_-_snezhinki.mp3?download=force",
+  "name": "aleks_ataman",
+  "pl": "pl3",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635154190050adf1c597afe5"
+  },
+  "link": "https://dll.z2.fm/music/e/b6/muzika_v_mashinu_2022_-_danny_-_if_only_you_john_reyton_remix_radio_edit.mp3?download=force",
+  "name": "if_only_you",
+  "pl": "pl3",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635155a50050adf1c597afe8"
+  },
+  "link": "https://dll.z2.fm/music/8/35/muzika_v_mashinu_2022_-_filatov__karas__busy_reno_-_au_revoir.mp3?download=force",
+  "name": "filatov_karas__busy_reno",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635157860050adf1c597afeb"
+  },
+  "link": "https://dll.z2.fm/music/2/26/hiti_2022_-_tones_and_i_-_dance_monkey.mp3?download=force",
+  "name": "dance_monkey",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635158d60050adf1c597afee"
+  },
+  "link": "https://dll.z2.fm/music/a/0f/hiti_2022_-_pascal_letoublon__leony_-_friendships_lost_my_love.mp3?download=force",
+  "name": "pascal_letoublon__leony",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63515cf70050adf1c597aff6"
+  },
+  "link": "https://muz16.z2.fm/e/48/zarubezhnie_hiti_80-90-h_-_cc_catch-strangers_by_night_(zf.fm).mp3?download=force",
+  "name": "cc_catch-strangers_by_night",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6351660c0050adf1c597afff"
+  },
+  "link": "https://muz13.z2.fm/4/97/a_saw_you_dancing_zarubezhnie_hiti_80-90-h_-_yaki-da_(zf.fm).mp3?download=force",
+  "name": "yaki-da",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "635167180050adf1c597b002"
+  },
+  "link": "https://dll.z2.fm/music/1/ca/zarubezhnie_hiti_80-90-h_ice_mc_-_think_about_the_way_(zf.fm).mp3?download=force",
+  "name": "ice_mc_-_think",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63516c350050adf1c597b005"
+  },
+  "link": "https://dll.z2.fm/music/7/cb/miyagi_-_bada-_bum_(zf.fm).mp3?download=force",
+  "name": "bada-_bum",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "63516cf80050adf1c597b008"
+  },
+  "link": "https://dll.z2.fm/music/9/cd/sivchik_-_ladushki_(zf.fm).mp3?download=force",
+  "name": "ladushki",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352a7aea19d5cf653efd1a3"
+  },
+  "link": "https://muzpanda.net/uploads/music/2022/10/Poshlaya_Molli_HOFMANNITA_HABIBATI.mp3",
+  "name": "пошлая молли",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352ba51a19d5cf653efd1b0"
+  },
+  "link": "https://st1.z2.fm/music/5/12/jurij_shevchuk_-_dozhd_(zvukoff.ru).mp3?download=force",
+  "name": "Шевчук Джодь",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352bd44a19d5cf653efd1b3"
+  },
+  "link": "https://dll.z2.fm/music/0/35/trueten_-_pocarapano_1.mp3?download=force",
+  "name": "trueten_-_pocarapano",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352c344a19d5cf653efd1b6"
+  },
+  "link": "https://dll.z2.fm/music/1/95/grazhdanskaja_oborona_-_zoopark_(zvukoff.ru).mp3?download=force",
+  "name": "Гражданская зоопарк",
+  "pl": "pl3",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352d43fa19d5cf653efd1b9"
+  },
+  "link": "https://dll.z2.fm/music/d/25/muzika_v_mashinu_2022_-_sparkle_b_feat_jm_leroy_-_its_my_life_resonant_remix.mp3?download=force",
+  "name": "its_my_life",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352d9a8a19d5cf653efd1bc"
+  },
+  "link": "https://dll.z2.fm/music/3/33/muzika_v_mashinu_2022_-_don_omar_feat_lucenzo_-_danza_kuduro_lavrushkin__shakhov_remix.mp3?download=force",
+  "name": "don_omar_feat_lucenzo",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352dc2fa19d5cf653efd1bf"
+  },
+  "link": "https://muz19.z2.fm/8/3c/sakura_-_mi_upali_s_luni_(zf.fm).mp3?download=force",
+  "name": "mi_upali_s_luni",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352dc72a19d5cf653efd1c2"
+  },
+  "link": "https://cdn9.deliciouspeaches.com/get/music/20221014/Mia_Bojjka_-_My_kak_s_luny_upali_vse_govoryat_my_inoplanetyane_74817314.mp3",
+  "name": "My_kak_s_luny_upali",
+  "pl": "pl2",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352dd72a19d5cf653efd1c5"
+  },
+  "link": "https://muz16.z2.fm/f/7f/luis_fonsi_-_despacito_ft_daddy_yankee_-_despacito_(zf.fm).mp3?download=force",
+  "name": "despacito",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352ec9ea19d5cf653efd1c8"
+  },
+  "link": "https://st1.z2.fm/music/0/dd/eminem_-_mockingbird_(zvukoff.ru).mp3?download=force",
+  "name": "eminem_-_mockingbird",
+  "pl": "pl1",
+  "socketId": "995511"
+},{
+  "_id": {
+    "$oid": "6352eda6a19d5cf653efd1cb"
+  },
+  "link": "https://st1.z2.fm/music/2/54/eminem_-_superman_(zvukoff.ru).mp3?download=force",
+  "name": "em-superman",
+  "pl": "pl1",
+  "socketId": "995511"
+}]
